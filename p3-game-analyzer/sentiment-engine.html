@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Continuem — Portfolio · Digital Media Masters</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:    #04040a;
+  --ink2:   #09090f;
+  --ink3:   #0d0d16;
+  --glass:  rgba(255,255,255,.028);
+  --border: rgba(255,255,255,.07);
+  --border2:rgba(255,255,255,.14);
+  --text:   #c8c8dc;
+  --dim:    #5a5a7a;
+  --bright: #e8e8f4;
+  --accent: #00d68f;
+  --cyan:   #00E5FF;
+  --red:    #FF2052;
+  --joy:    #f5c842;
+  --surp:   #3d8eff;
+  --frust:  #ff3352;
+  --awe:    #ff7a2a;
+  --fear:   #b44fff;
+  --sad:    #22d3ee;
+  --disg:   #34d96a;
+  --neut:   #6060a0;
+  --font-d: 'Bebas Neue', sans-serif;
+  --font-m: 'IBM Plex Mono', monospace;
+  --font-s: 'Playfair Display', serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--font-m);
+  line-height: 1.7;
+  font-size: 14px;
+  overflow-x: hidden;
+}
+
+/* scanlines overlay */
+body::before {
+  content: '';
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,.025) 2px,
+    rgba(0,0,0,.025) 3px
+  );
+}
+
+/* ── NAVIGATION ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 500;
+  background: rgba(4,4,10,.92);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 52px;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-d);
+  font-size: 20px;
+  letter-spacing: 4px;
+  color: var(--bright);
+  text-decoration: none;
+}
+
+.pulse {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+  animation: hb 1.8s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes hb { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+.nav-links {
+  display: flex;
+  gap: 0;
+  list-style: none;
+}
+
+.nav-links a {
+  display: block;
+  padding: 0 16px;
+  height: 52px;
+  line-height: 52px;
+  font-size: 9px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--dim);
+  text-decoration: none;
+  transition: color .2s;
+  border-right: 1px solid var(--border);
+}
+.nav-links li:first-child a { border-left: 1px solid var(--border); }
+.nav-links a:hover { color: var(--bright); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 120px 80px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 75% 40%, rgba(0,229,255,.04) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 20% 70%, rgba(255,32,82,.03) 0%, transparent 60%),
+    linear-gradient(180deg, var(--ink) 0%, var(--ink2) 100%);
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,.3) 40%, transparent 100%);
+}
+
+.hero-badge {
+  font-size: 9px;
+  letter-spacing: .25em;
+  color: var(--cyan);
+  border: 1px solid rgba(0,229,255,.3);
+  display: inline-block;
+  padding: 4px 14px 3px;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-title {
+  font-family: var(--font-d);
+  font-size: clamp(72px, 12vw, 160px);
+  letter-spacing: 6px;
+  line-height: .88;
+  color: var(--bright);
+  position: relative;
+  z-index: 2;
+  margin-bottom: 8px;
+}
+
+.hero-title .red { color: var(--red); text-shadow: 0 0 60px rgba(255,32,82,.4); }
+
+.hero-sub {
+  font-size: 11px;
+  letter-spacing: .18em;
+  color: var(--dim);
+  text-transform: uppercase;
+  position: relative;
+  z-index: 2;
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.hero-sub::before {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: var(--dim);
+}
+
+.hero-stats {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  margin-top: 64px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  max-width: 700px;
+}
+
+.hero-stat {
+  background: var(--glass);
+  padding: 18px 24px;
+  border-right: 1px solid var(--border);
+}
+.hero-stat:last-child { border-right: none; }
+
+.hs-val {
+  font-family: var(--font-d);
+  font-size: 32px;
+  letter-spacing: 2px;
+  color: var(--bright);
+  line-height: 1;
+}
+
+.hs-lbl {
+  font-size: 8px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-top: 4px;
+}
+
+/* ── SECTION CONTAINERS ── */
+.section {
+  padding: 100px 80px;
+  border-top: 1px solid var(--border);
+  position: relative;
+}
+
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-size: 8px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-label::after {
+  content: '';
+  height: 1px;
+  width: 40px;
+  background: rgba(0,229,255,.4);
+}
+
+.section-num {
+  font-family: var(--font-d);
+  font-size: 120px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,.03);
+  line-height: 1;
+  position: absolute;
+  top: 60px;
+  right: 80px;
+  user-select: none;
+}
+
+h2 {
+  font-family: var(--font-d);
+  font-size: clamp(40px, 5vw, 72px);
+  letter-spacing: 3px;
+  line-height: .9;
+  color: var(--bright);
+  margin-bottom: 48px;
+}
+
+h3 {
+  font-family: var(--font-s);
+  font-size: 20px;
+  font-style: italic;
+  color: var(--bright);
+  margin-bottom: 12px;
+  margin-top: 40px;
+}
+h3:first-of-type { margin-top: 0; }
+
+p {
+  color: var(--text);
+  margin-bottom: 18px;
+  max-width: 72ch;
+  line-height: 1.8;
+}
+
+/* ── ABOUT GRID ── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.pipeline-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-top: 8px;
+}
+
+.step {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 14px 20px;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-bottom: none;
+  position: relative;
+  transition: background .2s;
+}
+.step:last-child { border-bottom: 1px solid var(--border); }
+.step:hover { background: rgba(255,255,255,.04); }
+
+.step-num {
+  font-family: var(--font-d);
+  font-size: 22px;
+  letter-spacing: 2px;
+  color: var(--dim);
+  flex-shrink: 0;
+  min-width: 32px;
+  line-height: 1.3;
+}
+
+.step-text {
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.step-title {
+  color: var(--bright);
+  font-weight: 500;
+  margin-bottom: 2px;
+  letter-spacing: .05em;
+}
+
+.step-desc {
+  color: var(--dim);
+  font-size: 11px;
+}
+
+/* ── EMOTION CHIP ROW ── */
+.emotion-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 24px 0;
+}
+
+.chip {
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 2px;
+  border: 1px solid currentColor;
+  opacity: .75;
+}
+.chip.joy     { color: var(--joy); }
+.chip.surp    { color: var(--surp); }
+.chip.frust   { color: var(--frust); }
+.chip.awe     { color: var(--awe); }
+.chip.fear    { color: var(--fear); }
+.chip.sad     { color: var(--sad); }
+.chip.disg    { color: var(--disg); }
+.chip.neut    { color: var(--neut); }
+
+/* ── VIZ SECTIONS ── */
+.viz-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.viz-screen {
+  aspect-ratio: 16/10;
+  background: var(--ink2);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.viz-screen-inner {
+  width: 100%;
+  height: 100%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* globe mock */
+.globe-mock {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0,229,255,.05) 0%, transparent 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.globe-ring {
+  width: 70%;
+  aspect-ratio: 2.5/1;
+  border: 1px solid rgba(0,229,255,.15);
+  border-radius: 50%;
+  position: absolute;
+  transform: rotateX(70deg);
+}
+
+.globe-orbs {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(1px);
+  animation: orbFloat 3s ease-in-out infinite;
+}
+@keyframes orbFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+
+.orb-1  { width:14px;height:14px;background:var(--surp); opacity:.8; top:28%; left:22%; animation-delay:.2s; }
+.orb-2  { width:10px;height:10px;background:var(--frust);opacity:.7; top:42%; left:36%; animation-delay:.8s; }
+.orb-3  { width:18px;height:18px;background:var(--fear); opacity:.9; top:22%; left:50%; animation-delay:.4s; }
+.orb-4  { width:8px; height:8px; background:var(--joy);  opacity:.7; top:55%; left:62%; animation-delay:1.2s;}
+.orb-5  { width:12px;height:12px;background:var(--awe);  opacity:.8; top:35%; left:72%; animation-delay:.6s; }
+.orb-6  { width:20px;height:20px;background:var(--surp); opacity:.85;top:18%; left:80%; animation-delay:1.0s;}
+.orb-7  { width:9px; height:9px; background:var(--sad);  opacity:.6; top:62%; left:45%; animation-delay:1.5s;}
+.orb-8  { width:16px;height:16px;background:var(--fear); opacity:.75;top:48%; left:18%; animation-delay:.3s; }
+.orb-9  { width:11px;height:11px;background:var(--joy);  opacity:.8; top:30%; left:60%; animation-delay:.9s; }
+.orb-10 { width:7px; height:7px; background:var(--disg); opacity:.6; top:65%; left:28%; animation-delay:1.3s;}
+
+.globe-axis {
+  position: absolute;
+  left: 12px; top: 10px; bottom: 10px;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,.12), transparent);
+}
+
+.globe-label {
+  position: absolute;
+  bottom: 12px; left: 14px;
+  font-size: 8px;
+  letter-spacing: .2em;
+  color: rgba(0,229,255,.5);
+}
+
+/* heatmap mock */
+.hmap-mock {
+  padding: 12px;
+  width: 100%;
+  height: 100%;
+}
+
+.hmap-header {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 4px;
+  padding-left: 70px;
+}
+
+.hmap-col-lbl {
+  flex: 1;
+  font-size: 7px;
+  letter-spacing: .08em;
+  text-align: center;
+  opacity: .4;
+}
+
+.hmap-row {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-bottom: 3px;
+}
+
+.hmap-row-lbl {
+  width: 66px;
+  font-size: 8px;
+  letter-spacing: .06em;
+  text-align: right;
+  padding-right: 8px;
+  flex-shrink: 0;
+  opacity: .7;
+}
+
+.hmap-cells {
+  display: flex;
+  gap: 2px;
+  flex: 1;
+}
+
+.hc {
+  height: 20px;
+  border-radius: 1px;
+  transition: transform .15s;
+  flex: 1;
+}
+.hc:hover { transform: scaleY(1.3); }
+
+/* ── INTERFACE CALLOUTS ── */
+.callout-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin-top: 40px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.callout {
+  background: var(--glass);
+  padding: 24px 22px;
+  border-right: 1px solid var(--border);
+}
+.callout:last-child { border-right: none; }
+
+.callout-icon {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.callout-title {
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--bright);
+  margin-bottom: 8px;
+}
+
+.callout-body {
+  font-size: 11px;
+  color: var(--dim);
+  line-height: 1.7;
+  max-width: 100%;
+}
+
+/* ── FINDINGS — DATA QUALITY ── */
+.findings-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+.finding-card {
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--glass);
+  position: relative;
+  overflow: hidden;
+}
+
+.finding-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 100%;
+}
+
+.finding-card.works::before  { background: var(--accent); }
+.finding-card.fails::before  { background: var(--frust); }
+
+.finding-tag {
+  font-size: 8px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tag-works { color: var(--accent); }
+.tag-fails  { color: var(--frust); }
+
+.finding-items {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.fi {
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.fi:first-child { border-top: none; padding-top: 0; }
+
+.fi-title {
+  font-size: 11px;
+  color: var(--bright);
+  font-weight: 500;
+  margin-bottom: 6px;
+  letter-spacing: .04em;
+}
+
+.fi-body {
+  font-size: 11px;
+  color: var(--dim);
+  line-height: 1.7;
+  max-width: 100%;
+  margin: 0;
+}
+
+/* top events bar chart */
+.event-bars {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.event-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.eb-label {
+  font-size: 10px;
+  letter-spacing: .04em;
+  color: var(--text);
+  width: 300px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.eb-track {
+  flex: 1;
+  height: 18px;
+  background: rgba(255,255,255,.04);
+  border-radius: 1px;
+  overflow: hidden;
+  position: relative;
+}
+
+.eb-fill {
+  height: 100%;
+  border-radius: 1px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+  transition: width .6s cubic-bezier(.4,0,.2,1);
+}
+
+.eb-pct {
+  font-size: 9px;
+  letter-spacing: .08em;
+  color: rgba(255,255,255,.8);
+  font-weight: 600;
+}
+
+.eb-section {
+  font-size: 9px;
+  color: var(--dim);
+  letter-spacing: .06em;
+  flex-shrink: 0;
+  width: 120px;
+  text-align: right;
+}
+
+/* ── FORMULA BLOCK ── */
+.formula-block {
+  background: var(--ink2);
+  border: 1px solid var(--border2);
+  border-radius: 2px;
+  padding: 24px 28px;
+  margin: 28px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.formula-block::before {
+  content: 'FORMULA';
+  position: absolute;
+  top: 10px; right: 16px;
+  font-size: 7px;
+  letter-spacing: .2em;
+  color: var(--dim);
+}
+
+.formula {
+  font-family: var(--font-m);
+  font-size: 16px;
+  color: var(--cyan);
+  letter-spacing: .05em;
+}
+
+.formula-note {
+  font-size: 10px;
+  color: var(--dim);
+  margin-top: 10px;
+  line-height: 1.7;
+}
+
+/* ── LEXICON COLLISION DEMO ── */
+.collision-demo {
+  margin: 32px 0;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.collision-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  background: rgba(255,255,255,.04);
+  border-bottom: 1px solid var(--border);
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.collision-header div { padding: 8px 16px; border-right: 1px solid var(--border); }
+.collision-header div:last-child { border-right: none; }
+
+.collision-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-bottom: 1px solid var(--border);
+}
+.collision-row:last-child { border-bottom: none; }
+
+.cr-cell {
+  padding: 12px 16px;
+  border-right: 1px solid var(--border);
+  font-size: 11px;
+  line-height: 1.5;
+}
+.cr-cell:last-child { border-right: none; }
+
+.kw-tag {
+  display: inline-block;
+  background: rgba(255,255,255,.06);
+  border: 1px solid var(--border2);
+  padding: 1px 7px;
+  border-radius: 2px;
+  font-size: 10px;
+  margin: 1px;
+}
+
+/* ── META SECTION ── */
+.meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 8px;
+}
+
+.meta-card {
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.meta-card-header {
+  padding: 16px 20px;
+  background: rgba(255,255,255,.03);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.meta-card-num {
+  font-family: var(--font-d);
+  font-size: 28px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,.12);
+  line-height: 1;
+}
+
+.meta-card-title {
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--bright);
+}
+
+.meta-card-body {
+  padding: 20px;
+  font-size: 12px;
+  color: var(--dim);
+  line-height: 1.8;
+}
+
+blockquote {
+  font-family: var(--font-s);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--bright);
+  line-height: 1.6;
+  padding: 24px 28px;
+  border-left: 3px solid var(--cyan);
+  background: rgba(0,229,255,.03);
+  margin: 40px 0;
+  border-radius: 0 2px 2px 0;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-brand {
+  font-family: var(--font-d);
+  font-size: 18px;
+  letter-spacing: 4px;
+  color: rgba(255,255,255,.15);
+}
+
+.footer-meta {
+  font-size: 9px;
+  letter-spacing: .14em;
+  color: var(--dim);
+  text-align: right;
+  line-height: 1.8;
+}
+
+/* ── SCROLL ANIMATIONS ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: .1s; }
+.reveal-delay-2 { transition-delay: .2s; }
+.reveal-delay-3 { transition-delay: .3s; }
+.reveal-delay-4 { transition-delay: .4s; }
+
+/* ── SCROLL INDICATOR ── */
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 80px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 9px;
+  letter-spacing: .2em;
+  color: var(--dim);
+  z-index: 2;
+}
+
+.scroll-line {
+  width: 40px;
+  height: 1px;
+  background: var(--dim);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine { 0%,100%{width:40px} 50%{width:20px} }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .about-grid, .viz-layout, .findings-layout, .meta-grid { grid-template-columns: 1fr; }
+  .hero { padding: 100px 32px 60px; }
+  .section { padding: 72px 32px; }
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  footer { padding: 32px; flex-direction: column; gap: 16px; text-align: center; }
+  .hero-stats { grid-template-columns: repeat(2, 1fr); }
+  .callout-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <a class="nav-brand" href="#">
+    <span class="pulse"></span>
+    CONTINUEM
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#globe">Globe Viz</a></li>
+    <li><a href="#heatmap">Heatmap</a></li>
+    <li><a href="#findings">Findings</a></li>
+    <li><a href="#meta">Meta</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-badge reveal">DIGITAL MEDIA MASTERS · PORTFOLIO PRESENTATION</div>
+
+  <h1 class="hero-title reveal reveal-delay-1">
+    EMOTIONAL<br><span class="red">FREQUENCY</span>
+  </h1>
+
+  <p class="hero-sub reveal reveal-delay-2">
+    AI Sentiment Analysis of Player Reactions · Poppy Playtime Chapter 5
+  </p>
+
+  <div class="hero-stats reveal reveal-delay-3">
+    <div class="hero-stat">
+      <div class="hs-val">21</div>
+      <div class="hs-lbl">Creators</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-val">8,321</div>
+      <div class="hs-lbl">30s Windows</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-val">57</div>
+      <div class="hs-lbl">Game Events</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-val">8</div>
+      <div class="hs-lbl">Emotions</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint reveal reveal-delay-4">
+    <span class="scroll-line"></span>
+    SCROLL TO EXPLORE
+  </div>
+</section>
+
+<!-- SECTION 1: ABOUT -->
+<section class="section" id="about">
+  <div class="section-num">01</div>
+  <div class="section-inner">
+    <div class="section-label">Section 01</div>
+    <h2>ABOUT THE<br>PROJECT</h2>
+
+    <div class="about-grid">
+      <div class="reveal">
+        <p>Continuem is a B2B game intelligence platform that transforms YouTube creator reaction videos into structured emotional data for game developers. Rather than reading individual comments or reviews, it analyzes <em>what creators say in real time</em> — moment by moment — as they play a game for the first time.</p>
+
+        <p>The flagship case study is <strong>Poppy Playtime Chapter 5</strong>: 21 YouTube creators, 78,988 caption segments, processed into 8,321 thirty-second windows and 57 named game events, each with a full emotional profile.</p>
+
+        <div class="formula-block">
+          <div class="formula">score = (pos − neg) / (pos + neg + neu × 0.5)</div>
+          <div class="formula-note">
+            Sentiment net score, clamped to [−1, +1]. Positive keyword counts pull upward, negative pull downward. Neutral language is dampened with a 0.5 weight to reduce filler inflation. Threshold: positive &gt; 0.15, negative &lt; −0.15.
+          </div>
+        </div>
+
+        <div class="emotion-chips">
+          <span class="chip joy">Joy</span>
+          <span class="chip surp">Surprise</span>
+          <span class="chip frust">Frustration</span>
+          <span class="chip awe">Awe</span>
+          <span class="chip fear">Fear</span>
+          <span class="chip sad">Sadness</span>
+          <span class="chip disg">Disgust</span>
+          <span class="chip neut">Neutral</span>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <div class="pipeline-steps">
+          <div class="step">
+            <span class="step-num">01</span>
+            <div class="step-text">
+              <div class="step-title">Ingest</div>
+              <div class="step-desc">Validate JSON, resolve segments + duration, filter videos under 60s</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">02</span>
+            <div class="step-text">
+              <div class="step-title">Window</div>
+              <div class="step-desc">Slice into 30s windows, concatenate + lowercase transcript text</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">03</span>
+            <div class="step-text">
+              <div class="step-title">Sentiment Score</div>
+              <div class="step-desc">Keyword net-score → float [−1, +1] + positive / neutral / negative</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">04</span>
+            <div class="step-text">
+              <div class="step-title">Emotion Label</div>
+              <div class="step-desc">8-class label via lexicon matching. Neutral suppressed when other emotions fire.</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">05</span>
+            <div class="step-text">
+              <div class="step-title">Normalise</div>
+              <div class="step-desc">Absolute time → 0–100% progress → bin 0–99. Enables cross-creator comparison.</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">06</span>
+            <div class="step-text">
+              <div class="step-title">Event Label</div>
+              <div class="step-desc">Bin ranges mapped to 57 named game events from config/games.yaml</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">07</span>
+            <div class="step-text">
+              <div class="step-title">Visualize</div>
+              <div class="step-desc">Inject aggregated data into self-contained HTML + React deliverables</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: GLOBE -->
+<section class="section" id="globe">
+  <div class="section-num">02</div>
+  <div class="section-inner">
+    <div class="section-label">Section 02</div>
+    <h2>GLOBE<br>VISUALIZATION</h2>
+
+    <div class="viz-layout">
+      <div class="reveal">
+        <!-- Globe mock visualization -->
+        <div class="viz-screen">
+          <div class="globe-mock">
+            <div class="globe-ring"></div>
+            <div class="globe-axis"></div>
+            <div class="globe-orbs">
+              <div class="orb orb-1"></div>
+              <div class="orb orb-2"></div>
+              <div class="orb orb-3"></div>
+              <div class="orb orb-4"></div>
+              <div class="orb orb-5"></div>
+              <div class="orb orb-6"></div>
+              <div class="orb orb-7"></div>
+              <div class="orb orb-8"></div>
+              <div class="orb orb-9"></div>
+              <div class="orb orb-10"></div>
+            </div>
+            <div class="globe-label">DRAG TO ORBIT · 57 EVENTS × 7 EMOTIONS</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <h3>What you're looking at</h3>
+        <p>A 3D cylindrical visualization built entirely in Canvas 2D — no WebGL, no Three.js. The cylinder maps the game's emotional data across three axes simultaneously.</p>
+
+        <p><strong style="color:var(--bright)">Horizontal ring axis</strong> — the 57 game events in chronological order, wrapped around the cylinder. Drag to rotate through the game's narrative arc.</p>
+
+        <p><strong style="color:var(--bright)">Vertical axis (on ring face)</strong> — the 7 non-neutral emotions stacked. Each emotion is color-coded and labeled.</p>
+
+        <p><strong style="color:var(--bright)">Height / Z-axis</strong> — emotional intensity. Taller orbs = stronger signal. The glowing spheres scale in size and brightness with the percentage of creators expressing that emotion at that moment.</p>
+
+        <h3>How to read a pattern</h3>
+        <p>A "wall" of tall orbs at a single point on the ring marks a high-reactivity event — a moment where creators responded strongly across multiple emotions at once. The most visually dramatic point is bin 94: <em>Tender Moment Shattered</em>, where the Prototype kills Huggy and Kissy, producing 88.1% non-neutral response — the highest in the dataset.</p>
+      </div>
+    </div>
+
+    <div class="callout-grid reveal">
+      <div class="callout">
+        <div class="callout-icon">⬤</div>
+        <div class="callout-title">Orb Size + Glow</div>
+        <div class="callout-body">Encodes emotional intensity. Larger, brighter orbs signal stronger consensus across creators. Hover to see exact values and event name.</div>
+      </div>
+      <div class="callout">
+        <div class="callout-icon">◯</div>
+        <div class="callout-title">Section Color Tinting</div>
+        <div class="callout-body">Event labels along the ring are tinted by game section — Opening, Factory, Huggy Chase, Mid Puzzles, Lily Dollhouse, Prototype — so emotional clusters map to narrative structure.</div>
+      </div>
+      <div class="callout">
+        <div class="callout-icon">↺</div>
+        <div class="callout-title">Drag to Orbit</div>
+        <div class="callout-body">The cylinder can be freely rotated. This is a deliberate interaction choice: the data is explorable rather than presented as a fixed "answer." Perspective changes what you notice.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: HEATMAP -->
+<section class="section" id="heatmap">
+  <div class="section-num">03</div>
+  <div class="section-inner">
+    <div class="section-label">Section 03</div>
+    <h2>EMOTIONAL<br>HEATMAP</h2>
+
+    <div class="viz-layout">
+      <div class="reveal">
+        <!-- Heatmap mock -->
+        <div class="viz-screen" style="aspect-ratio: 16/12;">
+          <div class="hmap-mock">
+            <div style="font-size:8px;letter-spacing:.14em;color:rgba(0,229,255,.5);margin-bottom:10px;">EMOTION HEATMAP · 57 EVENTS</div>
+            <!-- rows for each emotion -->
+            <div class="hmap-row">
+              <span class="hmap-row-lbl" style="color:var(--joy)">JOY</span>
+              <div class="hmap-cells">
+                <div class="hc" style="background:rgba(245,200,66,.15)"></div><div class="hc" style="background:rgba(245,200,66,.22)"></div><div class="hc" style="background:rgba(245,200,66,.08)"></div><div class="hc" style="background:rgba(245,200,66,.12)"></div><div class="hc" style="background:rgba(245,200,66,.18)"></div><div class="hc" style="background:rgba(245,200,66,.35)"></div><div class="hc" style="background:rgba(245,200,66,.10)"></div><div class="hc" style="background:rgba(245,200,66,.25)"></div><div class="hc" style="background:rgba(245,200,66,.60)"></div><div class="hc" style="background:rgba(245,200,66,.14)"></div>
+              </div>
+            </div>
+            <div class="hmap-row">
+              <span class="hmap-row-lbl" style="color:var(--surp)">SURPRISE</span>
+              <div class="hmap-cells">
+                <div class="hc" style="background:rgba(61,142,255,.30)"></div><div class="hc" style="background:rgba(61,142,255,.25)"></div><div class="hc" style="background:rgba(61,142,255,.14)"></div><div class="hc" style="background:rgba(61,142,255,.20)"></div><div class="hc" style="background:rgba(61,142,255,.28)"></div><div class="hc" style="background:rgba(61,142,255,.40)"></div><div class="hc" style="background:rgba(61,142,255,.34)"></div><div class="hc" style="background:rgba(61,142,255,.90)"></div><div class="hc" style="background:rgba(61,142,255,.22)"></div><div class="hc" style="background:rgba(61,142,255,.19)"></div>
+              </div>
+            </div>
+            <div class="hmap-row">
+              <span class="hmap-row-lbl" style="color:var(--frust)">FRUSTRATION</span>
+              <div class="hmap-cells">
+                <div class="hc" style="background:rgba(255,51,82,.22)"></div><div class="hc" style="background:rgba(255,51,82,.16)"></div><div class="hc" style="background:rgba(255,51,82,.40)"></div><div class="hc" style="background:rgba(255,51,82,.35)"></div><div class="hc" style="background:rgba(255,51,82,.28)"></div><div class="hc" style="background:rgba(255,51,82,.20)"></div><div class="hc" style="background:rgba(255,51,82,.32)"></div><div class="hc" style="background:rgba(255,51,82,.18)"></div><div class="hc" style="background:rgba(255,51,82,.24)"></div><div class="hc" style="background:rgba(255,51,82,.38)"></div>
+              </div>
+            </div>
+            <div class="hmap-row">
+              <span class="hmap-row-lbl" style="color:var(--awe)">AWE</span>
+              <div class="hmap-cells">
+                <div class="hc" style="background:rgba(255,122,42,.08)"></div><div class="hc" style="background:rgba(255,122,42,.10)"></div><div class="hc" style="background:rgba(255,122,42,.04)"></div><div class="hc" style="background:rgba(255,122,42,.07)"></div><div class="hc" style="background:rgba(255,122,42,.12)"></div><div class="hc" style="background:rgba(255,122,42,.06)"></div><div class="hc" style="background:rgba(255,122,42,.09)"></div><div class="hc" style="background:rgba(255,122,42,.04)"></div><div class="hc" style="background:rgba(255,122,42,.08)"></div><div class="hc" style="background:rgba(255,122,42,.05)"></div>
+              </div>
+            </div>
+            <div class="hmap-row">
+              <span class="hmap-row-lbl" style="color:var(--fear)">FEAR</span>
+              <div class="hmap-cells">
+                <div class="hc" style="background:rgba(180,79,255,.05)"></div><div class="hc" style="background:rgba(180,79,255,.08)"></div><div class="hc" style="background:rgba(180,79,255,.12)"></div><div class="hc" style="background:rgba(180,79,255,.18)"></div><div class="hc" style="background:rgba(180,79,255,.10)"></div><div class="hc" style="background:rgba(180,79,255,.07)"></div><div class="hc" style="background:rgba(180,79,255,.22)"></div><div class="hc" style="background:rgba(180,79,255,.09)"></div><div class="hc" style="background:rgba(180,79,255,.11)"></div><div class="hc" style="background:rgba(180,79,255,.06)"></div>
+              </div>
+            </div>
+            <div class="hmap-row">
+              <span class="hmap-row-lbl" style="color:var(--sad)">SADNESS</span>
+              <div class="hmap-cells">
+                <div class="hc" style="background:rgba(34,211,238,.03)"></div><div class="hc" style="background:rgba(34,211,238,.05)"></div><div class="hc" style="background:rgba(34,211,238,.02)"></div><div class="hc" style="background:rgba(34,211,238,.04)"></div><div class="hc" style="background:rgba(34,211,238,.03)"></div><div class="hc" style="background:rgba(34,211,238,.09)"></div><div class="hc" style="background:rgba(34,211,238,.02)"></div><div class="hc" style="background:rgba(34,211,238,.04)"></div><div class="hc" style="background:rgba(34,211,238,.06)"></div><div class="hc" style="background:rgba(34,211,238,.02)"></div>
+              </div>
+            </div>
+            <div style="margin-top:14px;display:flex;gap:16px;">
+              <div style="padding:6px 12px;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:2px;font-size:8px;letter-spacing:.1em;color:var(--dim)">SORT ▾</div>
+              <div style="padding:6px 12px;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:2px;font-size:8px;letter-spacing:.1em;color:var(--dim)">FILTER EMOTIONS</div>
+              <div style="padding:6px 12px;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:2px;font-size:8px;letter-spacing:.1em;color:var(--dim)">VIEW: HEAT</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <h3>View 1 — Emotion Heatmap</h3>
+        <p>A grid: rows are the 8 emotions, columns are the 57 game events. Cell intensity is normalized so the dominant emotion in each event gets full saturation, and all others scale relative to it. This lets you read <em>emotional composition</em> across the game's arc — where frustration dominates factory sections, where surprise spikes at the Prototype reveal.</p>
+
+        <h3>View 2 — Sentiment Bars</h3>
+        <p>A bar chart per event showing mean sentiment score from −1 to +1. This is the overall valence curve — PP5 hovers slightly positive throughout (creators engaged and entertained), with dips at creature encounters and the final Prototype sequence.</p>
+
+        <h3>View 3 — Creator Grid</h3>
+        <p>A 19-creator × 57-event matrix. Each cell shows that creator's mean sentiment and dominant emotion for a specific event. This surfaces <em>consensus vs. outlier behavior</em> — moments where all creators respond identically vs. events driven by individual personality differences.</p>
+
+        <h3>Controls</h3>
+        <p>Sort events by reactivity (% non-neutral), by dominant emotion, or by game section. Toggle individual emotions on/off to isolate signals. Hover any cell for exact values and window count.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: FINDINGS -->
+<section class="section" id="findings">
+  <div class="section-num">04</div>
+  <div class="section-inner">
+    <div class="section-label">Section 04</div>
+    <h2>DATA QUALITY &amp;<br>LABELING ACCURACY</h2>
+
+    <!-- Top events by reactivity -->
+    <div class="reveal" style="margin-bottom:56px;">
+      <p style="margin-bottom:20px;">The most reliable output of the system is <em>where</em> in the game something emotionally significant happens. Top events by % non-neutral response across all 21 creators:</p>
+      <div class="event-bars">
+        <div class="event-bar-row">
+          <span class="eb-label">Tender Moment Shattered</span>
+          <div class="eb-track"><div class="eb-fill" style="width:88.1%;background:linear-gradient(90deg,rgba(61,142,255,.3),rgba(61,142,255,.7))"><span class="eb-pct">88.1%</span></div></div>
+          <span class="eb-section" style="color:var(--fear)">Prototype</span>
+        </div>
+        <div class="event-bar-row">
+          <span class="eb-label">Prototype Threat Narration</span>
+          <div class="eb-track"><div class="eb-fill" style="width:85.1%;background:linear-gradient(90deg,rgba(61,142,255,.3),rgba(61,142,255,.65))"><span class="eb-pct">85.1%</span></div></div>
+          <span class="eb-section" style="color:var(--surp)">Opening</span>
+        </div>
+        <div class="event-bar-row">
+          <span class="eb-label">Extended Puzzle — Duration Frustration</span>
+          <div class="eb-track"><div class="eb-fill" style="width:84.7%;background:linear-gradient(90deg,rgba(255,51,82,.3),rgba(255,51,82,.65))"><span class="eb-pct">84.7%</span></div></div>
+          <span class="eb-section" style="color:var(--frust)">Mid Puzzles</span>
+        </div>
+        <div class="event-bar-row">
+          <span class="eb-label">Prototype Arrives at Party</span>
+          <div class="eb-track"><div class="eb-fill" style="width:83.5%;background:linear-gradient(90deg,rgba(61,142,255,.3),rgba(61,142,255,.62))"><span class="eb-pct">83.5%</span></div></div>
+          <span class="eb-section" style="color:var(--surp)">Lily Dollhouse</span>
+        </div>
+        <div class="event-bar-row">
+          <span class="eb-label">First Valve &amp; Colour Puzzles</span>
+          <div class="eb-track"><div class="eb-fill" style="width:83.3%;background:linear-gradient(90deg,rgba(255,51,82,.3),rgba(255,51,82,.6))"><span class="eb-pct">83.3%</span></div></div>
+          <span class="eb-section" style="color:var(--frust)">Opening</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="findings-layout">
+      <!-- What works -->
+      <div class="finding-card works reveal">
+        <div class="finding-tag tag-works">✓ &nbsp;Where it works</div>
+        <div class="finding-items">
+          <div class="fi">
+            <div class="fi-title">Temporal structural validity</div>
+            <div class="fi-body">Normalizing each creator's absolute playthrough to 0–100% is the system's strongest design decision. A creator who played for 4 hours and one who played for 2 both contribute to the same bin at the same narrative moment — structurally sound even before AI is involved.</div>
+          </div>
+          <div class="fi">
+            <div class="fi-title">High-reactivity event detection</div>
+            <div class="fi-body">Events like "Tender Moment Shattered" (88.1%) reliably cluster at moments any human observer would flag as emotionally significant. The system correctly identifies <em>where</em> something happens, even when the emotion label is uncertain.</div>
+          </div>
+          <div class="fi">
+            <div class="fi-title">Neutral suppression improves signal</div>
+            <div class="fi-body">Deleting "neutral" from the emotion scores when any other emotion fires is a hand-engineered prior that prevents the most common category from overwhelming the output. This meaningfully improves the quality of dominant emotion labels.</div>
+          </div>
+          <div class="fi">
+            <div class="fi-title">Secondary emotion threshold</div>
+            <div class="fi-body">A secondary emotion is only assigned when its score reaches ≥ 60% of the primary. This prevents weak co-occurrences from being reported as meaningful — a conservative, defensible threshold.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- What fails -->
+      <div class="finding-card fails reveal reveal-delay-2">
+        <div class="finding-tag tag-fails">✗ &nbsp;Where it degrades</div>
+        <div class="finding-items">
+          <div class="fi">
+            <div class="fi-title">Lexicon collision</div>
+            <div class="fi-body">Words like "awful," "oh wow," and "oh no" appear in multiple emotion lexicons simultaneously. The assigned emotion depends on total keyword count — meaning a single exclamation can flip the dominant label. This is not an edge case in gaming content.</div>
+          </div>
+          <div class="fi">
+            <div class="fi-title">Gamer register vs. general sentiment</div>
+            <div class="fi-body">"Insane," "broken," "I'm dead" are context-dependent in gaming vernacular. "This puzzle is insane" (stuck = frustration) and "this boss is insane" (won = awe) are assigned identically. The model cannot distinguish irony, register shift, or performative emotion.</div>
+          </div>
+          <div class="fi">
+            <div class="fi-title">Frustration lexicon inflation</div>
+            <div class="fi-body">Phrases like "come on," "ugh," "seriously," and "why" are in the frustration lexicon but are used constantly during ordinary gameplay navigation — not just genuine frustration. Frustration is therefore the dominant emotion for a disproportionate number of events.</div>
+          </div>
+          <div class="fi">
+            <div class="fi-title">30-second window is too coarse</div>
+            <div class="fi-body">A creator who screams in fear for 3 seconds then laughs for 27 produces a "joy"-dominant window — the fear is statistically swamped. The resolution is appropriate for event-level patterns but loses the micro-arc that makes reaction content interesting.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Collision demo table -->
+    <div class="reveal" style="margin-top:48px;">
+      <p style="margin-bottom:20px;"><strong style="color:var(--bright)">Collision example</strong> — the same words serve different emotional categories:</p>
+      <div class="collision-demo">
+        <div class="collision-header">
+          <div>Keyword</div>
+          <div>Emotion Lexicons It Appears In</div>
+          <div>Problem</div>
+        </div>
+        <div class="collision-row">
+          <div class="cr-cell"><span class="kw-tag">awful</span></div>
+          <div class="cr-cell" style="color:var(--dim)"><span style="color:var(--sad)">sadness</span> · <span style="color:var(--disg)">disgust</span> · negative sentiment</div>
+          <div class="cr-cell" style="color:var(--dim);font-size:10px;">Which fires depends on which other words appear nearby — not on actual emotional meaning</div>
+        </div>
+        <div class="collision-row">
+          <div class="cr-cell"><span class="kw-tag">oh wow</span></div>
+          <div class="cr-cell" style="color:var(--dim)"><span style="color:var(--surp)">surprise</span> · <span style="color:var(--awe)">awe</span> · positive sentiment</div>
+          <div class="cr-cell" style="color:var(--dim);font-size:10px;">Exclamation of delight and exclamation of shock are indistinguishable without audio or context</div>
+        </div>
+        <div class="collision-row">
+          <div class="cr-cell"><span class="kw-tag">oh no</span></div>
+          <div class="cr-cell" style="color:var(--dim)"><span style="color:var(--fear)">fear</span> · <span style="color:var(--sad)">sadness</span></div>
+          <div class="cr-cell" style="color:var(--dim);font-size:10px;">Used performatively, sarcastically, and genuinely — the transcript alone cannot distinguish</div>
+        </div>
+        <div class="collision-row">
+          <div class="cr-cell"><span class="kw-tag">incredible</span></div>
+          <div class="cr-cell" style="color:var(--dim)"><span style="color:var(--awe)">awe</span> · positive sentiment</div>
+          <div class="cr-cell" style="color:var(--dim);font-size:10px;">Gaming use is often sarcastic ("that was incredible" after dying repeatedly)</div>
+        </div>
+      </div>
+    </div>
+
+    <blockquote class="reveal">
+      The system has no ground truth. There is no labeled test set, no confusion matrix, no inter-rater reliability score. What can be claimed is <em>construct validity</em> — the patterns found align with what a human observer would expect. That is not the same as accuracy.
+    </blockquote>
+  </div>
+</section>
+
+<!-- SECTION 5: META -->
+<section class="section" id="meta">
+  <div class="section-num">05</div>
+  <div class="section-inner">
+    <div class="section-label">Section 05</div>
+    <h2>META<br>OBSERVATIONS</h2>
+
+    <p class="reveal" style="max-width:65ch;font-family:var(--font-s);font-size:17px;color:var(--bright);line-height:1.7;font-style:italic;margin-bottom:48px;">
+      Five conceptual frames for thinking about what this project actually is — from a media design perspective.
+    </p>
+
+    <div class="meta-grid">
+
+      <div class="meta-card reveal">
+        <div class="meta-card-header">
+          <span class="meta-card-num">01</span>
+          <span class="meta-card-title">Translation Machine, Not Measurement Device</span>
+        </div>
+        <div class="meta-card-body">
+          The system doesn't measure emotion — it translates surface features of speech (specific words) into emotion categories. That translation is a designed artifact, not a discovery. Every lexicon choice, threshold value, and suppression rule is an authorial decision that shapes what the data "says." The heatmaps look like objective data but are better understood as structured interpretations.
+        </div>
+      </div>
+
+      <div class="meta-card reveal reveal-delay-1">
+        <div class="meta-card-header">
+          <span class="meta-card-num">02</span>
+          <span class="meta-card-title">The Data Source Creates a Specific Subject</span>
+        </div>
+        <div class="meta-card-body">
+          YouTube creator reactions are performed affect — creators are aware of the camera, aware of their audience, professionally motivated to be expressive. The "emotions" captured are public emotional performances, not internal states. The system measures <em>broadcast affect</em>, not player psychology. A developer using this data learns how their game plays on camera — commercially meaningful but epistemologically distinct.
+        </div>
+      </div>
+
+      <div class="meta-card reveal reveal-delay-2">
+        <div class="meta-card-header">
+          <span class="meta-card-num">03</span>
+          <span class="meta-card-title">Event Naming Is Where Interpretation Happens</span>
+        </div>
+        <div class="meta-card-body">
+          The 57 event names — "Tender Moment Shattered," "Duration Frustration," "Lily's Friends Retrieval — Party Joy" — are human-authored labels for machine-detected high-reactivity bins. The AI pipeline found <em>where</em> reactivity peaked. The analyst named <em>why</em>. This division of labor is the project's real structure: the computational system is a surveyor; the human is the cartographer.
+        </div>
+      </div>
+
+      <div class="meta-card reveal reveal-delay-3">
+        <div class="meta-card-header">
+          <span class="meta-card-num">04</span>
+          <span class="meta-card-title">Scale Reveals Pattern — Pattern Is Not Meaning</span>
+        </div>
+        <div class="meta-card-body">
+          Processing 8,321 windows across 21 creators simultaneously is what makes this project distinct from watching videos manually. But the interesting outputs still require human interpretation to become actionable. The platform's value is in surfacing pattern quickly enough that interpretation can happen before a game ships — not in automating the interpretation itself.
+        </div>
+      </div>
+
+      <div class="meta-card reveal" style="grid-column: 1 / -1;">
+        <div class="meta-card-header">
+          <span class="meta-card-num">05</span>
+          <span class="meta-card-title">The Visualization IS an Argument</span>
+        </div>
+        <div class="meta-card-body" style="max-width: 80ch;">
+          The 3D globe and the heatmap are not neutral representations of data. They make specific claims: that emotion can be mapped spatially, that game experience is a temporal arc, that 21 strangers' reactions constitute something like collective emotional experience. Those claims are contestable. Part of the interest of the project is how visualization design smuggles epistemological assumptions inside aesthetic choices — the dark palette, the glowing orbs, the cylindrical form all suggest scientific authority. That authority is constructed.
+        </div>
+      </div>
+
+    </div>
+
+    <blockquote class="reveal" style="margin-top:56px;">
+      The most honest framing: this is a tool for generating <em>hypotheses</em> about how players will feel — not a tool for confirming them. Its value is in narrowing the space of what's worth investigating, not in closing the question.
+    </blockquote>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">CONTINUEM</div>
+  <div class="footer-meta">
+    Poppy Playtime Chapter 5 · 21 Creators · 8,321 Windows<br>
+    Digital Media Masters Portfolio · 2026
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Active nav link
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 120) {
+      current = s.id;
+    }
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current
+      ? 'var(--bright)' : '';
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>continuem — Digital Garden / Souls · RunwayML Hackathon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+@font-face { font-family: 'Babel Sans'; src: url('assets-landing-page/fonts/babel_sans/BabelSans.ttf') format('truetype'); font-weight: 400; font-style: normal; }
+@font-face { font-family: 'Babel Sans'; src: url('assets-landing-page/fonts/babel_sans/BabelSans-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; }
+@font-face { font-family: 'Babel Sans'; src: url('assets-landing-page/fonts/babel_sans/BabelSans-Oblique.ttf') format('truetype'); font-weight: 400; font-style: oblique; }
+@font-face { font-family: 'Babel Sans'; src: url('assets-landing-page/fonts/babel_sans/BabelSans-BoldOblique.ttf') format('truetype'); font-weight: 700; font-style: oblique; }
+@font-face { font-family: 'Dry Brush'; src: url('assets-landing-page/fonts/dry_brush/Dry Brush.ttf') format('truetype'); font-weight: 400; }
+@font-face { font-family: 'Feeling Passionate'; src: url('assets-landing-page/fonts/feeling_passionate/Feeling Passionate Personal Use Only.ttf') format('truetype'); font-weight: 400; }
+@font-face { font-family: 'Apple Garamond'; src: url('assets-landing-page/fonts/apple_garamond/AppleGaramond.ttf') format('truetype'); font-weight: 400; }
+@font-face { font-family: 'Apple Garamond'; src: url('assets-landing-page/fonts/apple_garamond/AppleGaramond-Bold.ttf') format('truetype'); font-weight: 700; }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --white:      #ffffff;
+  --off-white:  #fafaf8;
+  --black:      #111111;
+  --gray:       #888888;
+  --gray-light: #e8e8e5;
+  --green:      #c8f06b;
+  --green-hover:#b8e05b;
+  --pink:       #ffb8b0;
+  --border:     rgba(0,0,0,0.1);
+  --border2:    rgba(0,0,0,0.15);
+
+  --animate: #3d8eff;
+  --fuse:    #f5c842;
+  --grow:    #34d96a;
+  --extract: #b44fff;
+  --render:  #22d3ee;
+  --mutate:  #ff7a2a;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--white);
+  color: var(--black);
+  font-family: 'Babel Sans', sans-serif;
+  line-height: 1.7;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+/* ── NAVIGATION ── */
+.project-nav {
+  position: sticky;
+  top: 0; z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 64px;
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-back {
+  font-family: 'Dry Brush', serif;
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: 0.02em;
+  color: var(--black);
+  text-decoration: none;
+  transition: color 0.2s;
+  flex-shrink: 0;
+}
+.nav-back:hover { color: var(--gray); }
+
+.nav-tabs { display: flex; gap: 4px; }
+
+.nav-tab {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 11px;
+  color: var(--gray);
+  background: none;
+  border: 1px solid transparent;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.nav-tab:hover { color: var(--black); border-color: var(--border); }
+.nav-tab.active { background: var(--black); color: var(--white); border-color: var(--black); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 120px 80px 80px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--off-white) 0%, var(--white) 100%);
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+
+.hero-badge {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--black);
+  border: 1px solid var(--green);
+  display: inline-block;
+  padding: 4px 14px 3px;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 2;
+  background: rgba(200,240,107,0.12);
+}
+
+.hero-title {
+  font-family: 'Dry Brush', serif;
+  font-size: clamp(72px, 12vw, 160px);
+  letter-spacing: 3px;
+  line-height: 0.88;
+  color: var(--black);
+  position: relative;
+  z-index: 2;
+  margin-bottom: 8px;
+}
+
+.hero-title .accent-green { color: var(--green); }
+
+.hero-sub {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--gray);
+  text-transform: uppercase;
+  position: relative;
+  z-index: 2;
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.hero-sub::before {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: var(--gray);
+}
+
+.hero-stats {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  margin-top: 64px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  max-width: 700px;
+  background: var(--border);
+}
+
+.hero-stat {
+  background: var(--off-white);
+  padding: 18px 24px;
+}
+
+.hs-val {
+  font-family: 'Dry Brush', serif;
+  font-size: 32px;
+  letter-spacing: 2px;
+  color: var(--black);
+  line-height: 1;
+}
+
+.hs-lbl {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-top: 4px;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 80px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--gray);
+  z-index: 2;
+}
+
+.scroll-line {
+  width: 40px;
+  height: 1px;
+  background: var(--gray);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine { 0%,100%{width:40px} 50%{width:20px} }
+
+/* ── SECTION CONTAINERS ── */
+.section {
+  padding: 100px 80px;
+  border-top: 1px solid var(--border);
+  position: relative;
+  background: var(--white);
+}
+
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: 'Dry Brush', serif;
+  font-size: 36px;
+  letter-spacing: 0.08em;
+  color: var(--black);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-label::after {
+  content: '';
+  height: 1px;
+  width: 40px;
+  background: var(--green);
+}
+
+.section-num {
+  font-family: 'Dry Brush', serif;
+  font-size: 120px;
+  letter-spacing: 2px;
+  color: rgba(0,0,0,0.04);
+  line-height: 1;
+  position: absolute;
+  top: 60px;
+  right: 80px;
+  user-select: none;
+}
+
+h2 {
+  font-family: 'Dry Brush', serif;
+  font-size: clamp(40px, 5vw, 72px);
+  letter-spacing: 3px;
+  line-height: 0.9;
+  color: var(--black);
+  margin-bottom: 48px;
+}
+
+h3 {
+  font-family: 'Apple Garamond', 'Playfair Display', serif;
+  font-size: 20px;
+  font-style: italic;
+  color: var(--black);
+  margin-bottom: 12px;
+  margin-top: 40px;
+}
+h3:first-of-type { margin-top: 0; }
+
+p {
+  font-family: 'Babel Sans', sans-serif;
+  color: var(--black);
+  margin-bottom: 18px;
+  max-width: 72ch;
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+/* ── ABOUT GRID ── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+/* ── PIPELINE STEPS ── */
+.pipeline-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-top: 8px;
+}
+
+.step {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 14px 20px;
+  background: var(--off-white);
+  border: 1px solid var(--border);
+  border-bottom: none;
+  position: relative;
+  transition: background 0.2s;
+}
+.step:last-child { border-bottom: 1px solid var(--border); }
+.step:hover { background: var(--gray-light); }
+
+.step-num {
+  font-family: 'Dry Brush', serif;
+  font-size: 22px;
+  letter-spacing: 2px;
+  color: var(--gray);
+  flex-shrink: 0;
+  min-width: 32px;
+  line-height: 1.3;
+}
+
+.step-text {
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.step-title {
+  font-family: 'Babel Sans', sans-serif;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 2px;
+  letter-spacing: 0.05em;
+}
+
+.step-desc {
+  font-family: 'Babel Sans', sans-serif;
+  color: var(--gray);
+  font-size: 12px;
+}
+
+/* ── PIPELINE CHIPS ── */
+.pipeline-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 24px 0;
+}
+
+.chip {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 2px;
+  border: 1px solid currentColor;
+}
+.chip.animate { color: #1a55b8; background: rgba(61,142,255,0.1); }
+.chip.fuse    { color: #8a6f00; background: rgba(245,200,66,0.12); }
+.chip.grow    { color: #0a8040; background: rgba(52,217,106,0.1); }
+.chip.extract { color: #7a20c8; background: rgba(180,79,255,0.1); }
+.chip.render  { color: #008899; background: rgba(34,211,238,0.1); }
+.chip.mutate  { color: #c05000; background: rgba(255,122,42,0.1); }
+
+/* ── VIZ SECTIONS ── */
+.viz-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.viz-screen {
+  aspect-ratio: 16/10;
+  background: var(--off-white);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.viz-screen-inner {
+  width: 100%;
+  height: 100%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ── LINEAGE DIAGRAM ── */
+.lineage-mock {
+  width: 100%;
+  height: 100%;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  position: relative;
+}
+
+.ln-source-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.ln-node {
+  padding: 4px 10px;
+  border-radius: 2px;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border: 1px solid;
+}
+.ln-node.src    { color: #1a55b8; border-color: rgba(61,142,255,0.3); background: rgba(61,142,255,0.06); }
+.ln-node.fusion { color: #8a6f00; border-color: rgba(245,200,66,0.4); background: rgba(245,200,66,0.08); }
+.ln-node.growth { color: #0a8040; border-color: rgba(52,217,106,0.35); background: rgba(52,217,106,0.07); }
+.ln-node.branch { color: #c05000; border-color: rgba(255,122,42,0.35); background: rgba(255,122,42,0.07); }
+.ln-node.garden { color: #008899; border-color: rgba(34,211,238,0.35); background: rgba(34,211,238,0.07); }
+
+.ln-op {
+  font-size: 7px;
+  letter-spacing: 0.1em;
+  color: var(--gray);
+  text-transform: uppercase;
+  padding: 0 6px;
+}
+
+.ln-arrow {
+  font-size: 9px;
+  color: var(--gray);
+  line-height: 1;
+  margin: 2px 0;
+  text-align: center;
+}
+
+.ln-branch-row {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+  margin-top: 4px;
+}
+
+.ln-branch-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.ln-label {
+  position: absolute;
+  bottom: 10px; left: 14px;
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 7px;
+  letter-spacing: 0.18em;
+  color: var(--gray);
+  text-transform: uppercase;
+}
+
+/* ── CALLOUT GRID ── */
+.callout-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin-top: 40px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--border);
+}
+
+.callout {
+  background: var(--off-white);
+  padding: 24px 22px;
+}
+
+.callout-icon {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: var(--black);
+}
+
+.callout-title {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--black);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.callout-body {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 13px;
+  color: var(--gray);
+  line-height: 1.7;
+  max-width: 100%;
+}
+
+/* ── FINDINGS ── */
+.findings-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+.finding-card {
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--off-white);
+  position: relative;
+  overflow: hidden;
+}
+
+.finding-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 100%;
+}
+.finding-card.works::before { background: var(--green); }
+.finding-card.fails::before { background: var(--pink); }
+
+.finding-tag {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+}
+.tag-works { color: #5a8c00; }
+.tag-fails  { color: #cc4040; }
+
+.finding-items {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.fi {
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.fi:first-child { border-top: none; padding-top: 0; }
+
+.fi-title {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 13px;
+  color: var(--black);
+  font-weight: 700;
+  margin-bottom: 6px;
+  letter-spacing: 0.04em;
+}
+
+.fi-body {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 13px;
+  color: var(--gray);
+  line-height: 1.7;
+  max-width: 100%;
+  margin: 0;
+}
+
+/* ── EVENT BARS ── */
+.event-bars {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.event-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.eb-label {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--black);
+  width: 260px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.eb-track {
+  flex: 1;
+  height: 18px;
+  background: var(--gray-light);
+  border-radius: 1px;
+  overflow: hidden;
+  position: relative;
+}
+
+.eb-fill {
+  height: 100%;
+  border-radius: 1px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+  transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+
+.eb-pct {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--black);
+  font-weight: 700;
+}
+
+.eb-section {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 9px;
+  color: var(--gray);
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+  width: 100px;
+  text-align: right;
+}
+
+/* ── COLLISION TABLE ── */
+.collision-demo {
+  margin: 32px 0;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.collision-header {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1.4fr;
+  background: var(--off-white);
+  border-bottom: 1px solid var(--border);
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray);
+  font-weight: 700;
+}
+.collision-header div { padding: 8px 16px; border-right: 1px solid var(--border); }
+.collision-header div:last-child { border-right: none; }
+
+.collision-row {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1.4fr;
+  border-bottom: 1px solid var(--border);
+}
+.collision-row:last-child { border-bottom: none; }
+
+.cr-cell {
+  padding: 12px 16px;
+  border-right: 1px solid var(--border);
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--black);
+}
+.cr-cell:last-child { border-right: none; }
+
+.kw-tag {
+  display: inline-block;
+  background: var(--gray-light);
+  border: 1px solid var(--border);
+  padding: 1px 7px;
+  border-radius: 2px;
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 12px;
+  margin: 1px;
+  color: var(--black);
+}
+
+/* ── FORMULA BLOCK ── */
+.formula-block {
+  background: var(--off-white);
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 2px;
+  padding: 24px 28px;
+  margin: 28px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.formula-block::before {
+  content: 'CORE LOOP';
+  position: absolute;
+  top: 10px; right: 16px;
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 7px;
+  letter-spacing: 0.2em;
+  color: var(--gray);
+}
+
+.formula {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 13px;
+  color: var(--black);
+  letter-spacing: 0.03em;
+  font-weight: 700;
+  line-height: 1.9;
+  white-space: pre;
+}
+
+.formula-note {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 12px;
+  color: var(--gray);
+  margin-top: 10px;
+  line-height: 1.7;
+}
+
+/* ── META SECTION ── */
+.meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 8px;
+}
+
+.meta-card {
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--off-white);
+}
+
+.meta-card-header {
+  padding: 16px 20px;
+  background: var(--off-white);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.meta-card-num {
+  font-family: 'Dry Brush', serif;
+  font-size: 28px;
+  letter-spacing: 2px;
+  color: rgba(0,0,0,0.1);
+  line-height: 1;
+}
+
+.meta-card-title {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: var(--black);
+}
+
+.meta-card-body {
+  padding: 20px;
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 13px;
+  color: var(--gray);
+  line-height: 1.8;
+}
+
+blockquote {
+  font-family: 'Apple Garamond', 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--black);
+  line-height: 1.6;
+  padding: 24px 28px;
+  border-left: 3px solid var(--green);
+  background: rgba(200,240,107,0.1);
+  margin: 40px 0;
+  border-radius: 0 2px 2px 0;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-brand {
+  font-family: 'Dry Brush', serif;
+  font-size: 18px;
+  letter-spacing: 4px;
+  color: var(--gray);
+}
+
+.footer-meta {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--gray);
+  text-align: right;
+  line-height: 1.8;
+}
+
+/* ── SCROLL ANIMATIONS ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(48px);
+  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.in { opacity: 1; transform: none; }
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal-left.in { opacity: 1; transform: none; }
+
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.35s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .about-grid, .viz-layout, .findings-layout, .meta-grid { grid-template-columns: 1fr; }
+  .hero { padding: 100px 32px 60px; }
+  .section { padding: 72px 32px; }
+  .project-nav { padding: 14px 24px; }
+  .nav-tabs { display: none; }
+  footer { padding: 32px; flex-direction: column; gap: 16px; text-align: center; }
+  .hero-stats { grid-template-columns: repeat(2, 1fr); }
+  .callout-grid { grid-template-columns: 1fr; }
+  .eb-label { width: 140px; }
+  .section-num { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="project-nav">
+  <a href="index.html" class="nav-back">← continuem</a>
+  <div class="nav-tabs">
+    <button class="nav-tab" onclick="smoothTo('#concept')">Concept</button>
+    <button class="nav-tab" onclick="smoothTo('#pipeline')">Pipeline</button>
+    <button class="nav-tab" onclick="smoothTo('#experiments')">Experiments</button>
+    <button class="nav-tab" onclick="smoothTo('#technical')">Technical</button>
+    <button class="nav-tab" onclick="smoothTo('#stack')">Stack</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-grid"></div>
+
+  <div class="hero-badge reveal">RunwayML API Hackathon · May 8–11, 2026</div>
+
+  <h1 class="hero-title reveal reveal-d1">
+    DIGITAL<br><span class="accent-green">GARDEN</span>
+  </h1>
+
+  <p class="hero-sub reveal reveal-d2">
+    continuem × Runway Gen-4 · Living Artwork Lineages
+  </p>
+
+  <div class="hero-stats reveal reveal-d3">
+    <div class="hero-stat">
+      <div class="hs-val">7</div>
+      <div class="hs-lbl">Source Artworks</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-val">6</div>
+      <div class="hs-lbl">Experiments</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-val">7</div>
+      <div class="hs-lbl">Chained Generations</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-val">~1K</div>
+      <div class="hs-lbl">Credits Used</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint reveal">
+    <span class="scroll-line"></span>
+    SCROLL TO EXPLORE
+  </div>
+</section>
+
+<!-- SECTION 1: CONCEPT -->
+<section class="section" id="concept">
+  <div class="section-num">01</div>
+  <div class="section-inner">
+    <div class="section-label">Section 01</div>
+    <h2>CONCEPT<br>&amp; APPROACH</h2>
+
+    <div class="about-grid">
+      <div class="reveal">
+        <p>Original hand-drawn artwork animated into living organisms, then grown iteratively across generations — each generation's final frame becoming the seed of the next. The resulting video lineage is displayed as a Three.js "digital garden": masked cutout sprites floating in 3D space with bioluminescent glow and particle systems.</p>
+
+        <p>The work is entirely original IP: no stock footage, no copyrighted characters, no personal photographs. Every frame is either a continuem drawing or a Runway-generated descendant of one.</p>
+
+        <div class="pipeline-chips">
+          <span class="chip animate">Animate</span>
+          <span class="chip fuse">Fuse</span>
+          <span class="chip grow">Grow</span>
+          <span class="chip extract">Extract</span>
+          <span class="chip render">Render</span>
+          <span class="chip mutate">Mutate</span>
+        </div>
+
+        <p>Each generation drifts further from the source artwork. By gen03, the image is purely organism — no artwork origin visible. Generations stabilize after 4 iterations; subject stays organism-like but visual variety plateaus.</p>
+      </div>
+
+      <div class="reveal reveal-d2">
+        <div class="pipeline-steps">
+          <div class="step">
+            <span class="step-num">01</span>
+            <div class="step-text">
+              <div class="step-title">Single Animate</div>
+              <div class="step-desc">image_to_video (Gen4.5) — one drawing → 5s organism video · 60 credits</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">02</span>
+            <div class="step-text">
+              <div class="step-title">Multi-Fuse</div>
+              <div class="step-desc">text_to_image (Gen4 Image) with @ref tags → composite still → 5s organism video · 65 credits</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">03</span>
+            <div class="step-text">
+              <div class="step-title">Grow</div>
+              <div class="step-desc">Extract last frame → optional reference blend → image_to_video → repeat ×N</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">04</span>
+            <div class="step-text">
+              <div class="step-title">Extract Masks</div>
+              <div class="step-desc">rembg background removal → PNG alpha sprites for garden display</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">05</span>
+            <div class="step-text">
+              <div class="step-title">Garden Viewer</div>
+              <div class="step-desc">Three.js scene on localhost:8080 · masked sprites + glow halo + particle system + orbit camera</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: PIPELINE -->
+<section class="section" id="pipeline">
+  <div class="section-num">02</div>
+  <div class="section-inner">
+    <div class="section-label">Section 02</div>
+    <h2>GENERATION<br>LINEAGE</h2>
+
+    <div class="viz-layout">
+      <div class="reveal">
+        <div class="viz-screen">
+          <div class="lineage-mock">
+            <div class="ln-source-row">
+              <div class="ln-node src">jpn-sakura-239</div>
+              <span class="ln-op">+</span>
+              <div class="ln-node src">jpn-sakura-247</div>
+            </div>
+            <div class="ln-arrow">↓ multi-fuse · text_to_image</div>
+            <div class="ln-node fusion">soul_fusion_239_247.mp4</div>
+            <div class="ln-arrow">↓ grow × 3 · image_to_video</div>
+            <div class="ln-node growth">gen03.mp4</div>
+            <div class="ln-arrow">↓ grow × 4 · image_to_video</div>
+            <div class="ln-node growth">gen03_gen01.mp4 &nbsp;·&nbsp; gen03_gen02 / 03 / 04</div>
+            <div class="ln-arrow">↓ branch</div>
+            <div class="ln-branch-row">
+              <div class="ln-branch-col">
+                <div class="ln-node branch">plant_garden</div>
+                <div class="ln-op" style="font-size:7px;color:var(--gray)">+cambodia ref</div>
+              </div>
+              <div class="ln-branch-col">
+                <div class="ln-node branch">ruins_mutation</div>
+                <div class="ln-op" style="font-size:7px;color:var(--gray)">+cambodia ref</div>
+              </div>
+              <div class="ln-branch-col">
+                <div class="ln-node garden">masks → garden.html</div>
+                <div class="ln-op" style="font-size:7px;color:var(--gray)">Three.js</div>
+              </div>
+            </div>
+            <div class="ln-label">FULL LINEAGE · continuem × Runway Gen-4</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-d2">
+        <h3>Single mode</h3>
+        <p>Reference image → resize to max 1280×720 → base64 data URI → gen4.5 image_to_video (5s) → download .mp4. Prompt source priority: <code style="font-family:monospace;font-size:13px;background:var(--gray-light);padding:1px 5px;border-radius:2px;">--prompt</code> arg → prompts.json per-image key → prompts.json._default.</p>
+
+        <h3>Multi mode</h3>
+        <p>2–3 reference images each encoded as base64, tagged ref0 / ref1 / ref2 → gen4_image text_to_image with @ref tags in prompt (5 credits) → composite image → gen4.5 image_to_video on composite URL (5s, 60 credits). Combo config: <code style="font-family:monospace;font-size:13px;background:var(--gray-light);padding:1px 5px;border-radius:2px;">references/images/photos/multi.json</code></p>
+
+        <h3>Growth mode</h3>
+        <p>Seed .mp4 → for each iteration: cv2 extracts last frame → <strong>without reference</strong>: gen4.5 image_to_video on last frame (60 credits) · <strong>with reference</strong>: gen4_image blends last frame + reference (5 credits) → composite URL → gen4.5 image_to_video (60 credits). Chain breaks on first failure. Each iteration: video → last frame → video.</p>
+
+        <div class="formula-block">
+          <div class="formula">for i in 1..N:
+  frame = extract_last_frame(video)  # OpenCV
+  if reference:
+    composite = text_to_image(frame, ref)  # 5 cr
+    seed = composite
+  video = image_to_video(seed, prompt)     # 60 cr</div>
+          <div class="formula-note">grow.py core loop. Each iteration 60–65 credits. CloudFront output URLs expire 24–48h — always download to local .mp4 immediately.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout-grid reveal">
+      <div class="callout">
+        <div class="callout-icon">◈</div>
+        <div class="callout-title">Garden Pipeline</div>
+        <div class="callout-body">garden.py scans videos/ and growth/ → assigns 3D grid positions (spacing=3.5, ±jitter) → assigns float speed, amplitude, phase per organism → writes garden_state.json. extract_masks.py picks sharpest frame (Laplacian variance) across 25/50/75% candidates → rembg removes background → transparent PNG.</div>
+      </div>
+      <div class="callout">
+        <div class="callout-icon">◎</div>
+        <div class="callout-title">Background Removal</div>
+        <div class="callout-body">Rectangular video planes looked like copy-pasted screens. rembg extracts subject per video → alpha mask → Three.js alphaMap. Result: organisms float as shaped cutouts with glow halo. Three.js: MeshBasicMaterial with map + alphaMap + transparent:true + depthWrite:false.</div>
+      </div>
+      <div class="callout">
+        <div class="callout-icon">↺</div>
+        <div class="callout-title">Orbit Camera</div>
+        <div class="callout-body">OrbitControls with autoRotate at speed 0.4. Each sprite gets a glow Sprite child (glowMaterial, scale 3×3). Slow auto-rotate with free user orbit. Positions from spiral_layout(i) distribute organisms in 3D space.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: EXPERIMENTS -->
+<section class="section" id="experiments">
+  <div class="section-num">03</div>
+  <div class="section-inner">
+    <div class="section-label">Section 03</div>
+    <h2>EXPERIMENT<br>SEQUENCE</h2>
+
+    <div class="reveal" style="margin-bottom:56px;">
+      <p style="margin-bottom:20px;">Experiments run May 8–12, 2026. Prompt generalization: each artwork's color palette drives its own distinct organism character. Running total ~915 credits of 50,000 participant allocation.</p>
+      <div class="event-bars">
+        <div class="event-bar-row">
+          <span class="eb-label">Exp 0 — Baseline Singles</span>
+          <div class="eb-track">
+            <div class="eb-fill" style="width:100%;background:linear-gradient(90deg,rgba(61,142,255,0.2),rgba(61,142,255,0.5))">
+              <span class="eb-pct">485 cr</span>
+            </div>
+          </div>
+          <span class="eb-section" style="color:var(--animate)">7 artworks · gen4.5</span>
+        </div>
+        <div class="event-bar-row">
+          <span class="eb-label">Exp 2+3 — Growth Chain</span>
+          <div class="eb-track">
+            <div class="eb-fill" style="width:86%;background:linear-gradient(90deg,rgba(52,217,106,0.2),rgba(52,217,106,0.5))">
+              <span class="eb-pct">420 cr</span>
+            </div>
+          </div>
+          <span class="eb-section" style="color:var(--grow)">3 gen + 4 gen</span>
+        </div>
+        <div class="event-bar-row">
+          <span class="eb-label">Exp 1 — Multi-Image Fusion</span>
+          <div class="eb-track">
+            <div class="eb-fill" style="width:13.4%;background:linear-gradient(90deg,rgba(245,200,66,0.3),rgba(245,200,66,0.6))">
+              <span class="eb-pct">65 cr</span>
+            </div>
+          </div>
+          <span class="eb-section" style="color:var(--fuse)">239 + 247</span>
+        </div>
+        <div class="event-bar-row">
+          <span class="eb-label">Exp 4a — Plant Garden</span>
+          <div class="eb-track">
+            <div class="eb-fill" style="width:13.4%;background:linear-gradient(90deg,rgba(52,217,106,0.2),rgba(52,217,106,0.5))">
+              <span class="eb-pct">65 cr</span>
+            </div>
+          </div>
+          <span class="eb-section" style="color:var(--grow)">+cambodia ref</span>
+        </div>
+        <div class="event-bar-row">
+          <span class="eb-label">Exp 4b — Ruins Mutation</span>
+          <div class="eb-track">
+            <div class="eb-fill" style="width:13.4%;background:linear-gradient(90deg,rgba(255,122,42,0.2),rgba(255,122,42,0.5))">
+              <span class="eb-pct">65 cr</span>
+            </div>
+          </div>
+          <span class="eb-section" style="color:var(--mutate)">+cambodia ref</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="findings-layout">
+      <div class="finding-card works reveal">
+        <div class="finding-tag tag-works">✓ &nbsp;What worked</div>
+        <div class="finding-items">
+          <div class="fi">
+            <div class="fi-title">Multi-fuse as primary seed</div>
+            <div class="fi-body">Composite fuses visual DNA of both artworks. More interesting than single-image mode. soul_fusion_239_247.mp4 used as primary seed for growth chain — downstream generations inherit blended character from both source artworks.</div>
+          </div>
+          <div class="fi">
+            <div class="fi-title">Reference blending for visual variation</div>
+            <div class="fi-body">Same seed and reference (cambodia-ruins.jpg), different prompt intent produces clearly distinct visual direction: plant_garden achieves bioluminescent botanical aesthetic; ruins_mutation produces more aggressive mutation aesthetic. Reference photo introduces architectural stone texture into organic growth.</div>
+          </div>
+          <div class="fi">
+            <div class="fi-title">Experiment folder scoping</div>
+            <div class="fi-body">All scripts accept --experiment &lt;name&gt; to scope outputs under output/experiments/&lt;name&gt;/. Separates videos/, composites/, growth/, masks/, results.json, growth_log.json per experiment. --build-only flag separates state build from serving.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="finding-card fails reveal reveal-d2">
+        <div class="finding-tag tag-fails">✗ &nbsp;What to push further</div>
+        <div class="finding-items">
+          <div class="fi">
+            <div class="fi-title">Microorganism prompt too abstract</div>
+            <div class="fi-body">Default experiment: visually interesting but not reading as actual microbiology. Prompt generalized well across all 7 artworks but produced abstract results rather than convincing microscopic organisms. Bacteria prompt in gen03_garden addresses this with dark field microscopy framing.</div>
+          </div>
+          <div class="fi">
+            <div class="fi-title">Generation variety plateaus</div>
+            <div class="fi-body">gen03_garden (4 iterations): chained growth pipeline working, generations look similar across iterations. gen03_gen01 identified as best branch point for reference-blended experiments rather than continuing the chain further. Visual variety requires reference injection to maintain drift.</div>
+          </div>
+          <div class="fi">
+            <div class="fi-title">Runway API interpolation is generative</div>
+            <div class="fi-body">interpolate.py using text_to_image composite → image_to_video: generative/hallucinated, not a real interpolation. Local alternatives tested: crossfade (clean dissolve, no motion), Farneback optical flow (also reads as dissolve for dissimilar images), homography + Delaunay mesh morph evaluated separately.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: TECHNICAL DECISIONS -->
+<section class="section" id="technical">
+  <div class="section-num">04</div>
+  <div class="section-inner">
+    <div class="section-label">Section 04</div>
+    <h2>API CONSTRAINTS<br>&amp; RESOLUTIONS</h2>
+
+    <div class="reveal" style="margin-bottom:40px;">
+      <p>Constraints encountered and resolved during the hackathon. Each required a design decision that shaped the final pipeline architecture.</p>
+    </div>
+
+    <div class="reveal">
+      <div class="collision-demo">
+        <div class="collision-header">
+          <div>Constraint</div>
+          <div>Value / Behavior</div>
+          <div>Resolution</div>
+        </div>
+        <div class="collision-row">
+          <div class="cr-cell"><span class="kw-tag">image_to_video input</span></div>
+          <div class="cr-cell" style="color:var(--gray)">Single <code style="font-family:monospace;font-size:12px">prompt_image</code> only — no multi-image support</div>
+          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Multi-image: use text_to_image composite first, then feed composite URL to image_to_video</div>
+        </div>
+        <div class="collision-row">
+          <div class="cr-cell"><span class="kw-tag">reference_images tag format</span></div>
+          <div class="cr-cell" style="color:var(--gray)">Non-obvious: object key = <code style="font-family:monospace;font-size:12px">ref0</code>, prompt text = <code style="font-family:monospace;font-size:12px">@ref0</code></div>
+          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Discovered via trial. grow.py --reference flag constructs @ref0 @ref1 prompt prefix automatically</div>
+        </div>
+        <div class="collision-row">
+          <div class="cr-cell"><span class="kw-tag">Large image → HTTP 413</span></div>
+          <div class="cr-cell" style="color:var(--gray)">Payload too large for base64-encoded high-res images</div>
+          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Auto-resize to 1280×720 max, JPEG 85% quality before encoding. Applied in generate_videos.py and grow.py</div>
+        </div>
+        <div class="collision-row">
+          <div class="cr-cell"><span class="kw-tag">CloudFront output URLs</span></div>
+          <div class="cr-cell" style="color:var(--gray)">Output video URLs expire 24–48h after generation</div>
+          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Always download to local .mp4 immediately after poll_until_complete returns. Never use URL as next-gen seed</div>
+        </div>
+        <div class="collision-row">
+          <div class="cr-cell"><span class="kw-tag">prompt_text max</span></div>
+          <div class="cr-cell" style="color:var(--gray)">1000 characters max</div>
+          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Truncate before API call: <code style="font-family:monospace;font-size:12px">prompt_text=prompt[:1000]</code></div>
+        </div>
+        <div class="collision-row">
+          <div class="cr-cell"><span class="kw-tag">Duration range</span></div>
+          <div class="cr-cell" style="color:var(--gray)">2–10 seconds, all experiments use 5s</div>
+          <div class="cr-cell" style="color:var(--gray);font-size:12px;">5s balances credit cost (60 cr) and enough motion for growth chain. Longer durations give more frame candidates for extract_masks.py</div>
+        </div>
+        <div class="collision-row">
+          <div class="cr-cell"><span class="kw-tag">Supported ratios</span></div>
+          <div class="cr-cell" style="color:var(--gray)">1280:720 · 720:1280 · 1104:832 · 832:1104 · 960:960 · 1584:672</div>
+          <div class="cr-cell" style="color:var(--gray);font-size:12px;">All experiments use 1280:720. Auto-resize target matches this ratio to avoid cropping artifacts</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="findings-layout reveal" style="margin-top:48px;">
+      <div class="finding-card works">
+        <div class="finding-tag tag-works">IP &amp; Identity Decisions</div>
+        <div class="finding-items">
+          <div class="fi">
+            <div class="fi-title">No copyrighted characters</div>
+            <div class="fi-body">No Pikachu, Hello Kitty, anime IP, or other licensed characters. Conflicts with judging criteria and creates moderation risk.</div>
+          </div>
+          <div class="fi">
+            <div class="fi-title">No personal photos or videos</div>
+            <div class="fi-body">Runway ToS does not exclude uploads from training. All source artwork is original continuem brand IP. Reference photos (cambodia-ruins.jpg) used as style influence, not subjects.</div>
+          </div>
+          <div class="fi">
+            <div class="fi-title">All output is original IP</div>
+            <div class="fi-body">Every frame is either a continuem drawing or a Runway-generated descendant of one. Own the full output chain outright.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="finding-card fails">
+        <div class="finding-tag" style="color:var(--gray);font-weight:700;font-size:8px;letter-spacing:0.2em;">PROMPT LIBRARY</div>
+        <div class="finding-items">
+          <div class="fi">
+            <div class="fi-title">microorganism</div>
+            <div class="fi-body">reimagine as a living microorganism, pulsing organic membrane, bioluminescent cellular movement, microscopic creature breathing and shifting, fluid organic motion</div>
+          </div>
+          <div class="fi">
+            <div class="fi-title">bacteria</div>
+            <div class="fi-body">biological cell division and growth, bacteria multiplying under microscope, flagella propulsion, colony expanding, dark field microscopy, bioluminescent green fluorescence, membrane dividing and replicating</div>
+          </div>
+          <div class="fi">
+            <div class="fi-title">plant_garden</div>
+            <div class="fi-body">grow a garden of plant species from reference, organic botanical flora emerging, plant cells dividing and branching, leaves and stems unfurling, bioluminescent garden, microscopic plant growth</div>
+          </div>
+          <div class="fi">
+            <div class="fi-title">ruins_mutation</div>
+            <div class="fi-body">parasitic cellular mutation, transforming plant life from a wall of ancient ruins</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <blockquote class="reveal">
+      The hackathon theme: agents and applications that create, manipulate, or orchestrate media using AI — chain creative decisions, not single API calls.
+    </blockquote>
+  </div>
+</section>
+
+<!-- SECTION 5: STACK & CREDITS -->
+<section class="section" id="stack">
+  <div class="section-num">05</div>
+  <div class="section-inner">
+    <div class="section-label">Section 05</div>
+    <h2>STACK &amp;<br>CREDITS</h2>
+
+    <div class="meta-grid">
+
+      <div class="meta-card reveal">
+        <div class="meta-card-header">
+          <span class="meta-card-num">01</span>
+          <span class="meta-card-title">Animation API</span>
+        </div>
+        <div class="meta-card-body">
+          Runway Gen-4 / Gen-4.5 — <code style="font-family:monospace;font-size:12px">image_to_video</code> and <code style="font-family:monospace;font-size:12px">text_to_image</code>. Python SDK: runwayml v4.14.0. API key in .env as RUNWAYML_API_SECRET (must start with key_).
+        </div>
+      </div>
+
+      <div class="meta-card reveal reveal-d1">
+        <div class="meta-card-header">
+          <span class="meta-card-num">02</span>
+          <span class="meta-card-title">Image &amp; Video Processing</span>
+        </div>
+        <div class="meta-card-body">
+          opencv-python for frame extraction (frame N-1 via cv2). Pillow for resize + JPEG encode before base64. rembg for background removal → transparent PNG alpha sprites. Python 3.12.
+        </div>
+      </div>
+
+      <div class="meta-card reveal reveal-d2">
+        <div class="meta-card-header">
+          <span class="meta-card-num">03</span>
+          <span class="meta-card-title">3D Garden Viewer</span>
+        </div>
+        <div class="meta-card-body">
+          Three.js with OrbitControls, MeshBasicMaterial, Sprite. Served via Python http.server on localhost:8080 with CORS enabled. Organisms rendered as floating video planes with alphaMap cutouts and Sprite glow halos. Auto-rotate speed 0.4.
+        </div>
+      </div>
+
+      <div class="meta-card reveal reveal-d3">
+        <div class="meta-card-header">
+          <span class="meta-card-num">04</span>
+          <span class="meta-card-title">Pipeline Scripts</span>
+        </div>
+        <div class="meta-card-body">
+          generate_videos.py — single + multi-image generation<br>
+          grow.py — iterative growth chain (video → frame → video)<br>
+          extract_masks.py — background removal via rembg<br>
+          garden.py — scene state builder + localhost:8080 server<br>
+          credits.py — Runway credit balance + 30-day usage
+        </div>
+      </div>
+
+      <div class="meta-card reveal" style="grid-column: 1 / -1;">
+        <div class="meta-card-header">
+          <span class="meta-card-num">05</span>
+          <span class="meta-card-title">Credit Budget</span>
+        </div>
+        <div class="meta-card-body" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+          <div>
+            <table style="width:100%;border-collapse:collapse;font-size:12px;">
+              <thead>
+                <tr style="border-bottom:1px solid var(--border);">
+                  <th style="text-align:left;padding:4px 0;letter-spacing:0.08em;font-size:9px;text-transform:uppercase;color:var(--gray);font-weight:700;">Experiment</th>
+                  <th style="text-align:right;padding:4px 0;letter-spacing:0.08em;font-size:9px;text-transform:uppercase;color:var(--gray);font-weight:700;">Credits</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;">Baseline singles (7 images)</td><td style="text-align:right;">420</td></tr>
+                <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;">Fusion seed</td><td style="text-align:right;">65</td></tr>
+                <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;">gen03_garden (4 gen)</td><td style="text-align:right;">240</td></tr>
+                <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;">plant_garden + ruins_mutation</td><td style="text-align:right;">130</td></tr>
+                <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;">Frame interpolation</td><td style="text-align:right;">65</td></tr>
+                <tr style="border-top:2px solid var(--black);font-weight:700;"><td style="padding:8px 0;">Total used</td><td style="text-align:right;">~1,035</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <table style="width:100%;border-collapse:collapse;font-size:12px;">
+              <thead>
+                <tr style="border-bottom:1px solid var(--border);">
+                  <th style="text-align:left;padding:4px 0;letter-spacing:0.08em;font-size:9px;text-transform:uppercase;color:var(--gray);font-weight:700;">Operation</th>
+                  <th style="text-align:right;padding:4px 0;letter-spacing:0.08em;font-size:9px;text-transform:uppercase;color:var(--gray);font-weight:700;">Cost</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;">gen4.5 video (5s)</td><td style="text-align:right;">60 cr</td></tr>
+                <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;">gen4_image composite</td><td style="text-align:right;">5 cr</td></tr>
+                <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;">Growth with reference</td><td style="text-align:right;">65 cr/gen</td></tr>
+                <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;">Growth without reference</td><td style="text-align:right;">60 cr/gen</td></tr>
+                <tr style="border-top:1px solid var(--border);color:var(--gray);"><td style="padding:6px 0;">Participant allocation</td><td style="text-align:right;">50,000 cr</td></tr>
+                <tr style="color:var(--gray);"><td style="padding:6px 0;">Remaining (est.)</td><td style="text-align:right;">~49,000 cr</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <blockquote class="reveal" style="margin-top:56px;">
+      No copyrighted characters, no personal photos, no stock assets. All source artwork is original continuem brand IP. Every generated frame is a descendant of a continuem drawing.
+    </blockquote>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">continuem</div>
+  <div class="footer-meta">
+    Digital Garden / Souls · continuem × Runway Gen-4<br>
+    RunwayML API Hackathon · May 8–11, 2026
+  </div>
+</footer>
+
+<script>
+function smoothTo(id) {
+  const el = document.querySelector(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('in');
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal, .reveal-left').forEach(el => revealObserver.observe(el));
+
+const sections = document.querySelectorAll('section[id]');
+const navTabs  = document.querySelectorAll('.nav-tab');
+const sectionIds = ['concept', 'pipeline', 'experiments', 'technical', 'stack'];
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 120) current = s.id;
+  });
+  navTabs.forEach((tab, i) => {
+    tab.classList.toggle('active', sectionIds[i] === current);
+  });
+}, { passive: true });
+</script>
+</body>
+</html>

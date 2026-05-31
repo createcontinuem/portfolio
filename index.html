@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EMILYYUAN — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,400&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Babel Sans';
+      src: url('assets-landing-page/fonts/babel_sans/BabelSans.ttf') format('truetype');
+      font-weight: 400; font-style: normal;
+    }
+    @font-face {
+      font-family: 'Babel Sans';
+      src: url('assets-landing-page/fonts/babel_sans/BabelSans-Bold.ttf') format('truetype');
+      font-weight: 700; font-style: normal;
+    }
+    @font-face {
+      font-family: 'Babel Sans';
+      src: url('assets-landing-page/fonts/babel_sans/BabelSans-Oblique.ttf') format('truetype');
+      font-weight: 400; font-style: oblique;
+    }
+    @font-face {
+      font-family: 'Babel Sans';
+      src: url('assets-landing-page/fonts/babel_sans/BabelSans-BoldOblique.ttf') format('truetype');
+      font-weight: 700; font-style: oblique;
+    }
+    @font-face {
+      font-family: 'Feeling Passionate';
+      src: url('assets-landing-page/fonts/feeling_passionate/Feeling Passionate Personal Use Only.ttf') format('truetype');
+      font-weight: 400; font-style: normal;
+    }
+    @font-face {
+      font-family: 'Dry Brush';
+      src: url('assets-landing-page/fonts/dry_brush/Dry Brush.ttf') format('truetype');
+      font-weight: 400; font-style: normal;
+    }
+    @font-face {
+      font-family: 'Mon Journal Secret';
+      src: url('assets-landing-page/fonts/mon_journal_secret/Mon Journal Secret.ttf') format('truetype');
+      font-weight: 400; font-style: normal;
+    }
+    @font-face {
+      font-family: 'Signature December';
+      src: url('assets-landing-page/fonts/signature_december/Signature December.otf') format('opentype');
+      font-weight: 400; font-style: normal;
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    /* ── Tokens ── */
+    :root {
+      --white: #ffffff;
+      --off-white: #fafaf8;
+      --black: #111111;
+      --gray: #888888;
+      --gray-light: #e8e8e5;
+      --green: #c8f06b;
+      --green-hover: #b8e05b;
+      --pink: #ffb8b0;
+      --border: rgba(0,0,0,0.1);
+      --section-pad: 80px 64px;
+    }
+
+    /* ── Body ── */
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: 'Babel Sans', sans-serif;
+      font-size: 14px;
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    /* ── Minimal sticky nav (appears after scroll) ── */
+    .site-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 64px;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .site-nav.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .nav-logo {
+      font-family: 'Dry Brush', serif;
+      font-weight: 900;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+      color: var(--black);
+      text-decoration: none;
+    }
+    .nav-qs {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    .nav-qs a {
+      font-size: 18px;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-qs a:hover { color: var(--black); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 80px 64px 64px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+    .masthead-row {
+      position: relative;
+      line-height: 1;
+      margin-bottom: 0;
+      width: fit-content;
+    }
+    .masthead {
+      font-family: 'Dry Brush', 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(80px, 17vw, 260px);
+      letter-spacing: -0.03em;
+      line-height: 0.87;
+      color: var(--black);
+      display: block;
+      text-transform: uppercase;
+    }
+    .a-portfolio {
+      position: absolute;
+      bottom: 0;
+      right: -10%;
+      font-size: 25px;
+      color: var(--gray);
+      letter-spacing: 0.04em;
+    }
+    .hero-intro {
+      margin-top: 36px;
+      margin-bottom: 28px;
+      margin-left: 15%;
+      font-size: 30px;
+      color: var(--gray);
+    }
+
+    /* ── Floating question cards ── */
+    @keyframes q-float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-6px); }
+    }
+    .q-scatter {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 12px;
+      margin-left: 15%;
+      margin-top: calc(36px + 5vh);
+    }
+    .q-card {
+      font-family: 'Feeling Passionate', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 24px;
+      color: var(--black);
+      text-decoration: none;
+      border: 1px solid transparent;
+      padding: 12px 26px;
+      white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.09);
+      transition: color 0.22s, box-shadow 0.22s;
+      animation: q-float 3.5s ease-in-out infinite;
+    }
+    .q-card:nth-child(2) { animation-delay: 0.6s; }
+    .q-card:nth-child(3) { animation-delay: 1.2s; }
+    .q-card:nth-child(4) { animation-delay: 1.8s; }
+    .q-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--black);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.26s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .q-card:hover::after { transform: scaleX(1); }
+    .q-card:hover {
+      color: var(--white);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.16);
+      animation-play-state: paused;
+    }
+    .q-card-text { position: relative; z-index: 1; }
+
+    /* ── Section common ── */
+    .section {
+      padding: var(--section-pad);
+      border-top: 1px solid var(--border);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .section-label {
+      font-family: 'Dry Brush', serif;
+      font-weight: 400;
+      font-size: 72px;
+      color: var(--black);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 48px;
+    }
+    .section-q {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: clamp(28px, 4vw, 52px);
+      letter-spacing: -0.02em;
+      margin-bottom: 52px;
+      color: var(--black);
+    }
+
+    /* ── ABOUT section ── */
+    .about-layout {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .about-visual {
+      position: relative;
+      width: 280px;
+    }
+    #sphere-canvas {
+      display: block;
+      border-radius: 50%;
+      width: 280px;
+      height: 280px;
+    }
+    .portrait-overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    .avatar-wrap {
+      position: absolute;
+      top: -16px;
+      right: -16px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid var(--white);
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      background: var(--gray-light);
+    }
+    .avatar-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .chat-bubble {
+      position: absolute;
+      top: -8px;
+      right: 112px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px 16px 4px 16px;
+      padding: 8px 14px;
+      font-size: 11px;
+      color: var(--gray);
+      max-width: 160px;
+      line-height: 1.4;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      white-space: normal;
+    }
+    .attribution {
+      margin-top: 16px;
+      font-size: 10px;
+      color: #aaa;
+      line-height: 1.5;
+    }
+
+    .about-text {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding-top: 8px;
+    }
+    .about-bio, .about-career {
+      font-size: 15px;
+      line-height: 1.85;
+      color: #333;
+    }
+    .about-craft { display: flex; flex-direction: column; gap: 4px; }
+    .craft-lead {
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      color: var(--gray);
+      margin-bottom: 2px;
+    }
+    .craft-tag1 {
+      font-family: 'Apple Garamond', serif;
+      font-style: italic;
+      font-size: 21px;
+      color: var(--black);
+    }
+    .craft-tag2 {
+      font-weight: 700;
+      font-size: clamp(26px, 3vw, 40px);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: var(--black);
+    }
+    .craft-tag2 s {
+      font-weight: 400;
+      text-decoration: line-through;
+      color: #bbb;
+    }
+    .craft-tag2 em {
+      font-family: 'Apple Garamond', serif;
+      font-style: italic;
+      font-weight: 700;
+    }
+    .about-quote-wrap {
+      position: relative;
+      padding-left: 36px;
+    }
+    .about-quote-wrap::before {
+      content: '\201C';
+      font-family: 'Apple Garamond', serif;
+      font-size: 130px;
+      line-height: 0.7;
+      position: absolute;
+      left: -10px;
+      top: 0;
+      color: var(--black);
+      opacity: 0.09;
+      pointer-events: none;
+    }
+    .about-quote-text {
+      font-family: 'Apple Garamond', serif;
+      font-style: italic;
+      font-size: clamp(15px, 1.7vw, 19px);
+      line-height: 1.75;
+      color: var(--black);
+    }
+    .about-fun {
+      border-top: 1px solid var(--border);
+      padding-top: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .fun-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--gray);
+    }
+    .fun-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .fun-list li {
+      font-family: 'Apple Garamond', serif;
+      font-style: italic;
+      font-size: clamp(20px, 2.2vw, 27px);
+      line-height: 1.4;
+      color: var(--black);
+    }
+
+    /* ── PROJECTS section ── */
+    .project-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .project-card {
+      font-family: 'Feeling Passionate', serif;
+      font-weight: 400;
+      font-size: 24px;
+      color: var(--black);
+      text-decoration: none;
+      border: 1px solid transparent;
+      padding: 12px 26px;
+      white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.09);
+      transition: color 0.22s, box-shadow 0.22s;
+      animation: q-float 3.5s ease-in-out infinite;
+    }
+    .project-card:nth-child(2) { animation-delay: 0.6s; }
+    .project-card:nth-child(3) { animation-delay: 1.2s; }
+    .project-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--black);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.26s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .project-card:hover::after { transform: scaleX(1); }
+    .project-card:hover {
+      color: var(--white);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.16);
+      animation-play-state: paused;
+    }
+    .project-card span { position: relative; z-index: 1; }
+    .sidebar-box {
+      padding: 18px 16px;
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--black);
+    }
+    .sidebar-green { background: var(--green); }
+    .sidebar-pink  { background: var(--pink); }
+
+    .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .project-row {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .project-row:first-child { border-top: 1px solid var(--border); }
+    .project-link {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
+      color: var(--black);
+      padding: 18px 0;
+      transition: padding-left 0.2s ease;
+    }
+    .project-row:hover .project-link { padding-left: 8px; }
+    .project-num {
+      font-size: 18px;
+      color: var(--gray);
+      width: 28px;
+      flex-shrink: 0;
+    }
+    .project-name {
+      font-family: 'Feeling Passionate', serif;
+      font-weight: 700;
+      font-size: 20px;
+    }
+    .project-meta {
+      font-size: 18px;
+      color: var(--gray);
+      margin-left: auto;
+      padding-right: 16px;
+    }
+    .project-arrow {
+      font-size: 18px;
+      color: var(--gray);
+      transition: transform 0.2s, color 0.2s;
+    }
+    .project-row:hover .project-arrow {
+      transform: translateX(4px);
+      color: var(--black);
+    }
+    .project-tbd-note {
+      font-size: 18px;
+      color: var(--gray);
+      padding: 12px 0 12px 44px;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.6;
+    }
+
+    /* ── CAREER section ── */
+    .journey-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+    .undecided-box {
+      background: var(--green);
+      padding: 20px 28px;
+      font-size: 18px;
+      color: var(--black);
+      font-style: italic;
+    }
+    .journey-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .journey-btn {
+      background: var(--green);
+      border: none;
+      padding: 14px 20px;
+      font-size: 18px;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.18s;
+      color: var(--black);
+    }
+    .journey-btn:hover,
+    .journey-btn.active { background: var(--green-hover); }
+
+    .career-content {
+      margin-top: 32px;
+      display: none;
+    }
+    .career-content.open { display: block; }
+    .career-content img {
+      width: 100%;
+      display: block;
+      margin-bottom: 12px;
+    }
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .tl-row {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 24px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .tl-row:first-child { border-top: 1px solid var(--border); }
+    .tl-year {
+      font-size: 18px;
+      color: var(--gray);
+      padding-top: 3px;
+    }
+    .tl-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .tl-desc {
+      font-size: 18px;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-name {
+      font-family: 'Feeling Passionate', serif;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--gray);
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-links a {
+      font-size: 18px;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--black); }
+
+    /* ── Scroll effects ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(48px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-left.in { opacity: 1; transform: none; }
+
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.35s; }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      :root { --section-pad: 56px 24px; }
+      .hero { padding: 80px 24px 56px; }
+      .masthead { font-size: clamp(60px, 16vw, 120px); }
+      .a-portfolio { display: none; }
+.about-layout { grid-template-columns: 1fr; }
+      .avatar-wrap { width: 80px; height: 80px; top: -10px; right: -10px; }
+      .make-layout { grid-template-columns: 1fr; }
+      .journey-layout { grid-template-columns: 1fr; }
+      .site-nav { padding: 14px 24px; }
+      .nav-qs { display: none; }
+      footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Sticky nav (appears on scroll) ── -->
+<nav class="site-nav" id="site-nav">
+  <a href="#" class="nav-logo">EMILYYUAN</a>
+  <ul class="nav-qs">
+    <li><a href="#about">Tell me about you?</a></li>
+    <li><a href="#make">What do you make?</a></li>
+    <li><a href="#journey">What's your career journey?</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════ -->
+<header class="hero" id="top">
+  <div class="masthead-row">
+    <span class="masthead">emilyyuan</span>
+    <span class="a-portfolio">a portfolio</span>
+  </div>
+
+  <div class="q-scatter">
+    <a href="#about"   class="q-card"><span class="q-card-text">Tell me about you?</span></a>
+    <a href="#make"    class="q-card"><span class="q-card-text">What do you make?</span></a>
+    <a href="#journey" class="q-card"><span class="q-card-text">What's your career journey?</span></a>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════
+     01 — TELL ME ABOUT YOU
+═══════════════════════════════════════════ -->
+<section class="section" id="about">
+  <p class="section-label reveal-left">Tell me about you?</p>
+
+  <div class="about-layout reveal">
+    <!-- Left: sphere visual + portrait overlay -->
+    <div class="about-visual">
+      <canvas id="sphere-canvas" width="560" height="560"></canvas>
+      <img src="assets-landing-page/portrait-me.jpg" alt="Emily Yuan" class="portrait-overlay">
+    </div>
+
+    <!-- Right: about text -->
+    <div class="about-text">
+
+      <p class="about-bio">Emily is a Freelancing Data Scientist, Photographer, and Creative currently based in New York. Currently, she is carving out her professional career in the intersections of AI, Data, Art, and Fashion.</p>
+
+      <div class="about-craft">
+        <p class="craft-lead">She is on her journey honing the art of…</p>
+        <p class="craft-tag1">Jack of all Trades;</p>
+        <p class="craft-tag2">Master of <s>None &nbsp;&gt;&nbsp;</s><em>Systems</em></p>
+      </div>
+
+      <p class="about-career">After 6 years in engineering consulting as a Data Scientist, Emily has since ventured into her own freelance business for 5 years now — providing her AI expertise across different industries, while also traveling around the world as a professional Fashion Photographer. This dual experience has inspired Emily to reinvent her career, with the goal to bridge her left and right-brain skills together.</p>
+
+      <div class="about-quote-wrap">
+        <p class="about-quote-text">At the core of this…is to find answers, using design and critical thinking with the ever-evolving tools we have today, to the questions that shape the future of our existence — especially as our lives are quickly becoming more complex via technology.</p>
+      </div>
+
+      <div class="about-fun">
+        <p class="fun-label">FUN &amp; FACTUAL</p>
+        <ul class="fun-list">
+          <li>+ CREATIVE TECHNOLOGIST</li>
+          <li>+ MULTI-CULTURAL EXPLORER</li>
+          <li>+ REAL LIFE EMOJI</li>
+          <li>+ GAME ENTHUSIAST</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     02 — WHAT DO YOU MAKE
+═══════════════════════════════════════════ -->
+<section class="section" id="make">
+  <p class="section-label reveal-left">What do you make?</p>
+
+  <div class="project-cards">
+    <a href="project-1.html" class="project-card reveal"><span>Movement of Memory</span></a>
+    <a href="project-2.html" class="project-card reveal reveal-d1"><span>Soul Garden</span></a>
+    <a href="project-3.html" class="project-card reveal reveal-d2"><span>Sentiment Engine</span></a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     03 — CAREER JOURNEY
+═══════════════════════════════════════════ -->
+<section class="section" id="journey">
+  <p class="section-label reveal-left">What's your career journey?</p>
+
+  <img src="assets-landing-page/careermap.png" alt="Career Map" class="reveal" style="width:100%; height:calc(100vh - 160px); object-fit:contain; display:block; margin-top:32px;">
+</section>
+
+<!-- ═══════════════════════════════════════════
+     04 — WHY US
+═══════════════════════════════════════════ -->
+<!-- ── Footer ── -->
+<footer>
+  <span class="footer-name">EMILYYUAN © 2026</span>
+  <div class="footer-links">
+    <a href="mailto:eysy1610@gmail.com">Email</a>
+    <a href="https://linkedin.com/in/emily-ys-yuan" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://www.continuem.me/" target="_blank" rel="noopener">Photography</a>
+  </div>
+</footer>
+
+<script>
+// ─────────────────────────────────────────────
+// Sticky nav appears after hero
+// ─────────────────────────────────────────────
+(function () {
+  const nav   = document.getElementById('site-nav');
+  const hero  = document.querySelector('.hero');
+  function check() {
+    nav.classList.toggle('visible', window.scrollY > hero.offsetHeight * 0.7);
+  }
+  window.addEventListener('scroll', check, { passive: true });
+  check();
+})();
+
+// ─────────────────────────────────────────────
+// Scroll reveal
+// ─────────────────────────────────────────────
+document.querySelectorAll('.reveal, .reveal-left').forEach(el =>
+  new IntersectionObserver(
+    ([e]) => { if (e.isIntersecting) e.target.classList.add('in'); },
+    { threshold: 0.08 }
+  ).observe(el)
+);
+
+// ─────────────────────────────────────────────
+// Career section tabs
+// ─────────────────────────────────────────────
+function showCareer(mode) {
+  document.querySelectorAll('.career-content').forEach(el => el.classList.remove('open'));
+  document.querySelectorAll('.journey-btn').forEach(b => b.classList.remove('active'));
+  const el  = document.getElementById('career-' + mode);
+  const btn = [...document.querySelectorAll('.journey-btn')].find(b => b.textContent.toLowerCase().includes(mode === 'story' ? 'storytelling' : mode));
+  if (el)  el.classList.add('open');
+  if (btn) btn.classList.add('active');
+}
+
+// ─────────────────────────────────────────────
+// About sphere canvas — animated mosaic
+// ─────────────────────────────────────────────
+(function () {
+  const cv  = document.getElementById('sphere-canvas');
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  const cx = W / 2, cy = H / 2, R = W / 2 - 4;
+  const T  = 24;
+  let t    = 0;
+
+  const palette = [
+    [70, 45, 200], [45, 130, 210], [125, 232, 216],
+    [180, 80, 220], [60, 190, 160], [200, 80, 200],
+    [55, 120, 230], [240, 160, 60], [100, 200, 140],
+  ];
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.clip();
+
+    for (let x = 0; x < W; x += T) {
+      for (let y = 0; y < H; y += T) {
+        const dx = x + T / 2 - cx, dy = y + T / 2 - cy;
+        if (Math.hypot(dx, dy) > R) continue;
+        const v  = Math.sin(x * 0.024 + t) * Math.cos(y * 0.03 + t * 0.8)
+                 + Math.sin((x + y) * 0.016 + t * 1.3) * 0.7;
+        const ci = ((Math.floor((v + 1.7) / 3.4 * palette.length)) % palette.length + palette.length) % palette.length;
+        const [r, g, b] = palette[ci];
+        const br = 0.55 + 0.45 * Math.sin(x * 0.038 + y * 0.055 + t * 1.9);
+        ctx.fillStyle = `rgb(${Math.round(r*br)},${Math.round(g*br)},${Math.round(b*br)})`;
+        ctx.fillRect(x, y, T - 1, T - 1);
+      }
+    }
+
+    const gd = ctx.createRadialGradient(cx, cy, 0, cx, cy, R);
+    gd.addColorStop(0,   'rgba(0,0,0,0.05)');
+    gd.addColorStop(0.6, 'rgba(0,0,0,0)');
+    gd.addColorStop(1,   'rgba(0,0,0,0.55)');
+    ctx.fillStyle = gd;
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    t += 0.007;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+</script>
+</body>
+</html>

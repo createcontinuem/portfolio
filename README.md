@@ -1,2 +1,2 @@
 # portfolio
-official showcase
+Official Showcase for Master's Program Application

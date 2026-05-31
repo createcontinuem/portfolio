@@ -1,0 +1,1686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movement of Memory — EMILYYUAN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,400&display=swap" rel="stylesheet">
+  <style>
+@font-face { font-family: 'Babel Sans'; src: url('assets-landing-page/fonts/babel_sans/BabelSans.ttf') format('truetype'); font-weight: 400; font-style: normal; }
+@font-face { font-family: 'Babel Sans'; src: url('assets-landing-page/fonts/babel_sans/BabelSans-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; }
+@font-face { font-family: 'Babel Sans'; src: url('assets-landing-page/fonts/babel_sans/BabelSans-Oblique.ttf') format('truetype'); font-weight: 400; font-style: oblique; }
+@font-face { font-family: 'Babel Sans'; src: url('assets-landing-page/fonts/babel_sans/BabelSans-BoldOblique.ttf') format('truetype'); font-weight: 700; font-style: oblique; }
+@font-face { font-family: 'Dry Brush'; src: url('assets-landing-page/fonts/dry_brush/Dry Brush.ttf') format('truetype'); font-weight: 400; }
+@font-face { font-family: 'Apple Garamond'; src: url('assets-landing-page/fonts/apple_garamond/AppleGaramond.ttf') format('truetype'); font-weight: 400; }
+@font-face { font-family: 'Apple Garamond'; src: url('assets-landing-page/fonts/apple_garamond/AppleGaramond-Bold.ttf') format('truetype'); font-weight: 700; }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --white:       #ffffff;
+      --off-white:   #fafaf8;
+      --black:       #111111;
+      --gray:        #888888;
+      --gray-light:  #e8e8e5;
+      --green:       #c8f06b;
+      --green-hover: #b8e05b;
+      --green-pale:  #f4fce8;
+      --pink:        #ffb8b0;
+      --border:      rgba(0,0,0,0.1);
+    }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: 'Babel Sans', sans-serif;
+      line-height: 1.7;
+      font-size: 16px;
+      overflow-x: hidden;
+    }
+
+    /* ── Scroll progress ── */
+    #scroll-prog {
+      position: fixed; top: 0; left: 0;
+      height: 2px; width: 0%;
+      background: var(--green);
+      z-index: 9999; pointer-events: none;
+      transition: width 0.06s linear;
+    }
+
+    /* ── Nav ── */
+    .project-nav {
+      position: sticky; top: 0; z-index: 500;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 64px;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-back {
+      font-family: 'Dry Brush', serif;
+      font-weight: 400; font-size: 18px;
+      letter-spacing: 0.02em;
+      color: var(--black); text-decoration: none;
+      transition: color 0.2s; flex-shrink: 0;
+    }
+    .nav-back:hover { color: var(--gray); }
+    .nav-tabs { display: flex; gap: 4px; }
+    .nav-tab {
+      font-size: 11px; color: var(--gray);
+      background: none; border: 1px solid transparent;
+      padding: 6px 14px; cursor: pointer;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+      white-space: nowrap; font-family: inherit;
+    }
+    .nav-tab:hover { color: var(--black); border-color: var(--border); }
+    .nav-tab.active { background: var(--black); color: var(--white); border-color: var(--black); }
+
+    /* ── New hero ── */
+    .new-hero {
+      position: relative;
+      height: calc(100vh - 49px);
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .new-hero-left {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: url('p1-memory-show/about/cafebureau-art-show-thom-0019.JPG') center/cover no-repeat;
+    }
+    .new-hero-left img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      will-change: transform;
+    }
+    .new-hero-overlay {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      justify-content: center;
+      padding: 48px 40px;
+    }
+    .new-hero-title {
+      font-family: 'Melodrame', serif;
+      font-style: italic; font-weight: 400;
+      font-size: clamp(48px, 7.5vw, 120px);
+      line-height: 0.92;
+      color: var(--black);
+    }
+    .new-hero-byline {
+      margin-top: 14px;
+      font-size: 11px; font-style: italic;
+      letter-spacing: 0.08em; color: var(--black);
+    }
+    .new-hero-right {
+      position: absolute;
+      right: 80px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 420px;
+      max-height: calc(88vh - 49px);
+      overflow-y: auto;
+      display: flex; flex-direction: column;
+      align-items: center;
+      gap: 28px;
+      padding: 40px 44px;
+      background: rgba(250,250,248,0.93);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(0,0,0,0.08);
+      z-index: 10;
+    }
+    .new-hero-card {
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 22px 36px;
+      text-align: center;
+      font-family: 'Apple Garamond', 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 23px; line-height: 1.6;
+      max-width: 420px; width: 100%;
+    }
+    .new-hero-card em { font-style: italic; }
+    .new-hero-quote {
+      max-width: 420px;
+      font-family: 'Babel Sans', sans-serif;
+      font-size: 18px; color: #444;
+      line-height: 1.9; text-align: center;
+    }
+
+    /* ── Sections stage (horizontal slider) ── */
+    .sections-stage {
+      position: relative;
+      width: 100%;
+      height: calc(100vh - 49px);
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .sections-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+    .slide-panel {
+      flex-shrink: 0;
+      width: 100vw;
+      height: 100%;
+      position: relative;
+    }
+    .slide-media {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: var(--off-white);
+    }
+    .stage-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(0,0,0,0.12);
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 18px; color: var(--gray);
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+      font-family: inherit;
+    }
+    .stage-arrow:hover:not(:disabled) { color: var(--black); border-color: rgba(0,0,0,0.3); background: rgba(255,255,255,0.98); }
+    .stage-arrow:disabled { opacity: 0.2; cursor: default; }
+    .stage-arrow-prev { left: 24px; }
+    .stage-arrow-next { right: 24px; }
+
+    /* ── Persistent media layer (sits behind the sliding track) ── */
+    .stage-static-media {
+      position: absolute;
+      inset: 0;
+      background: var(--off-white);
+      z-index: -1;
+      pointer-events: none;
+    }
+    .stage-static-media img {
+      position: absolute;
+      top: 50%; left: 48px;
+      transform: translateY(-50%);
+      width: auto; height: auto;
+      max-width: 44%;
+      max-height: calc(100% - 96px);
+      object-fit: contain;
+      display: block;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+    }
+
+    /* ── Split layout (used by overlays 1,3,4,5) ── */
+    .ov-split {
+      position: absolute; inset: 0;
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      overflow: hidden;
+      background: var(--white);
+    }
+    .ov-sidebar {
+      padding: 32px 36px 36px;
+      overflow-y: auto;
+      border-right: 1px solid var(--border);
+      background: var(--white);
+      display: flex; flex-direction: column;
+      gap: 16px;
+    }
+    .ov-sidebar .ov-close {
+      position: static; top: auto; right: auto;
+      align-self: flex-end; flex-shrink: 0;
+    }
+    .ov-sidebar .ov-card { animation: none; box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+    .ov-sidebar .ov-nav {
+      position: static; transform: none;
+      left: auto; bottom: auto;
+      margin-top: auto; padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .ov-image-panel {
+      overflow: hidden;
+      padding: 0;
+      background: var(--off-white);
+      position: relative;
+    }
+    .ov-image-panel canvas { display: block; }
+    .sphere-hint {
+      position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+      font-size: 10px; letter-spacing: 0.2em; color: rgba(255,255,255,0.2);
+      text-transform: uppercase; pointer-events: none; white-space: nowrap;
+    }
+    .gallery-item { display: none; } /* masonry replaced by Three.js sphere */
+
+    /* ── Old overlay layout (motivations) ── */
+    .ov-gallery {
+      position: absolute; inset: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 4px;
+    }
+    .ov-gallery .gal-cell { overflow: hidden; background: var(--gray-light); }
+    .ov-gallery .gal-cell img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transform: scale(1.1);
+      transition: transform 9s ease;
+    }
+    .section-overlay.open .ov-gallery .gal-cell img { transform: scale(1); }
+    .ov-scrim {
+      position: absolute; inset: 0;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(8px);
+      cursor: default;
+    }
+    .ov-inner {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 16px; padding: 88px 40px 80px;
+    }
+
+    /* ── Shared overlay pieces ── */
+    .ov-close {
+      position: absolute; top: 72px; right: 48px;
+      background: var(--white); border: 1px solid var(--border);
+      width: 40px; height: 40px; font-size: 18px; color: var(--gray);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: color 0.2s, border-color 0.2s,
+                  transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 10;
+    }
+    .ov-close:hover { color: var(--black); border-color: var(--black); transform: scale(1.12); }
+
+    @keyframes ov-float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-10px); }
+    }
+    .ov-card {
+      position: relative;
+      background: var(--white);
+      border: 1px solid rgba(0,0,0,0.14);
+      padding: 44px 52px;
+      max-width: 560px; width: 100%;
+      box-shadow: 0 28px 80px rgba(0,0,0,0.14);
+      animation: ov-float 4.5s ease-in-out infinite;
+    }
+    .ov-card-num { font-size: 10px; color: var(--gray); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px; }
+    .ov-card-title {
+      font-family: 'Playfair Display', serif; font-weight: 900;
+      font-size: clamp(22px, 3vw, 38px);
+      letter-spacing: -0.02em; line-height: 1.08;
+      color: var(--black); margin-bottom: 22px;
+    }
+    .ov-card-body { font-size: 13px; color: #444; line-height: 1.8; }
+
+    .ov-desc {
+      background: var(--off-white); border: 1px solid var(--border);
+      padding: 18px 28px; max-width: 560px; width: 100%;
+      font-size: 12px; color: var(--gray); line-height: 1.7;
+    }
+    .ov-desc strong { color: var(--black); }
+
+    .ov-nav {
+      position: absolute; bottom: 40px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .ov-nav-btn {
+      background: var(--white); border: 1px solid var(--border);
+      color: var(--gray); font-size: 16px;
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s,
+                  transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .ov-nav-btn:hover { border-color: var(--black); color: var(--black); transform: scale(1.1); }
+    .ov-nav-label { font-size: 11px; color: var(--gray); letter-spacing: 0.08em; white-space: nowrap; min-width: 44px; text-align: center; }
+
+    /* ── Lightbox ── */
+    #lightbox {
+      position: fixed; inset: 0; z-index: 900;
+      background: rgba(0,0,0,0.93);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    #lightbox.open { opacity: 1; pointer-events: auto; }
+    #lb-img {
+      max-width: 88vw; max-height: 88vh;
+      object-fit: contain; display: block; user-select: none;
+    }
+    .lb-btn {
+      position: absolute;
+      background: none; border: 1px solid rgba(255,255,255,0.25);
+      color: white; font-size: 18px;
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: border-color 0.2s;
+    }
+    .lb-btn:hover { border-color: rgba(255,255,255,0.8); }
+    #lb-close { top: 20px; right: 24px; font-size: 22px; }
+    #lb-prev  { left: 20px; top: 50%; transform: translateY(-50%); }
+    #lb-next  { right: 20px; top: 50%; transform: translateY(-50%); }
+    #lb-counter {
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,0.5); font-size: 11px; letter-spacing: 0.1em;
+    }
+
+
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-brand { font-family: 'Dry Brush', serif; font-size: 18px; letter-spacing: 4px; color: var(--gray); }
+    .footer-meta { font-family: 'Babel Sans', sans-serif; font-size: 12px; letter-spacing: 0.1em; color: var(--gray); text-align: right; line-height: 1.8; }
+
+    /* ── Scroll reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(48px);
+      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.35s; }
+
+    /* ── Overlay hero layout — parallax redesign ── */
+    .ov-hero-left {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: var(--off-white);
+    }
+    .ov-hero-left img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .ps-float-card {
+      position: absolute;
+      right: 64px;
+      top: 48px;
+      bottom: 48px;
+      width: 480px;
+      overflow-y: auto;
+      scrollbar-width: none;
+      background: rgba(250,250,248,0.93);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(0,0,0,0.08);
+      padding: 22px 32px;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      will-change: transform, opacity;
+    }
+    .ov-hero-label {
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 12px 24px;
+      text-align: center;
+      max-width: 420px; width: 100%;
+      flex-shrink: 0;
+    }
+    .ov-hero-label-num {
+      font-family: 'Babel Sans', sans-serif;
+      font-size: 12px; color: var(--gray);
+      letter-spacing: 0.25em; text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .ov-hero-label-title {
+      font-family: 'Dry Brush', serif;
+      font-size: clamp(32px, 3.8vw, 57px);
+      letter-spacing: 2px; line-height: 0.92;
+    }
+    .ov-hero-body {
+      max-width: 420px; width: 100%;
+      font-size: clamp(18px, 2.1vh, 20px); color: #444;
+      line-height: 1.8;
+    }
+    .ov-hero-step {
+      max-width: 420px; width: 100%;
+      padding-left: 14px;
+      border-left: 2px solid var(--green);
+    }
+    .ov-hero-step-title {
+      font-size: clamp(14px, 1.55vh, 16px); font-weight: 700; color: var(--black);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+    .ov-hero-step p {
+      font-size: clamp(16px, 1.96vh, 19px); color: #444; line-height: 1.7;
+      margin-bottom: 4px;
+    }
+    .ov-hero-step ul {
+      font-size: clamp(16px, 1.96vh, 19px); color: #444; line-height: 1.7;
+      padding-left: 14px; margin-bottom: 4px;
+    }
+    .ov-hero-step em { font-style: italic; color: var(--black); }
+    .ov-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      width: 100%;
+      margin: 4px 0;
+    }
+    .ps-float-card::-webkit-scrollbar { display: none; }
+    .ps-float-card .ov-close {
+      display: none;
+    }
+    .ps-float-card .ov-nav {
+      position: static; transform: none;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      width: 100%;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ── Carousel ── */
+    [data-carousel] {
+      perspective: 1200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--off-white);
+    }
+    .carousel-vp {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      position: relative;
+      cursor: grab;
+    }
+    .carousel-vp.dragging { cursor: grabbing; }
+    .carousel-track {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      will-change: transform;
+    }
+    .car-card {
+      width: 390px;
+      height: auto;
+      margin-right: 24px;
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      transform-style: preserve-3d;
+      background: transparent;
+    }
+    .car-card .card-inner {
+      width: 100%;
+      height: auto;
+      overflow: hidden;
+      will-change: transform;
+    }
+    .car-card .card-inner img {
+      width: 100%;
+      height: auto;
+      display: block;
+      user-select: none;
+      -webkit-user-drag: none;
+      will-change: transform;
+    }
+    .carousel-hint {
+      position: absolute;
+      bottom: 8px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px; letter-spacing: 0.2em;
+      color: rgba(0,0,0,0.3);
+      text-transform: uppercase;
+      pointer-events: none; white-space: nowrap;
+      z-index: 5;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .project-nav { padding: 14px 24px; }
+      .nav-tabs { display: none; }
+      .project-hero { padding: 80px 24px 48px; min-height: auto; }
+      .hero-title { font-size: clamp(52px, 14vw, 100px); }
+      .hero-foot { grid-template-columns: 1fr; }
+      .hero-foot-item { border-right: none; border-bottom: 1px solid var(--border); padding: 14px 0; }
+      .hero-foot-item:last-child { border-bottom: none; }
+      .s-card { font-size: 14px; padding: 10px 18px; }
+      .s-card:nth-child(2) { left: 48%; }
+      .s-card:nth-child(5) { left: 48%; }
+      .ov-card { padding: 28px 24px; }
+      .ov-card-title { font-size: 22px; }
+      .ov-close { top: 18px; right: 18px; }
+      .ov-inner { padding: 80px 16px 80px; }
+      .ov-split { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+      .ov-sidebar { padding: 20px 20px 16px; border-right: none; border-bottom: 1px solid var(--border); max-height: 50vh; }
+      .ov-sidebar .ov-nav { margin-top: 0; }
+      .ov-image-panel { padding: 16px; }
+      .ov-masonry { columns: 2; }
+      footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 24px; }
+      .sections-stage { height: calc(100vh - 49px); }
+      .ps-float-card {
+        right: 12px; left: 12px; width: auto;
+        top: auto; bottom: 16px;
+        max-height: 54vh;
+        padding: 16px 16px;
+      }
+      .new-hero-right {
+        right: 16px; left: 16px; width: auto;
+        top: auto; bottom: 20px;
+        transform: none;
+        max-height: 52vh;
+        padding: 24px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="scroll-prog"></div>
+
+<!-- ── Nav ── -->
+<nav class="project-nav">
+  <a href="index.html" class="nav-back">← EMILYYUAN</a>
+  <div class="nav-tabs">
+    <button class="nav-tab" onclick="window.scrollTo({top:0,behavior:'smooth'})">About</button>
+    <button class="nav-tab" data-tab="motivations" onclick="goToSlide(0)">Motivations</button>
+    <button class="nav-tab" data-tab="process"     onclick="goToSlide(2)">Process</button>
+    <button class="nav-tab" data-tab="reflections" onclick="goToSlide(8)">Exhibit</button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════
+     NEW HERO
+═══════════════════════════════════════════ -->
+<section class="new-hero">
+
+  <!-- Left: cursor trail area -->
+  <div class="new-hero-left"></div>
+
+  <!-- Right: label card + description -->
+  <div class="new-hero-right">
+    <div class="new-hero-card reveal">
+      <p><em>The Movement of Memory</em>, Solo Art Show<br>New York City, Oct 2024</p>
+    </div>
+    <p class="new-hero-quote reveal reveal-d1">In "The Movement of Memory", Emily invites you to explore fragments of her past, translating the brain's process of memory recall into physical art. These prints, created from her own photo works and enhanced with AI technique called Frame Interpolation, offer a glimpse into the interplay between technology and the human experience.</p>
+    <p class="new-hero-quote reveal reveal-d2">On October 20th, 2024, I put together an AI Art show inside a Contemporary Coffee Shop showcasing prints on canvas as well as my past photography work. The art pieces were generated through AI experimentation with my own photos from key moments of my life. Considering the limited time and budget to put together the show in a month, I focused closely on the concept I wanted to present to my spectators — how the human brain recalls memories as mental imagery.</p>
+  </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SECTIONS STAGE (horizontal slider)
+═══════════════════════════════════════════ -->
+<div class="sections-stage" id="sections-stage">
+
+  <!-- Static approach.jpg — behind track, visible through transparent process slide-media panels -->
+  <div class="stage-static-media">
+    <img src="p1-memory-show/process/approach.jpg" alt="">
+  </div>
+
+  <!-- Stage nav arrows — outside all cards -->
+  <button class="stage-arrow stage-arrow-prev" id="stage-prev" onclick="prevSlide()">←</button>
+  <button class="stage-arrow stage-arrow-next" id="stage-next" onclick="nextSlide()">→</button>
+
+  <div class="sections-track" id="sections-track">
+
+  <!-- 0: motivations -->
+  <div class="slide-panel">
+    <div class="slide-media" style="background:var(--off-white);">
+      <img src="p1-memory-show/motivation/archive/exercise1.jpeg"
+           style="position:absolute;top:48px;left:48px;width:auto;height:auto;max-width:46%;max-height:46%;object-fit:contain;display:block;box-shadow:0 16px 48px rgba(0,0,0,0.15);">
+      <img src="p1-memory-show/motivation/archive/image 3.png"
+           style="position:absolute;bottom:48px;left:48px;width:auto;height:auto;max-width:46%;max-height:46%;object-fit:contain;display:block;box-shadow:0 16px 48px rgba(0,0,0,0.15);">
+    </div>
+    <div class="ps-float-card" id="card-motivations">
+      <div class="ov-hero-label">
+        <p class="ov-hero-label-num">02 — Motivations</p>
+        <h2 class="ov-hero-label-title">Motivations</h2>
+      </div>
+      <p class="ov-hero-body">A series of life events in 2024 moved me to go beyond my Photography practice — it was also a point of retrospective.</p>
+      <p class="ov-hero-body">Originally planned as a photography showcase — highlights of my best works since 2020 — I realized I wanted to express beyond my intended expression.</p>
+      <hr class="ov-divider">
+      <p class="ov-hero-body">Waves of mental imagery washed through my mind while looking through my massive Lightroom collection on my screen.</p>
+      <p class="ov-hero-body">How do I translate this Phantasiac metaphor into physical reality?</p>
+    </div>
+  </div>
+
+  <!-- 1: motivations-2 -->
+  <div class="slide-panel">
+    <div class="slide-media" style="background:var(--off-white);">
+      <img src="p1-memory-show/motivation/archive/motivation1.png"
+           style="position:absolute;top:48px;left:48px;width:auto;height:auto;max-width:46%;max-height:46%;object-fit:contain;display:block;box-shadow:0 16px 48px rgba(0,0,0,0.15);">
+      <img src="p1-memory-show/motivation/archive/motivation2.png"
+           style="position:absolute;bottom:48px;left:48px;width:auto;height:auto;max-width:46%;max-height:46%;object-fit:contain;display:block;box-shadow:0 16px 48px rgba(0,0,0,0.15);">
+    </div>
+    <div class="ps-float-card" id="card-motivations-2">
+      <div class="ov-hero-label">
+        <p class="ov-hero-label-num">02 — Motivations</p>
+        <h2 class="ov-hero-label-title">Motivations</h2>
+      </div>
+      <p class="ov-hero-body">Inspired by street photographer Vivian Maier's mastery of locked moments in time and Impressionist Painter Edgar Degas' talent of painting light and the subject of dancing…</p>
+      <p class="ov-hero-body" style="font-style:italic;">…such was the inception of "The Movement of Memory"</p>
+    </div>
+  </div>
+
+  <!-- 2: process (transparent media — approach.jpg shows from stage-static-media behind) -->
+  <div class="slide-panel">
+    <div class="slide-media" style="background:transparent;"></div>
+    <div class="ps-float-card" id="card-process">
+      <div class="ov-hero-label">
+        <p class="ov-hero-label-num">03 — Process</p>
+        <h2 class="ov-hero-label-title">Process</h2>
+      </div>
+      <div class="ov-hero-step">
+        <p class="ov-hero-step-title">1. Define Core Themes</p>
+        <p>...that trigger [my] brain's mental imagery, as I go through my Photo and Video collections</p>
+      </div>
+      <div class="ov-hero-step">
+        <p class="ov-hero-step-title">Form</p>
+        <p><em>Textures:</em></p>
+        <ul>
+          <li>Epidermis of leaves and flowers</li>
+          <li>Sand dunes in the Gobi Desert</li>
+          <li>Brick and geometric tiles of the Alhambra</li>
+          <li>Minuscule chemical effects of ice cubes melting in water</li>
+        </ul>
+        <p><em>Motion:</em> Movements in people, crowds, forests, flowers, insects, animals</p>
+        <p><em>Sample Question:</em> How can I recreate the memory of the Eiffel Tower Light show with sparkling flashes?</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3: process-2 (transparent media — shares approach.jpg static layer) -->
+  <div class="slide-panel">
+    <div class="slide-media" style="background:transparent;"></div>
+    <div class="ps-float-card" id="card-process-2">
+      <div class="ov-hero-label">
+        <p class="ov-hero-label-num">03 — Process</p>
+        <h2 class="ov-hero-label-title">Process</h2>
+      </div>
+      <p class="ov-hero-body" style="font-style:italic;color:var(--gray);">(Themes cont'd)</p>
+      <div class="ov-hero-step">
+        <p class="ov-hero-step-title">Home</p>
+        <p>1. Places I have been and seen — what I recorded that reminded me of details "back at home"</p>
+        <ul>
+          <li>Food stalls and morning markets</li>
+          <li>Cafe Shops</li>
+          <li>Churches and Temples</li>
+          <li>Neighborhoods — daily activities of locals</li>
+          <li>The sense of longing for familiarity, safety: Hiraeth, Saudade, 歸屬 (Chinese: place of belonging)</li>
+        </ul>
+        <p>2. Core memories from traveling or working abroad — paradigm shifts or changed perspectives</p>
+        <ul><li>Transience, the concept of time and space</li></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4: process-3 (transparent media — shares approach.jpg static layer) -->
+  <div class="slide-panel">
+    <div class="slide-media" style="background:transparent;"></div>
+    <div class="ps-float-card" id="card-process-3">
+      <div class="ov-hero-label">
+        <p class="ov-hero-label-num">03 — Process</p>
+        <h2 class="ov-hero-label-title">Process</h2>
+      </div>
+      <p class="ov-hero-body" style="font-style:italic;color:var(--gray);">(Themes cont'd)</p>
+      <div class="ov-hero-step">
+        <p class="ov-hero-step-title">Existence</p>
+        <p>1. The idea of world-building: what are the most fundamental elements "COMMON DENOMINATORS"?</p>
+        <ul>
+          <li>Nature &amp; the environment</li>
+          <li>Small/simple joys (daily, modest pleasures)</li>
+          <li>Universal joys (shared human delights)</li>
+          <li>Real-life experience (the everyday, concrete world)</li>
+          <li>Age &amp; generation (old, young, "average")</li>
+          <li>Mediocrity/ordinariness</li>
+          <li>Vanity &amp; self-image</li>
+          <li>Society &amp; social structures</li>
+          <li>Culture &amp; cultural norms</li>
+          <li>Belief systems/ideologies</li>
+          <li>Universal human behavior</li>
+        </ul>
+        <p style="font-style:italic;">A personal meditation on how shared human behavior emerges from the tension between simple real-world pleasures and the complex constructs we inhabit</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5: process-4 (Evolution — video) -->
+  <div class="slide-panel">
+    <div class="slide-media" style="background:var(--off-white);">
+      <video autoplay muted loop playsinline
+             style="position:absolute;top:50%;left:48px;transform:translateY(-50%);width:auto;height:auto;max-width:44%;max-height:calc(100% - 96px);object-fit:contain;display:block;box-shadow:0 16px 48px rgba(0,0,0,0.15);">
+        <source src="p1-memory-show/process/experiment-demo.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="ps-float-card" id="card-process-4">
+      <div class="ov-hero-label">
+        <p class="ov-hero-label-num">03 — Process</p>
+        <h2 class="ov-hero-label-title">Process</h2>
+      </div>
+      <p class="ov-hero-body" style="font-style:italic;color:var(--gray);">(Themes cont'd)</p>
+      <div class="ov-hero-step">
+        <p class="ov-hero-step-title">Evolution</p>
+        <p>How does the process evolve via cognition trained over time, how do people evolve, how does the brain store and recall memory? → The Movement of Memory</p>
+      </div>
+      <div class="ov-hero-step">
+        <p class="ov-hero-step-title">Frame Interpolation</p>
+        <ul>
+          <li>The algorithm studies every pixel in one frame (still image), tracks how it shifts in the next, and then invents a "mid-step" frame: unmoving areas stay as-is, while only the parts in motion are newly generated</li>
+          <li><a href="https://academy.runwayml.com/ai-tools/frame-interpolation" target="_blank" style="color:var(--black);">academy.runwayml.com/ai-tools/frame-interpolation</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6: process-5 (RunwayML) -->
+  <div class="slide-panel">
+    <div class="slide-media" style="background:var(--off-white);">
+      <img src="p1-memory-show/process/runwayml.png"
+           style="position:absolute;top:50%;left:48px;transform:translateY(-50%);width:auto;height:auto;max-width:44%;max-height:calc(100% - 96px);object-fit:contain;display:block;box-shadow:0 16px 48px rgba(0,0,0,0.15);">
+    </div>
+    <div class="ps-float-card" id="card-process-5">
+      <div class="ov-hero-label">
+        <p class="ov-hero-label-num">03 — Process</p>
+        <h2 class="ov-hero-label-title">Process</h2>
+      </div>
+      <div class="ov-hero-step">
+        <p class="ov-hero-step-title">2. Select Series of Photos</p>
+        <p>Based on the motifs and themes I listed above, interpreted as "frames of different memory snapshots" for AI to interpolate.</p>
+      </div>
+      <div class="ov-hero-step">
+        <p class="ov-hero-step-title">3. Frame Interpolation using RunwayML</p>
+        <p>A combination of images interpreted as "frames of different memory snapshots" for AI to interpolate. The technique came from Frame (Motion) Interpolation, where the machine generates new image frames between two existing images.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7: process-6 (Software + Workflow) -->
+  <div class="slide-panel">
+    <div class="slide-media" style="background:var(--off-white);">
+      <img src="p1-memory-show/process/flowchart.jpg"
+           style="position:absolute;top:50%;left:48px;transform:translateY(-50%);width:auto;height:auto;max-width:44%;max-height:calc(100% - 96px);object-fit:contain;display:block;box-shadow:0 16px 48px rgba(0,0,0,0.15);">
+    </div>
+    <div class="ps-float-card" id="card-process-6">
+      <div class="ov-hero-label">
+        <p class="ov-hero-label-num">03 — Process</p>
+        <h2 class="ov-hero-label-title">Process</h2>
+      </div>
+      <div class="ov-hero-step">
+        <p class="ov-hero-step-title">Software + Workflow</p>
+        <ul>
+          <li>Adobe Lightroom</li>
+          <li>Adobe Photoshop</li>
+          <li>TopazLabs Gigapixel</li>
+          <li>RunwayML frame interpolation algorithm</li>
+          <li>Large-format matte prints on EPSON</li>
+          <li>VLC videoplayer — Screenshot Tool</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8: reflections (Exhibit) -->
+  <div class="slide-panel">
+    <div class="slide-media" data-carousel="reflections"></div>
+    <div class="ps-float-card" id="card-reflections">
+      <div class="ov-hero-label">
+        <p class="ov-hero-label-num">04 — Exhibit</p>
+        <h2 class="ov-hero-label-title">Exhibit</h2>
+      </div>
+      <div class="ov-hero-step">
+        <p class="ov-hero-step-title">Takeaways</p>
+        <ul>
+          <li>Biggest reward: connecting conceptual dots mid-process and watching them come to life</li>
+          <li>Audience Feedback: AI methods in Art — popularity on the rise. Interest in merch: denim, silk, tapestry, holographic posters. Viewers felt the art pieces before I explained them — goal achieved</li>
+          <li>Iterated creations on-the-fly — the work evolved with each proof</li>
+          <li>Discovered a deeper emotional bond to the work and its potential value to collectors</li>
+          <li>Need more study on frame interpolation algorithm — can I work within the code to analyze what the machine interprets?</li>
+          <li>Test with sequential images, mix of patterns, different color schemes representing moods of that memory event</li>
+          <li>More mix and match based on different themes in my photography works</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  </div><!-- /sections-track -->
+</div><!-- /sections-stage -->
+
+
+<!-- ── Lightbox ── -->
+<div id="lightbox">
+  <img id="lb-img" src="" alt="">
+  <button class="lb-btn" id="lb-close" onclick="closeLightbox()">×</button>
+  <button class="lb-btn" id="lb-prev" onclick="lbNav(-1)">‹</button>
+  <button class="lb-btn" id="lb-next" onclick="lbNav(1)">›</button>
+  <span id="lb-counter"></span>
+</div>
+
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="footer-brand">EMILYYUAN</div>
+  <div class="footer-meta">
+    The Movement of Memory · Solo Art Show · Cafe Bureau NYC · Oct 2024<br>
+    Digital Media Masters Portfolio · 2026
+  </div>
+</footer>
+
+
+<script>
+const SECTIONS = ['motivations', 'motivations-2', 'process', 'process-2', 'process-3', 'process-4', 'process-5', 'process-6', 'reflections'];
+
+// ── Horizontal slide navigation ───────────────────────────────────────────
+let _slideIdx = 0;
+
+function goToSlide(idx) {
+  _slideIdx = Math.max(0, Math.min(SECTIONS.length - 1, idx));
+  document.getElementById('sections-track').style.transform = `translateX(-${_slideIdx * 100}vw)`;
+  _updateStageArrows();
+  _updateNavTabs();
+  // Scroll stage into view if above viewport
+  const stage = document.getElementById('sections-stage');
+  if (stage) {
+    const r = stage.getBoundingClientRect();
+    if (r.top > 10) window.scrollTo({ top: stage.offsetTop - 49, behavior: 'smooth' });
+  }
+  // Carousel lifecycle
+  SECTIONS.forEach((name, i) => {
+    const c = getCarousel(name);
+    if (!c) return;
+    if (i === _slideIdx) c.start(); else c.stop();
+  });
+}
+
+function nextSlide() { goToSlide(_slideIdx + 1); }
+function prevSlide() { goToSlide(_slideIdx - 1); }
+
+function _updateStageArrows() {
+  const prev = document.getElementById('stage-prev');
+  const next = document.getElementById('stage-next');
+  if (prev) prev.disabled = _slideIdx <= 0;
+  if (next) next.disabled = _slideIdx >= SECTIONS.length - 1;
+}
+
+function _updateNavTabs() {
+  const name   = SECTIONS[_slideIdx] || '';
+  const navTab = name.replace(/-\d+$/, '');
+  document.querySelectorAll('.nav-tab[data-tab]').forEach(t =>
+    t.classList.toggle('active', t.dataset.tab === navTab));
+}
+
+document.addEventListener('keydown', e => {
+  if (document.getElementById('lightbox').classList.contains('open')) {
+    if (e.key === 'Escape')      closeLightbox();
+    if (e.key === 'ArrowRight')  lbNav(1);
+    if (e.key === 'ArrowLeft')   lbNav(-1);
+    return;
+  }
+  if (e.key === 'ArrowRight') nextSlide();
+  if (e.key === 'ArrowLeft')  prevSlide();
+});
+
+// Scroll progress
+const _prog = document.getElementById('scroll-prog');
+window.addEventListener('scroll', () => {
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  _prog.style.width = (max > 0 ? window.scrollY / max * 100 : 0) + '%';
+}, { passive: true });
+
+// ── Lightbox ──
+const GALLERY_IMGS = {
+  about: [
+    'p1-memory-show/about/cafebureau-art-show-store.JPG',
+    'p1-memory-show/about/cafebureau-art-show-thom-0019.JPG',
+    'p1-memory-show/about/cafebureau-art-show-thom-0066.JPG',
+    'p1-memory-show/about/cafebureau-art-show-thom-0193.JPG',
+    'p1-memory-show/about/cafebureau-art-show-thom-0194.JPG',
+    'p1-memory-show/about/cafebureau-art-show-thom-0196.JPG',
+    'p1-memory-show/about/cafebureau-art-show-thom-4728.JPG',
+    'p1-memory-show/about/cafebureau-art-show-thom-4729.JPG',
+    'p1-memory-show/about/cafebureau-art-show-thom-4743.JPG',
+    'p1-memory-show/about/title-board-germanblossom-40x60.jpg',
+    'p1-memory-show/about/Photo%202024-10-13,%2020%2041%2004.png',
+  ],
+  motivation: [
+    'p1-memory-show/motivation/archive/image.png',
+    'p1-memory-show/motivation/archive/image%201.png',
+    'p1-memory-show/motivation/archive/image%202.png',
+    'p1-memory-show/motivation/archive/image%203.png',
+    'p1-memory-show/motivation/archive/motivation1.png',
+    'p1-memory-show/motivation/archive/motivation2.png',
+    'p1-memory-show/motivation/archive/exercise1.jpeg',
+  ],
+  process: [
+    'p1-memory-show/process/flowchart.jpg',
+    'p1-memory-show/process/cafe-layout.png',
+    'p1-memory-show/process/exhibit-planning.png',
+  ],
+  outcomes: [
+    'p1-memory-show/digitals/blueflamesakura.jpg',
+    'p1-memory-show/digitals/michigansakura.jpg',
+    'p1-memory-show/digitals/Alhambra-reflection.JPG',
+    'p1-memory-show/digitals/silkroad-bluepurpletree.jpg',
+    'p1-memory-show/digitals/flameblossoms.jpg',
+    'p1-memory-show/digitals/spainblossoms.jpg',
+  ],
+  reflections: [
+    'p1-memory-show/show/cafebureau-art-show-102224-0133.JPG',
+    'p1-memory-show/show/cafebureau-art-show-thom-0034.JPG',
+    'p1-memory-show/show/cafebureau-art-show-thom-0063.JPG',
+    'p1-memory-show/show/cafebureau-art-show-thom-0105.JPG',
+    'p1-memory-show/show/cafebureau-art-show-thom-0114.JPG',
+    'p1-memory-show/show/cafebureau-art-show-thom-0120.JPG',
+    'p1-memory-show/show/cafebureau-art-show-thom-0124.JPG',
+    'p1-memory-show/show/cafebureau-art-show-thom-0127.JPG',
+    'p1-memory-show/show/cafebureau-art-show-thom-0132.JPG',
+    'p1-memory-show/show/cafebureau-art-show-thom-0137.JPG',
+    'p1-memory-show/show/cafebureau-art-show-thom-0142.JPG',
+    'p1-memory-show/show/cafebureau-art-show-thom-0152.JPG',
+    'p1-memory-show/show/cafebureau-art-show-thom-0177.JPG',
+    'p1-memory-show/show/cafebureau-art-show-thom-0199.jpg',
+    'p1-memory-show/show/cafebureau-art-show-thom-4730.JPG',
+    'p1-memory-show/show/cafebureau-art-show-thom-4760.JPG',
+    'p1-memory-show/show/cafebureau-art-show-thom-4761.JPG',
+    'p1-memory-show/show/cafebureau-art-show-thom-4764.JPG',
+    'p1-memory-show/show/cafebureau-art-show-thom-4766.JPG',
+  ],
+};
+
+let lbSection = null, lbIndex = 0;
+
+function openLightbox(section, idx) {
+  lbSection = section;
+  lbIndex   = idx;
+  const imgs = GALLERY_IMGS[section];
+  document.getElementById('lb-img').src = imgs[idx];
+  document.getElementById('lb-counter').textContent = (idx + 1) + ' / ' + imgs.length;
+  document.getElementById('lightbox').classList.add('open');
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  lbSection = null;
+}
+
+function lbNav(dir) {
+  if (!lbSection) return;
+  const imgs = GALLERY_IMGS[lbSection];
+  lbIndex = (lbIndex + dir + imgs.length) % imgs.length;
+  document.getElementById('lb-img').src = imgs[lbIndex];
+  document.getElementById('lb-counter').textContent = (lbIndex + 1) + ' / ' + imgs.length;
+}
+
+document.getElementById('lightbox').addEventListener('click', e => {
+  if (e.target.id === 'lightbox' || e.target.id === 'lb-img') closeLightbox();
+});
+
+class InfiniteGrid_REMOVED {
+  constructor(container, images, { cols = 4, rows = 3, gap = 12 } = {}) {
+    this.el   = container;
+    this.imgs = images;
+    this.cols = cols;
+    this.rows = rows;
+    this.gap  = gap;
+
+    // Scroll state
+    this.sx = { cur: 0, tgt: 0 };
+    this.sy = { cur: 0, tgt: 0 };
+    this.EASE = 0.065;
+
+    // Mouse state (0–1 normalised)
+    this.mx = { cur: 0.5, tgt: 0.5 };
+    this.my = { cur: 0.5, tgt: 0.5 };
+    this.press = { cur: 0, tgt: 0 };
+
+    this.dragging  = false;
+    this.drag0     = { x: 0, y: 0, sx: 0, sy: 0 };
+    this.prevSx    = 0;
+    this.prevSy    = 0;
+    this.items     = [];
+    this.tileW     = 0;
+    this.tileH     = 0;
+
+    this._tick   = this._tick.bind(this);
+    this._onResize = () => this._build();
+
+    this._build();
+    this._listen();
+    requestAnimationFrame(this._tick);
+  }
+
+  _build() {
+    this.el.innerHTML = '';
+    this.items = [];
+
+    const cw = this.el.offsetWidth  || window.innerWidth;
+    const ch = this.el.offsetHeight || (window.innerHeight - 49);
+    const g  = this.gap;
+    const iw = (cw - (this.cols + 1) * g) / this.cols;
+    const ih = (ch - (this.rows + 1) * g) / this.rows;
+
+    // One tile fills exactly the container; 2×2 tiles cover any scroll direction
+    this.tileW = cw;
+    this.tileH = ch;
+
+    const n = this.imgs.length;
+    let k = 0;
+    for (let ty = 0; ty < 2; ty++) {
+      for (let tx = 0; tx < 2; tx++) {
+        for (let r = 0; r < this.rows; r++) {
+          for (let c = 0; c < this.cols; c++) {
+            const src = this.imgs[k % n]; k++;
+            const x   = tx * this.tileW + c * (iw + g) + g;
+            const y   = ty * this.tileH + r * (ih + g) + g;
+
+            const wrap = document.createElement('div');
+            wrap.style.cssText = [
+              'position:absolute;top:0;left:0',
+              `width:${iw}px;height:${ih}px`,
+              'overflow:hidden;will-change:transform',
+            ].join(';');
+
+            const img = document.createElement('img');
+            img.src = src;
+            img.draggable = false;
+            img.style.cssText = [
+              'width:100%;height:100%;display:block',
+              'object-fit:cover;will-change:transform',
+              'transform:scale(1.2)',
+              'pointer-events:none;user-select:none;-webkit-user-drag:none',
+            ].join(';');
+
+            wrap.appendChild(img);
+            this.el.appendChild(wrap);
+            this.items.push({
+              el:   wrap,
+              img,
+              x, y,
+              ex:   0,
+              ey:   0,
+              ease: 0.55 + Math.random() * 0.45,
+            });
+          }
+        }
+      }
+    }
+  }
+
+  _listen() {
+    const el = this.el;
+    el.style.cursor = 'grab';
+
+    el.addEventListener('wheel', e => {
+      e.preventDefault();
+      this.sx.tgt += e.deltaX * 0.5;
+      this.sy.tgt += e.deltaY * 0.5;
+    }, { passive: false });
+
+    el.addEventListener('mousedown', e => {
+      this.dragging = true;
+      this.drag0 = { x: e.clientX, y: e.clientY, sx: this.sx.tgt, sy: this.sy.tgt };
+      this.press.tgt = 1;
+      el.style.cursor = 'grabbing';
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (!this.dragging) return;
+      this.dragging  = false;
+      this.press.tgt = 0;
+      el.style.cursor = 'grab';
+    });
+
+    window.addEventListener('mousemove', e => {
+      if (this.dragging) {
+        this.sx.tgt = this.drag0.sx - (e.clientX - this.drag0.x);
+        this.sy.tgt = this.drag0.sy - (e.clientY - this.drag0.y);
+      }
+      const r = el.getBoundingClientRect();
+      this.mx.tgt = (e.clientX - r.left) / r.width;
+      this.my.tgt = (e.clientY - r.top)  / r.height;
+    });
+
+    let ts = null;
+    el.addEventListener('touchstart', e => {
+      ts = { x: e.touches[0].clientX, y: e.touches[0].clientY, sx: this.sx.tgt, sy: this.sy.tgt };
+    }, { passive: true });
+    el.addEventListener('touchmove', e => {
+      if (!ts) return; e.preventDefault();
+      this.sx.tgt = ts.sx - (e.touches[0].clientX - ts.x);
+      this.sy.tgt = ts.sy - (e.touches[0].clientY - ts.y);
+    }, { passive: false });
+
+    window.addEventListener('resize', this._onResize);
+  }
+
+  _tick() {
+    this.sx.cur += (this.sx.tgt - this.sx.cur) * this.EASE;
+    this.sy.cur += (this.sy.tgt - this.sy.cur) * this.EASE;
+    this.mx.cur += (this.mx.tgt - this.mx.cur) * 0.05;
+    this.my.cur += (this.my.tgt - this.my.cur) * 0.05;
+    this.press.cur += (this.press.tgt - this.press.cur) * 0.08;
+
+    const dx  = this.sx.cur - this.prevSx;
+    const dy  = this.sy.cur - this.prevSy;
+    const scx = this.sx.cur;
+    const scy = this.sy.cur;
+    const cw  = this.el.offsetWidth;
+    const ch  = this.el.offsetHeight;
+    const tw  = this.tileW;
+    const th  = this.tileH;
+
+    this.items.forEach(it => {
+      const rx = it.x + it.ex - scx;
+      const ry = it.y + it.ey - scy;
+      const iw = it.el.offsetWidth;
+      const ih = it.el.offsetHeight;
+
+      // Seamless wrap: teleport by one tile when fully off-screen
+      if (dx > 0 && rx + iw < -cw * 0.15) it.ex += tw;
+      if (dx < 0 && rx      > cw * 1.15)  it.ex -= tw;
+      if (dy > 0 && ry + ih < -ch * 0.15) it.ey += th;
+      if (dy < 0 && ry      > ch * 1.15)  it.ey -= th;
+
+      // Per-item mouse parallax — each item has a unique ease giving depth
+      const px = (this.mx.cur - 0.5) * it.ease * 28;
+      const py = (this.my.cur - 0.5) * it.ease * 28;
+
+      it.el.style.transform  = `translate(${rx + px}px,${ry + py}px)`;
+      const scl = 1.2 + 0.1 * this.press.cur;
+      it.img.style.transform = `scale(${scl}) translate(${-(this.mx.cur - 0.5) * it.ease * 4}%,${-(this.my.cur - 0.5) * it.ease * 4}%)`;
+    });
+
+    this.prevSx = scx;
+    this.prevSy = scy;
+    requestAnimationFrame(this._tick);
+  }
+}
+
+// (InfiniteGrid removed — cursor trail below handles the hero)
+
+
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script>
+// ── GSAP (carousel only — no ScrollTrigger animations) ──────────────────
+gsap.config({ nullTargetWarn: false });
+
+// ── Carousel ──────────────────────────────────────────────────────────────
+
+function createCarousel(container) {
+  const key = container.dataset.carousel;
+  const images = GALLERY_IMGS[key] || [];
+  if (!images.length) return { start() {}, stop() {} };
+
+  // Build DOM structure
+  const vp = document.createElement('div');
+  vp.className = 'carousel-vp';
+  const track = document.createElement('div');
+  track.className = 'carousel-track';
+  vp.appendChild(track);
+  container.appendChild(vp);
+
+  const hint = document.createElement('span');
+  hint.className = 'carousel-hint';
+  hint.textContent = 'drag or scroll  ·  click to view';
+  container.appendChild(hint);
+
+  // Clone images 3× for infinite scroll illusion
+  const allCards = [];
+  for (let set = 0; set < 3; set++) {
+    images.forEach((url, i) => {
+      const card = document.createElement('div');
+      card.className = 'car-card';
+      card.dataset.section = key;
+      card.dataset.idx = i;
+      const inner = document.createElement('div');
+      inner.className = 'card-inner';
+      const img = document.createElement('img');
+      img.src = url;
+      img.alt = '';
+      if (key === 'reflections') {
+        img.onload = function() {
+          if (img.naturalWidth > img.naturalHeight) {
+            card.style.width = '520px';
+            if (isActive) { itemW = getItemW(); totalW = itemW * allCards.length; }
+          }
+        };
+      }
+      inner.appendChild(img);
+      card.appendChild(inner);
+      track.appendChild(card);
+      allCards.push(card);
+    });
+  }
+
+  function getItemW() {
+    let maxW = 0;
+    allCards.forEach(c => { const w = c.offsetWidth; if (w > maxW) maxW = w; });
+    const mg = parseFloat(getComputedStyle(allCards[0]).marginRight || 0);
+    return (maxW || allCards[0].offsetWidth) + mg;
+  }
+
+  let itemW = 0, totalW = 0;
+  let position = 0, velocity = 0, smoothPos = 0;
+  let isDragging = false, lastX = 0, dragStartX = 0, dragStartTime = 0, didDrag = false;
+  let isActive = false;
+
+  vp.addEventListener('mousedown', e => {
+    if (!isActive) return;
+    isDragging = true; didDrag = false;
+    lastX = dragStartX = e.clientX;
+    dragStartTime = performance.now();
+    velocity = 0;
+    vp.classList.add('dragging');
+  });
+
+  window.addEventListener('mouseup', e => {
+    if (!isDragging) return;
+    vp.classList.remove('dragging');
+    isDragging = false;
+    const dx = e.clientX - dragStartX;
+    const dt = (performance.now() - dragStartTime) / 1000;
+    if (Math.abs(dx) > 5) didDrag = true;
+    if (dt > 0) {
+      const v = -(dx / dt) * 0.03;
+      velocity = Math.max(Math.min(v, 30), -30);
+    }
+  });
+
+  vp.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    const dx = e.clientX - lastX;
+    if (Math.abs(e.clientX - dragStartX) > 4) didDrag = true;
+    position -= dx * 0.8;
+    lastX = e.clientX;
+  });
+
+  container.addEventListener('wheel', e => {
+    if (!isActive) return;
+    e.preventDefault();
+    velocity += e.deltaY * 0.1;
+  }, { passive: false });
+
+  vp.addEventListener('click', e => {
+    if (!isActive || didDrag) return;
+    const card = e.target.closest('.car-card');
+    if (!card) return;
+    openLightbox(card.dataset.section, parseInt(card.dataset.idx));
+  });
+
+  function wrap(x) { return ((x % totalW) + totalW) % totalW; }
+  function easeScale(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
+
+  let tickFn = null;
+
+  function start() {
+    isActive = true;
+    if (tickFn) return;
+    itemW = getItemW();
+    totalW = itemW * allCards.length;
+
+    tickFn = () => {
+      if (!isDragging) { position += velocity; velocity *= 0.91; }
+      smoothPos += (position - smoothPos) * 0.14;
+
+      const containerW = container.clientWidth;
+      const visibleCenterX = containerW / 2;
+
+      for (let i = 0; i < allCards.length; i++) {
+        const baseX = wrap(i * itemW - smoothPos);
+        const finalX = baseX - totalW / 2 + visibleCenterX;
+        const cardCenterX = finalX + (allCards[i].offsetWidth || itemW) / 2;
+        const dist = Math.abs(cardCenterX - visibleCenterX);
+
+        let t = gsap.utils.clamp(0, 1, dist / Math.max(containerW, 600));
+        t = easeScale(t);
+
+        const scale      = gsap.utils.mapRange(0, 1, 1,   0.65, t);
+        const rotateY    = gsap.utils.mapRange(0, 1, 0,   20,   t) * (cardCenterX < visibleCenterX ? 1 : -1);
+        const rotateX    = gsap.utils.mapRange(0, 1, 0,   6,    t) * (cardCenterX < visibleCenterX ? -1 : 1);
+        const z          = gsap.utils.mapRange(0, 1, 120, -60,  t);
+        const yOffset    = gsap.utils.mapRange(0, 1, 0,   40,   t);
+        const blur       = gsap.utils.mapRange(0, 1, 0,   6,    t);
+        const brightness = gsap.utils.mapRange(0, 1, 1,   0.6,  t);
+
+        gsap.set(allCards[i], {
+          x: finalX,
+          y: (container.clientHeight - (allCards[i].offsetHeight || 200)) / 2 + yOffset,
+          scaleX: scale,
+          scaleY: scale,
+          rotationY: rotateY,
+          rotationX: rotateX,
+          z,
+          filter: `blur(${blur}px) brightness(${brightness})`,
+          transformOrigin: 'center center',
+        });
+
+        gsap.to(allCards[i].querySelector('.card-inner img'), {
+          x: gsap.utils.mapRange(-containerW / 2, containerW / 2, 40, -40, cardCenterX - visibleCenterX),
+          y: gsap.utils.mapRange(-containerW / 2, containerW / 2, -10, 10, cardCenterX - visibleCenterX),
+          duration: 0.45,
+          ease: 'power2.out',
+        });
+      }
+    };
+
+    gsap.ticker.add(tickFn);
+  }
+
+  function stop() {
+    isActive = false;
+    if (tickFn) { gsap.ticker.remove(tickFn); tickFn = null; }
+  }
+
+  window.addEventListener('resize', () => {
+    if (!isActive) return;
+    itemW = getItemW();
+    totalW = itemW * allCards.length;
+  });
+
+  return { start, stop };
+}
+
+const _carousels = {};
+const _keyMap = { motivations: 'motivation', process: 'process', reflections: 'reflections' };
+
+function getCarousel(sectionName) {
+  const key = _keyMap[sectionName] || sectionName;
+  if (_carousels[key]) return _carousels[key];
+  const el = document.querySelector(`[data-carousel="${key}"]`);
+  if (el) _carousels[key] = createCarousel(el);
+  return _carousels[key] || null;
+}
+
+// Build all carousels, start only the first slide's carousel
+SECTIONS.forEach(name => getCarousel(name));
+const _initCarousel = getCarousel(SECTIONS[0]);
+if (_initCarousel) _initCarousel.start();
+
+// Init stage arrows
+_updateStageArrows();
+
+// Clear nav tabs when hero is visible; restore when hero scrolls out
+new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting)
+    document.querySelectorAll('.nav-tab[data-tab]').forEach(t => t.classList.remove('active'));
+  else _updateNavTabs();
+}, { threshold: 0.3 }).observe(document.querySelector('.new-hero'));
+
+// Scroll reveal
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ── Hero cursor trail ─────────────────────────────────────────────────────
+(function () {
+  const hero = document.querySelector('.new-hero-left');
+  if (!hero) return;
+
+  const IMGS      = GALLERY_IMGS.about;
+  const MAX_W     = 392;
+  const MAX_H     = 532;
+  const THRESHOLD = 130;
+  const MIN_DELAY = 130;
+
+  let idx      = 0;
+  let lastPos  = { x: -999, y: -999 };
+  let lastTime = 0;
+
+  hero.addEventListener('mousemove', e => {
+    const rect = hero.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const dx   = x - lastPos.x;
+    const dy   = y - lastPos.y;
+    if (Math.sqrt(dx * dx + dy * dy) < THRESHOLD) return;
+
+    const now = Date.now();
+    if (now - lastTime < MIN_DELAY) return;
+
+    const wrap = document.createElement('div');
+    wrap.style.cssText = [
+      'position:absolute',
+      `left:${x}px`,
+      `top:${y}px`,
+      'pointer-events:none',
+      'z-index:4',
+    ].join(';');
+
+    const img = document.createElement('img');
+    img.src = IMGS[idx % IMGS.length]; idx++;
+    img.style.cssText = [
+      'display:block',
+      `max-width:${MAX_W}px`,
+      `max-height:${MAX_H}px`,
+      'width:auto',
+      'height:auto',
+      'border-radius:3px',
+      'pointer-events:none',
+      'user-select:none;-webkit-user-drag:none',
+    ].join(';');
+
+    wrap.appendChild(img);
+    hero.appendChild(wrap);
+
+    gsap.fromTo(wrap,
+      { xPercent: -50, yPercent: -50, scale: 0, opacity: 1 },
+      { scale: 1, opacity: 1, duration: 0.75, ease: 'back.out(2)' }
+    );
+    gsap.to(wrap, {
+      scale: 0,
+      duration: 0.65,
+      delay: 0.75,
+      ease: 'power2.in',
+      onComplete: () => wrap.remove(),
+    });
+
+    lastPos  = { x, y };
+    lastTime = now;
+  });
+})();
+
+</script>
+
+<script>
+(function () { return; // DVD bounce — disabled
+
+  const IMGS = [
+    'p1-memory-show/about/cafebureau-art-show-store.JPG',
+    'p1-memory-show/about/cafebureau-art-show-thom-0019.JPG',
+    'p1-memory-show/about/cafebureau-art-show-thom-0066.JPG',
+    'p1-memory-show/about/cafebureau-art-show-thom-0193.JPG',
+    'p1-memory-show/about/cafebureau-art-show-thom-0194.JPG',
+    'p1-memory-show/about/cafebureau-art-show-thom-0196.JPG',
+    'p1-memory-show/about/cafebureau-art-show-thom-4728.JPG',
+    'p1-memory-show/about/cafebureau-art-show-thom-4729.JPG',
+    'p1-memory-show/about/cafebureau-art-show-thom-4743.JPG',
+    'p1-memory-show/about/title-board-germanblossom-40x60.jpg',
+    'p1-memory-show/about/Photo%202024-10-13,%2020%2041%2004.png',
+  ];
+
+  const NUM_BALLS = 11;
+  const SPEED_MIN = 0.7;
+  const SPEED_MAX = 1.6;
+
+  const container = document.getElementById('dvd-layer');
+  const hero      = container.parentElement;
+
+  const IMG_DIMS = {};
+
+  function calcSize(src) {
+    const d = IMG_DIMS[src];
+    if (!d) return { tw: 30, th: 20 };
+    let tw = Math.round(d.w * 0.1), th = Math.round(d.h * 0.1);
+    if (Math.max(tw, th) > 200) { tw = Math.round(tw * 0.5); th = Math.round(th * 0.5); }
+    return { tw, th };
+  }
+
+  let balls     = [];
+  let animId    = null;
+  let canvas    = null;
+  let ctx       = null;
+  let isDesktop = window.innerWidth > 1000;
+
+  function initCanvas() {
+    if (canvas) canvas.remove();
+    canvas = document.createElement('canvas');
+    canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;filter:blur(5px);';
+    canvas.width  = hero.clientWidth;
+    canvas.height = hero.clientHeight;
+    container.insertBefore(canvas, container.firstChild);
+    ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#fafaf8';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
+
+  function drawTrails() {
+    if (!ctx) return;
+    const cw = canvas.width, ch = canvas.height;
+    if (cw !== hero.clientWidth || ch !== hero.clientHeight) {
+      canvas.width  = hero.clientWidth;
+      canvas.height = hero.clientHeight;
+      ctx.fillStyle = '#fafaf8';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      return;
+    }
+    // Fade previous frame — slow fade = longer trail
+    ctx.fillStyle = 'rgba(250,250,248,0.13)';
+    ctx.fillRect(0, 0, cw, ch);
+
+    balls.forEach(b => {
+      if (parseFloat(b.el.style.opacity) < 0.4) return;
+      const corners = [
+        { x: b.x,        y: b.y        },
+        { x: b.x + b.tw, y: b.y        },
+        { x: b.x,        y: b.y + b.th },
+        { x: b.x + b.tw, y: b.y + b.th },
+      ];
+      const r = Math.max(b.tw, b.th) * 0.18;
+      corners.forEach(c => {
+        const g = ctx.createRadialGradient(c.x, c.y, 0, c.x, c.y, r);
+        g.addColorStop(0,   'rgba(230,238,255,0.95)');
+        g.addColorStop(0.4, 'rgba(210,225,255,0.55)');
+        g.addColorStop(1,   'rgba(200,220,255,0)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    });
+  }
+
+  function makeBall(i, tw, th) {
+    const src       = IMGS[i % IMGS.length];
+    const cw        = hero.clientWidth;
+    const ch        = hero.clientHeight;
+    const x         = Math.random() * Math.max(1, cw - tw);
+    const y         = Math.random() * Math.max(1, ch - th);
+    const speed     = SPEED_MIN + Math.random() * (SPEED_MAX - SPEED_MIN);
+    // Ensure non-zero dx and dy so image always moves diagonally
+    const angle     = (Math.random() * 0.5 + 0.1) * Math.PI * (Math.random() < 0.5 ? 1 : -1);
+    const dx        = Math.cos(angle) * speed;
+    const dy        = Math.sin(angle) * speed;
+
+    const el = document.createElement('div');
+    el.className = 'dvd-img';
+    el.style.width  = tw + 'px';
+    el.style.height = th + 'px';
+    el.style.left   = x + 'px';
+    el.style.top    = y + 'px';
+
+    const imgEl = document.createElement('img');
+    imgEl.src = src;
+    imgEl.alt = '';
+    el.appendChild(imgEl);
+    container.appendChild(el);
+
+    // Staggered fade-in
+    setTimeout(() => { el.style.opacity = '0.88'; }, i * 180 + 50);
+
+    return { el, x, y, dx, dy, tw, th };
+  }
+
+  function init() {
+    balls.forEach(b => b.el.remove());
+    balls = [];
+    initCanvas();
+    const sizes = IMGS.map((src, i) => { const s = calcSize(src); return { i, ...s, area: s.tw * s.th }; });
+    const smallest6 = new Set([...sizes].sort((a, b) => a.area - b.area).slice(0, 6).map(s => s.i));
+    for (let i = 0; i < NUM_BALLS; i++) {
+      let { tw, th } = sizes[i];
+      if (smallest6.has(i)) { tw = Math.round(tw * 1.5); th = Math.round(th * 1.5); }
+      balls.push(makeBall(i, tw, th));
+    }
+  }
+
+  function loop() {
+    drawTrails();
+    const cw = hero.clientWidth;
+    const ch = hero.clientHeight;
+    balls.forEach(b => {
+      b.x += b.dx;
+      b.y += b.dy;
+      if (b.x <= 0)          { b.x = 0;          b.dx =  Math.abs(b.dx); }
+      if (b.x + b.tw >= cw)  { b.x = cw - b.tw;  b.dx = -Math.abs(b.dx); }
+      if (b.y <= 0)          { b.y = 0;          b.dy =  Math.abs(b.dy); }
+      if (b.y + b.th >= ch)  { b.y = ch - b.th;  b.dy = -Math.abs(b.dy); }
+      b.el.style.left = b.x + 'px';
+      b.el.style.top  = b.y + 'px';
+    });
+    animId = requestAnimationFrame(loop);
+  }
+
+  function start() {
+    if (!isDesktop) return;
+    let resolved = 0;
+    const launch = () => { if (!animId) { init(); loop(); } };
+    const check  = () => { if (++resolved === IMGS.length) launch(); };
+    // Fallback in case some images fail or stall
+    const timer = setTimeout(launch, 3000);
+    IMGS.forEach(src => {
+      const img = new Image();
+      img.onload  = () => { IMG_DIMS[src] = { w: img.naturalWidth, h: img.naturalHeight }; check(); };
+      img.onerror = () => check();
+      img.src = src;
+    });
+  }
+
+  function stop() {
+    if (animId) { cancelAnimationFrame(animId); animId = null; }
+    balls.forEach(b => b.el.remove());
+    balls = [];
+    if (canvas) { canvas.remove(); canvas = null; ctx = null; }
+  }
+
+  window.addEventListener('resize', () => {
+    const was = isDesktop;
+    isDesktop = window.innerWidth > 1000;
+    if (isDesktop && !was) start();
+    else if (!isDesktop && was) stop();
+  });
+
+  start();
+})();
+</script>
+</body>
+</html>
