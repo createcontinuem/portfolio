@@ -284,7 +284,7 @@
       border: 1px solid var(--border);
       border-radius: 16px 16px 4px 16px;
       padding: 8px 14px;
-      font-size: 11px;
+      font-size: 13px;
       color: var(--gray);
       max-width: 160px;
       line-height: 1.4;
@@ -293,16 +293,21 @@
     }
     .attribution {
       margin-top: 16px;
-      font-size: 10px;
+      font-size: 12px;
       color: #aaa;
       line-height: 1.5;
     }
 
     .about-text {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      padding-top: 8px;
+    }
+    .about-col {
       display: flex;
       flex-direction: column;
       gap: 24px;
-      padding-top: 8px;
     }
     .about-bio, .about-career {
       font-size: 15px;
@@ -311,7 +316,7 @@
     }
     .about-craft { display: flex; flex-direction: column; gap: 4px; }
     .craft-lead {
-      font-size: 13px;
+      font-size: 15px;
       letter-spacing: 0.04em;
       color: var(--gray);
       margin-bottom: 2px;
@@ -370,7 +375,7 @@
       gap: 14px;
     }
     .fun-label {
-      font-size: 10px;
+      font-size: 13px;
       letter-spacing: 0.2em;
       color: var(--gray);
     }
@@ -618,6 +623,7 @@
       .masthead { font-size: clamp(60px, 16vw, 120px); }
       .a-portfolio { display: none; }
 .about-layout { grid-template-columns: 1fr; }
+      .about-text { grid-template-columns: 1fr; }
       .avatar-wrap { width: 80px; height: 80px; top: -10px; right: -10px; }
       .make-layout { grid-template-columns: 1fr; }
       .journey-layout { grid-template-columns: 1fr; }
@@ -671,28 +677,34 @@
     <!-- Right: about text -->
     <div class="about-text">
 
-      <p class="about-bio">Emily is a Freelancing Data Scientist, Photographer, and Creative currently based in New York. Currently, she is carving out her professional career in the intersections of AI, Data, Art, and Fashion.</p>
+      <!-- Column 1: bio, craft tagline, career -->
+      <div class="about-col">
+        <p class="about-bio">Emily is a Freelancing Data Scientist, Photographer, and Creative currently based in New York. Currently, she is carving out her professional career in the intersections of AI, Data, Art, and Fashion.</p>
 
-      <div class="about-craft">
-        <p class="craft-lead">She is on her journey honing the art of…</p>
-        <p class="craft-tag1">Jack of all Trades;</p>
-        <p class="craft-tag2">Master of <s>None &nbsp;&gt;&nbsp;</s><em>Systems</em></p>
+        <div class="about-craft">
+          <p class="craft-lead">She is on her journey honing the art of…</p>
+          <p class="craft-tag1">Jack of all Trades;</p>
+          <p class="craft-tag2">Master of <s>None &nbsp;&gt;&nbsp;</s><em>Systems</em></p>
+        </div>
+
+        <p class="about-career">After 6 years in engineering consulting as a Data Scientist, Emily has since ventured into her own freelance business for 5 years now — providing her AI expertise across different industries, while also traveling around the world as a professional Fashion Photographer. This dual experience has inspired Emily to reinvent her career, with the goal to bridge her left and right-brain skills together.</p>
       </div>
 
-      <p class="about-career">After 6 years in engineering consulting as a Data Scientist, Emily has since ventured into her own freelance business for 5 years now — providing her AI expertise across different industries, while also traveling around the world as a professional Fashion Photographer. This dual experience has inspired Emily to reinvent her career, with the goal to bridge her left and right-brain skills together.</p>
+      <!-- Column 2: quote + fun facts -->
+      <div class="about-col">
+        <div class="about-quote-wrap">
+          <p class="about-quote-text">At the core of this…is to find answers, using design and critical thinking with the ever-evolving tools we have today, to the questions that shape the future of our existence — especially as our lives are quickly becoming more complex via technology.</p>
+        </div>
 
-      <div class="about-quote-wrap">
-        <p class="about-quote-text">At the core of this…is to find answers, using design and critical thinking with the ever-evolving tools we have today, to the questions that shape the future of our existence — especially as our lives are quickly becoming more complex via technology.</p>
-      </div>
-
-      <div class="about-fun">
-        <p class="fun-label">FUN &amp; FACTUAL</p>
-        <ul class="fun-list">
-          <li>+ CREATIVE TECHNOLOGIST</li>
-          <li>+ MULTI-CULTURAL EXPLORER</li>
-          <li>+ REAL LIFE EMOJI</li>
-          <li>+ GAME ENTHUSIAST</li>
-        </ul>
+        <div class="about-fun">
+          <p class="fun-label">FUN &amp; FACTUAL</p>
+          <ul class="fun-list">
+            <li>+ CREATIVE TECHNOLOGIST</li>
+            <li>+ MULTI-CULTURAL EXPLORER</li>
+            <li>+ REAL LIFE EMOJI</li>
+            <li>+ GAME ENTHUSIAST</li>
+          </ul>
+        </div>
       </div>
 
     </div>
