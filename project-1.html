@@ -231,15 +231,34 @@
       background: var(--off-white);
       z-index: -1;
       pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 560px 48px 48px;
     }
     .stage-static-media img {
-      position: absolute;
-      top: 50%; left: 48px;
-      transform: translateY(-50%);
       width: auto; height: auto;
-      max-width: 44%;
-      max-height: calc(100% - 96px);
+      max-width: 100%;
+      max-height: 100%;
       object-fit: contain;
+      display: block;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+    }
+
+    /* ── Media zone — centered left panel ── */
+    .media-zone {
+      position: absolute;
+      inset: 48px 560px 48px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      pointer-events: none;
+    }
+    .media-zone > * {
+      pointer-events: auto;
+      min-width: 0; min-height: 0;
+      flex: 0 1 auto;
       display: block;
       box-shadow: 0 16px 48px rgba(0,0,0,0.15);
     }
@@ -574,6 +593,32 @@
       z-index: 5;
     }
 
+    /* ── Floating media animations ── */
+    @keyframes mf-a {
+      0%,100% { transform: translate(0,0) rotate(0deg); }
+      25%  { transform: translate(9px,-7px) rotate(0.3deg); }
+      65%  { transform: translate(7px,6px) rotate(-0.2deg); }
+    }
+    @keyframes mf-b {
+      0%,100% { transform: translate(0,0) rotate(0deg); }
+      35%  { transform: translate(8px,-8px) rotate(-0.3deg); }
+      70%  { transform: translate(10px,5px) rotate(0.2deg); }
+    }
+    @keyframes mf-ca {
+      0%,100% { transform: translateY(-50%) translate(0,0) rotate(0deg); }
+      25%  { transform: translateY(-50%) translate(9px,-7px) rotate(0.3deg); }
+      65%  { transform: translateY(-50%) translate(7px,6px) rotate(-0.2deg); }
+    }
+    @keyframes mf-cb {
+      0%,100% { transform: translateY(-50%) translate(0,0) rotate(0deg); }
+      35%  { transform: translateY(-50%) translate(8px,-8px) rotate(-0.3deg); }
+      70%  { transform: translateY(-50%) translate(10px,5px) rotate(0.2deg); }
+    }
+    .mf-a  { animation: mf-a  5.2s ease-in-out infinite; }
+    .mf-b  { animation: mf-b  6.4s ease-in-out infinite; animation-delay: -2.5s; }
+    .mf-ca { animation: mf-ca 5.2s ease-in-out infinite; }
+    .mf-cb { animation: mf-cb 6.4s ease-in-out infinite; animation-delay: -2.5s; }
+
     /* ── Responsive ── */
     @media (max-width: 860px) {
       .project-nav { padding: 14px 24px; }
@@ -672,7 +717,7 @@
 
   <!-- Static approach.jpg — behind track, visible through transparent process slide-media panels -->
   <div class="stage-static-media">
-    <img src="p1-memory-show/process/approach.jpg" alt="">
+    <img src="p1-memory-show/process/approach.jpg" alt="" class="mf-a">
   </div>
 
   <!-- Stage nav arrows — outside all cards -->
@@ -684,10 +729,14 @@
   <!-- 0: motivations -->
   <div class="slide-panel">
     <div class="slide-media" style="background:var(--off-white);">
-      <img src="p1-memory-show/motivation/archive/exercise1.jpeg"
-           style="position:absolute;top:48px;left:48px;width:auto;height:auto;max-width:46%;max-height:46%;object-fit:contain;display:block;box-shadow:0 16px 48px rgba(0,0,0,0.15);">
-      <img src="p1-memory-show/motivation/archive/image 3.png"
-           style="position:absolute;bottom:48px;left:48px;width:auto;height:auto;max-width:46%;max-height:46%;object-fit:contain;display:block;box-shadow:0 16px 48px rgba(0,0,0,0.15);">
+      <div class="media-zone" style="flex-direction:column;">
+        <img src="p1-memory-show/motivation/archive/exercise1.jpeg" class="mf-a"
+             style="width:auto;height:auto;max-width:85%;max-height:44%;object-fit:contain;cursor:pointer;"
+             onclick="openSingleLightbox(this.src)">
+        <img src="p1-memory-show/motivation/archive/image 3.png" class="mf-b"
+             style="width:auto;height:auto;max-width:85%;max-height:44%;object-fit:contain;cursor:pointer;"
+             onclick="openSingleLightbox(this.src)">
+      </div>
     </div>
     <div class="ps-float-card" id="card-motivations">
       <div class="ov-hero-label">
@@ -705,10 +754,14 @@
   <!-- 1: motivations-2 -->
   <div class="slide-panel">
     <div class="slide-media" style="background:var(--off-white);">
-      <img src="p1-memory-show/motivation/archive/motivation1.png"
-           style="position:absolute;top:48px;left:48px;width:auto;height:auto;max-width:46%;max-height:46%;object-fit:contain;display:block;box-shadow:0 16px 48px rgba(0,0,0,0.15);">
-      <img src="p1-memory-show/motivation/archive/motivation2.png"
-           style="position:absolute;bottom:48px;left:48px;width:auto;height:auto;max-width:46%;max-height:46%;object-fit:contain;display:block;box-shadow:0 16px 48px rgba(0,0,0,0.15);">
+      <div class="media-zone" style="flex-direction:column;">
+        <img src="p1-memory-show/motivation/archive/motivation1.png" class="mf-b"
+             style="width:auto;height:auto;max-width:85%;max-height:44%;object-fit:contain;cursor:pointer;"
+             onclick="openSingleLightbox(this.src)">
+        <img src="p1-memory-show/motivation/archive/motivation2.png" class="mf-a"
+             style="width:auto;height:auto;max-width:85%;max-height:44%;object-fit:contain;cursor:pointer;"
+             onclick="openSingleLightbox(this.src)">
+      </div>
     </div>
     <div class="ps-float-card" id="card-motivations-2">
       <div class="ov-hero-label">
@@ -802,13 +855,18 @@
     </div>
   </div>
 
-  <!-- 5: process-4 (Evolution — video) -->
+  <!-- 5: process-4 (Evolution — video + runwayml side by side) -->
   <div class="slide-panel">
     <div class="slide-media" style="background:var(--off-white);">
-      <video autoplay muted loop playsinline
-             style="position:absolute;top:50%;left:48px;transform:translateY(-50%);width:auto;height:auto;max-width:44%;max-height:calc(100% - 96px);object-fit:contain;display:block;box-shadow:0 16px 48px rgba(0,0,0,0.15);">
-        <source src="p1-memory-show/process/experiment-demo.mp4" type="video/mp4">
-      </video>
+      <div class="media-zone">
+        <video autoplay muted loop playsinline class="mf-a"
+               style="width:auto;height:auto;max-width:44%;max-height:100%;object-fit:contain;">
+          <source src="p1-memory-show/process/experiment-demo.mp4" type="video/mp4">
+        </video>
+        <img src="p1-memory-show/process/runwayml.png" class="mf-b"
+             style="width:auto;height:auto;max-width:44%;max-height:100%;object-fit:contain;cursor:pointer;"
+             onclick="openSingleLightbox(this.src)">
+      </div>
     </div>
     <div class="ps-float-card" id="card-process-4">
       <div class="ov-hero-label">
@@ -830,11 +888,14 @@
     </div>
   </div>
 
-  <!-- 6: process-5 (RunwayML) -->
+  <!-- 6: process-5 (RunwayML — Vimeo) -->
   <div class="slide-panel">
     <div class="slide-media" style="background:var(--off-white);">
-      <img src="p1-memory-show/process/runwayml.png"
-           style="position:absolute;top:50%;left:48px;transform:translateY(-50%);width:auto;height:auto;max-width:44%;max-height:calc(100% - 96px);object-fit:contain;display:block;box-shadow:0 16px 48px rgba(0,0,0,0.15);">
+      <div class="media-zone">
+        <div class="mf-a" style="height:100%;aspect-ratio:2/3;max-width:44%;box-shadow:0 16px 48px rgba(0,0,0,0.15);">
+          <iframe src="https://player.vimeo.com/video/1197306940?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="width:100%;height:100%;display:block;" title="amethyst"></iframe>
+        </div>
+      </div>
     </div>
     <div class="ps-float-card" id="card-process-5">
       <div class="ov-hero-label">
@@ -855,8 +916,11 @@
   <!-- 7: process-6 (Software + Workflow) -->
   <div class="slide-panel">
     <div class="slide-media" style="background:var(--off-white);">
-      <img src="p1-memory-show/process/flowchart.jpg"
-           style="position:absolute;top:50%;left:48px;transform:translateY(-50%);width:auto;height:auto;max-width:44%;max-height:calc(100% - 96px);object-fit:contain;display:block;box-shadow:0 16px 48px rgba(0,0,0,0.15);">
+      <div class="media-zone">
+        <img src="p1-memory-show/process/flowchart.jpg" class="mf-b"
+             style="width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain;cursor:pointer;"
+             onclick="openSingleLightbox(this.src)">
+      </div>
     </div>
     <div class="ps-float-card" id="card-process-6">
       <div class="ov-hero-label">
@@ -1063,8 +1127,19 @@ function openLightbox(section, idx) {
   document.getElementById('lightbox').classList.add('open');
 }
 
+function openSingleLightbox(src) {
+  lbSection = null;
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb-counter').textContent = '';
+  document.getElementById('lb-prev').style.display = 'none';
+  document.getElementById('lb-next').style.display = 'none';
+  document.getElementById('lightbox').classList.add('open');
+}
+
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('open');
+  document.getElementById('lb-prev').style.display = '';
+  document.getElementById('lb-next').style.display = '';
   lbSection = null;
 }
 
@@ -1550,6 +1625,7 @@ document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 </script>
 
+<script src="https://player.vimeo.com/api/player.js"></script>
 <script>
 (function () { return; // DVD bounce — disabled
 

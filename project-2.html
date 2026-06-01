@@ -348,6 +348,30 @@ p {
   font-size: 16px;
 }
 
+/* ── HERO MAIN LAYOUT ── */
+.hero-main {
+  display: flex;
+  align-items: flex-end;
+  gap: 48px;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+.hero-main-left  { flex: 1; min-width: 0; }
+.hero-main-right { flex: 1; min-width: 0; }
+
+/* ── HERO CARD ── */
+.hero-card {
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 16px 22px;
+  font-family: 'Babel Sans', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--black);
+}
+
 /* ── ABOUT GRID ── */
 .about-grid {
   display: grid;
@@ -865,6 +889,24 @@ blockquote {
   border-radius: 0 2px 2px 0;
 }
 
+/* ── QUOTE GRID ── */
+.quote-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 40px;
+}
+
+.quote-header {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
 /* ── FOOTER ── */
 footer {
   border-top: 1px solid var(--border);
@@ -918,9 +960,298 @@ footer {
   overflow: hidden;
 }
 
+/* ── CONCEPT SLIDER ── */
+.concept-track {
+  display: flex;
+  align-items: flex-start;
+  height: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  padding: 32px 80px 56px;
+  gap: 24px;
+  cursor: grab;
+  user-select: none;
+}
+.concept-track::-webkit-scrollbar { display: none; }
+.concept-track.grabbing { cursor: grabbing; }
+
+.ci {
+  flex-shrink: 0;
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.09);
+  will-change: transform;
+}
+.ci img { display: block; object-fit: cover; pointer-events: none; }
+
+.cc {
+  flex-shrink: 0;
+  width: 200px;
+  padding: 20px 18px;
+  background: var(--off-white);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  will-change: transform;
+}
+.cc-label {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 8px;
+}
+.cc-title {
+  font-family: 'Dry Brush', serif;
+  font-size: 26px;
+  letter-spacing: 2px;
+  color: var(--black);
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+.cc-body {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 12px;
+  color: var(--gray);
+  line-height: 1.7;
+  margin: 0;
+}
+.concept-drag-hint {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gray);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+}
+.concept-drag-hint::before,
+.concept-drag-hint::after {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--gray);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+
+/* ── GALLERY THUMBNAIL CARD ── */
+.cg-thumb {
+  flex-shrink: 0;
+  width: 300px;
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.09);
+  cursor: pointer;
+  will-change: transform;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.cg-thumb:hover { border-color: var(--border2); box-shadow: 0 12px 40px rgba(0,0,0,0.16); }
+
+.cg-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--black);
+  padding: 2px;
+}
+.cg-grid img { width: 100%; height: 72px; object-fit: cover; display: block; pointer-events: none; }
+
+.cg-footer {
+  padding: 14px 16px;
+  background: var(--off-white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border);
+}
+.cg-footer-title {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--black);
+}
+.cg-footer-expand {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+.cg-thumb:hover .cg-footer-expand { color: var(--black); }
+.cg-footer-expand::after { content: '↗'; font-size: 11px; }
+
+/* ── IMAGE LIGHTBOX ── */
+.img-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 800;
+  background: rgba(0,0,0,0.88);
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  cursor: zoom-out;
+}
+.img-lightbox.open { display: flex; }
+
+.img-lightbox-inner {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  max-width: 1100px;
+  max-height: 85vh;
+  background: var(--white);
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: default;
+  box-shadow: 0 32px 100px rgba(0,0,0,0.5);
+}
+
+.img-lightbox-left {
+  flex: 1;
+  min-width: 0;
+  background: var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.img-lightbox-left img {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+}
+
+.img-lightbox-right {
+  width: 300px;
+  flex-shrink: 0;
+  padding: 40px 32px;
+  background: var(--white);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.img-lightbox-label {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 12px;
+}
+.img-lightbox-title {
+  font-family: 'Dry Brush', serif;
+  font-size: 32px;
+  letter-spacing: 2px;
+  color: var(--black);
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+.img-lightbox-body {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 13px;
+  color: var(--gray);
+  line-height: 1.8;
+  flex: 1;
+}
+.img-lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  background: none;
+  border: 1px solid rgba(255,255,255,0.3);
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.7);
+  padding: 5px 14px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.img-lightbox-close:hover { color: #fff; border-color: rgba(255,255,255,0.7); }
+
+.ci { cursor: zoom-in; }
+
+/* ── GALLERY MODAL ── */
+.gallery-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 800;
+  background: rgba(0,0,0,0.85);
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+.gallery-modal.open { display: flex; }
+
+.gallery-modal-inner {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  height: 90vh;
+  background: var(--white);
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid var(--border2);
+}
+.gallery-modal-inner iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+.gallery-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  z-index: 10;
+  background: var(--white);
+  border: 1px solid var(--border);
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--black);
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.gallery-modal-close:hover { background: var(--gray-light); }
+
+@keyframes cfloat   { 0%,100%{ transform:translateY(0)    } 50%{ transform:translateY(-16px) } }
+@keyframes cfloat-b { 0%,100%{ transform:translateY(0)    } 50%{ transform:translateY(-26px) } }
+@keyframes cfloat-c { 0%,100%{ transform:translateY(0)    } 50%{ transform:translateY(-10px) } }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
-  .about-grid, .viz-layout, .findings-layout, .meta-grid { grid-template-columns: 1fr; }
+  .concept-track { padding: 20px 24px 48px; gap: 16px; }
+  .concept-drag-hint { display: none; }
+}
+
+/* keep existing responsive block open below */
+@media (max-width: 900px) {
+  .about-grid, .viz-layout, .findings-layout, .meta-grid, .quote-grid { grid-template-columns: 1fr; }
+  .hero-main { flex-direction: column; gap: 24px; align-items: flex-start; }
+  .hero-main-right { width: 100%; }
   .hero { padding: 100px 32px 60px; }
   .section { padding: 72px 32px; }
   .project-nav { padding: 14px 24px; }
@@ -939,6 +1270,8 @@ footer {
 <nav class="project-nav">
   <a href="index.html#make" class="nav-back">← EMILYYUAN</a>
   <div class="nav-tabs">
+    <button class="nav-tab" onclick="smoothTo('#motivations')">Motivations</button>
+    <button class="nav-tab" onclick="smoothTo('#concept-design')">Concept Design</button>
     <button class="nav-tab" onclick="smoothTo('#experiments')">Experiments</button>
     <button class="nav-tab" onclick="smoothTo('#current-status')">Current Status</button>
   </div>
@@ -963,13 +1296,21 @@ footer {
   <div class="hero-grid"></div>
   <div class="hero-trail-layer" id="hero-trail-layer"></div>
 
-  <h1 class="hero-title reveal reveal-d1">
-    SOUL<br><span class="accent-green">GARDEN</span>
-  </h1>
-
-  <p class="hero-sub reveal reveal-d2">
-    continuem × Runway Gen-4 · Living Artwork Lineages
-  </p>
+  <div class="hero-main">
+    <div class="hero-main-left">
+      <h1 class="hero-title reveal reveal-d1">
+        SOUL<br><span class="accent-green">GARDEN</span>
+      </h1>
+      <p class="hero-sub reveal reveal-d2">
+        Living Art · Digital Ecology · Collective Consciousness
+      </p>
+    </div>
+    <div class="hero-main-right">
+      <div class="hero-card reveal reveal-d3">
+        Soul Garden is a digital sanctuary that grows and cultivates each image's identity and being — this is a generative experiment that relies on human feedback to "grow" and "nurture" an image — the more digital input is fed, the more the artifact is shaped into a sentient microspecies determined by the collective.
+      </div>
+    </div>
+  </div>
 
   <!-- HERO STATS — saved for later
   <div class="hero-stats reveal reveal-d3">
@@ -998,12 +1339,95 @@ footer {
   </div>
 </section>
 
-<!-- SECTION 1: TECHNICAL DIFFICULTIES - CHECK BACK AGAIN TODAY :( -->
-<section class="section" id="experiments">
+<!-- SECTION 1: MOTIVATIONS -->
+<section class="section" id="motivations">
   <div class="section-num">01</div>
   <div class="section-inner">
     <div class="section-label">Section 01</div>
     <h2>Technical Difficulties - check back again today!</h2>
+  </div>
+</section>
+
+<!-- SECTION 2: CONCEPT DESIGN -->
+<section class="section" id="concept-design" style="padding:0;min-height:100vh;display:flex;flex-direction:column;overflow:hidden;">
+  <div class="section-num">02</div>
+  <div style="padding:80px 80px 28px;flex-shrink:0;position:relative;z-index:2;">
+    <div class="section-label">Section 02</div>
+    <h2 style="margin-bottom:0;">CONCEPT<br>DESIGN</h2>
+  </div>
+  <div style="flex:1;position:relative;min-height:0;">
+    <div class="concept-track" id="conceptSlider">
+
+      <div class="cg-thumb" style="margin-top:65px;animation:cfloat-b 4.9s ease-in-out -2.5s infinite;" id="galleryThumb">
+        <div class="cg-grid">
+          <img src="p2-soul-garden/web/alhambra-01.jpg">
+          <img src="p2-soul-garden/web/ambition-01.jpg">
+          <img src="p2-soul-garden/web/arctic-01.jpg">
+          <img src="p2-soul-garden/web/blanket-01.jpg">
+          <img src="p2-soul-garden/web/bloodsister-01.jpg">
+          <img src="p2-soul-garden/web/blossoms-01.jpg">
+        </div>
+        <div class="cg-footer">
+          <span class="cg-footer-title">Visual Gallery</span>
+          <span class="cg-footer-expand">Open</span>
+        </div>
+      </div>
+
+      <div class="ci" style="margin-top:130px;animation:cfloat-c 5.9s ease-in-out -2.3s infinite;">
+        <img src="p2-soul-garden/conceptdesign/concept2-darkroom.jpg" style="width:380px;height:280px;"
+          data-title="Dark Room" data-desc="Placeholder — add notes here.">
+      </div>
+
+      <div class="ci" style="margin-top:20px;animation:cfloat-b 4.8s ease-in-out -0.6s infinite;">
+        <img src="p2-soul-garden/conceptdesign/concept1.jpg" style="width:320px;height:440px;"
+          data-title="Concept 01" data-desc="Placeholder — add notes here.">
+      </div>
+
+      <div class="ci" style="margin-top:100px;animation:cfloat-b 5.2s ease-in-out -1.1s infinite;">
+        <img src="p2-soul-garden/conceptdesign/concept2-flowerwall.jpg" style="width:300px;height:400px;"
+          data-title="Flower Wall" data-desc="Placeholder — add notes here.">
+      </div>
+
+      <div class="ci" style="margin-top:30px;animation:cfloat-c 4.6s ease-in-out -0.4s infinite;">
+        <img src="p2-soul-garden/conceptdesign/concept3-reflections.jpg" style="width:320px;height:430px;"
+          data-title="Reflections" data-desc="Placeholder — add notes here.">
+      </div>
+
+      <div style="flex-shrink:0;width:80px;"></div>
+    </div>
+    <div class="concept-drag-hint">drag to explore</div>
+  </div>
+</section>
+
+<!-- IMAGE LIGHTBOX -->
+<div class="img-lightbox" id="imgLightbox">
+  <button class="img-lightbox-close" id="imgLightboxClose">✕ Close</button>
+  <div class="img-lightbox-inner">
+    <div class="img-lightbox-left">
+      <img id="imgLightboxImg" src="" alt="">
+    </div>
+    <div class="img-lightbox-right">
+      <div class="img-lightbox-label">Concept Design</div>
+      <div class="img-lightbox-title" id="imgLightboxTitle"></div>
+      <div class="img-lightbox-body" id="imgLightboxBody"></div>
+    </div>
+  </div>
+</div>
+
+<!-- GALLERY MODAL -->
+<div class="gallery-modal" id="galleryModal">
+  <div class="gallery-modal-inner">
+    <button class="gallery-modal-close" id="galleryModalClose">✕ Close</button>
+    <iframe src="p2-soul-garden/soul-garden-gallery.html" title="Soul Garden Visual Gallery" loading="lazy"></iframe>
+  </div>
+</div>
+
+<!-- SECTION 3: EXPERIMENTS -->
+<section class="section" id="experiments">
+  <div class="section-num">03</div>
+  <div class="section-inner">
+    <div class="section-label">Section 03</div>
+    <h2>EXPERIMENTS</h2>
 
     <div class="about-grid">
       <div class="reveal">
@@ -1324,15 +1748,8 @@ footer {
     <blockquote class="reveal" style="margin-top:56px;">
       No copyrighted characters, no personal photos, no stock assets. All source artwork is original continuem brand IP. Every generated frame is a descendant of a continuem drawing.
     </blockquote>
-  </div>
-</section>
 
-<!-- SECTION 2: CURRENT STATUS -->
-<section class="section" id="current-status">
-  <div class="section-num">02</div>
-  <div class="section-inner">
-    <div class="section-label">Section 02</div>
-    <h2>CURRENT<br>STATUS</h2>
+    <div class="section-label" style="margin-top:80px;">Technical Notes</div>
 
     <div class="reveal" style="margin-bottom:40px;">
       <p>Constraints encountered and resolved during the hackathon. Each required a design decision that shaped the final pipeline architecture.</p>
@@ -1428,6 +1845,61 @@ footer {
     <blockquote class="reveal">
       The hackathon theme: agents and applications that create, manipulate, or orchestrate media using AI — chain creative decisions, not single API calls.
     </blockquote>
+
+    <div class="section-label" style="margin-top:80px;">Experiments</div>
+
+    <div class="meta-grid reveal" style="margin-top:8px;">
+
+      <div class="meta-card">
+        <div class="meta-card-header">
+          <span class="meta-card-num">01</span>
+          <span class="meta-card-title">Claude Sonnet 4.6</span>
+        </div>
+        <div class="meta-card-body">
+          Development assistant across all pipeline phases — prompt engineering, Python scripting, debugging API constraints, and iterating on the Three.js garden viewer.
+        </div>
+      </div>
+
+      <div class="meta-card">
+        <div class="meta-card-header">
+          <span class="meta-card-num">02</span>
+          <span class="meta-card-title">RunwayML API Gen-4</span>
+        </div>
+        <div class="meta-card-body">
+          Core generation engine. <code style="font-family:monospace;font-size:12px">image_to_video</code> (Gen-4.5) and <code style="font-family:monospace;font-size:12px">text_to_image</code> (Gen-4 Image) power single animate, multi-fuse, and iterative growth chain experiments.
+        </div>
+      </div>
+
+      <div class="meta-card">
+        <div class="meta-card-header">
+          <span class="meta-card-num">03</span>
+          <span class="meta-card-title">Studies of Terrain "Construction"</span>
+        </div>
+        <div class="meta-card-body">
+          Placeholder — add content here.
+        </div>
+      </div>
+
+      <div class="meta-card">
+        <div class="meta-card-header">
+          <span class="meta-card-num">04</span>
+          <span class="meta-card-title">Worldbuilding Exercise</span>
+        </div>
+        <div class="meta-card-body">
+          Placeholder — add content here.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: CURRENT STATUS -->
+<section class="section" id="current-status">
+  <div class="section-num">04</div>
+  <div class="section-inner">
+    <div class="section-label">Section 04</div>
+    <h2>CURRENT<br>STATUS</h2>
   </div>
 </section>
 
@@ -1455,6 +1927,68 @@ document.addEventListener('click', () => {
   document.getElementById('navProjects').classList.remove('open');
 });
 
+// concept slider drag-to-scroll (shared for both sliders)
+['conceptSlider'].forEach(id => {
+  const track = document.getElementById(id);
+  if (!track) return;
+  let isDown = false, startX, scrollLeft;
+  track.addEventListener('mousedown', e => {
+    isDown = true; track.classList.add('grabbing');
+    track.dataset.dragged = '0';
+    startX = e.pageX - track.offsetLeft; scrollLeft = track.scrollLeft;
+  });
+  track.addEventListener('mouseleave', () => { isDown = false; track.classList.remove('grabbing'); });
+  track.addEventListener('mouseup',    () => { isDown = false; track.classList.remove('grabbing'); });
+  track.addEventListener('mousemove',  e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const dx = e.pageX - track.offsetLeft - startX;
+    if (Math.abs(dx) > 4) track.dataset.dragged = '1';
+    track.scrollLeft = scrollLeft - dx * 1.4;
+  });
+});
+
+// image lightbox
+(function () {
+  const lightbox = document.getElementById('imgLightbox');
+  const lbImg    = document.getElementById('imgLightboxImg');
+  const lbClose  = document.getElementById('imgLightboxClose');
+  if (!lightbox) return;
+
+  const lbTitle = document.getElementById('imgLightboxTitle');
+  const lbBody  = document.getElementById('imgLightboxBody');
+
+  document.querySelectorAll('#conceptSlider .ci').forEach(ci => {
+    ci.addEventListener('click', () => {
+      const track = ci.closest('.concept-track');
+      if (track && track.dataset.dragged === '1') return;
+      const img = ci.querySelector('img');
+      if (!img) return;
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lbTitle.textContent = img.dataset.title || '';
+      lbBody.textContent  = img.dataset.desc  || '';
+      lightbox.classList.add('open');
+    });
+  });
+
+  lbClose.addEventListener('click', () => lightbox.classList.remove('open'));
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
+})();
+
+// gallery modal
+(function () {
+  const thumb = document.getElementById('galleryThumb');
+  const modal = document.getElementById('galleryModal');
+  const close = document.getElementById('galleryModalClose');
+  if (!thumb || !modal) return;
+  thumb.addEventListener('click', () => modal.classList.add('open'));
+  close.addEventListener('click', () => modal.classList.remove('open'));
+  modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('open'); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') modal.classList.remove('open'); });
+})();
+
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) e.target.classList.add('in');
@@ -1465,7 +1999,7 @@ document.querySelectorAll('.reveal, .reveal-left').forEach(el => revealObserver.
 
 const sections = document.querySelectorAll('section[id]');
 const navTabs  = document.querySelectorAll('.nav-tab');
-const sectionIds = ['experiments', 'current-status'];
+const sectionIds = ['motivations', 'concept-design', 'experiments', 'current-status'];
 
 window.addEventListener('scroll', () => {
   let current = '';
