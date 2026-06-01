@@ -199,7 +199,7 @@ body {
 
 .hero-sub {
   font-family: 'Babel Sans', sans-serif;
-  font-size: 11px;
+  font-size: 16px;
   letter-spacing: 0.18em;
   color: var(--gray);
   text-transform: uppercase;
@@ -209,6 +209,7 @@ body {
   display: flex;
   align-items: center;
   gap: 20px;
+  white-space: nowrap;
 }
 
 .hero-sub::before {
@@ -908,6 +909,15 @@ footer {
 .reveal-d2 { transition-delay: 0.2s; }
 .reveal-d3 { transition-delay: 0.35s; }
 
+/* ── Hero cursor trail layer ── */
+.hero-trail-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .about-grid, .viz-layout, .findings-layout, .meta-grid { grid-template-columns: 1fr; }
@@ -929,11 +939,8 @@ footer {
 <nav class="project-nav">
   <a href="index.html#make" class="nav-back">← EMILYYUAN</a>
   <div class="nav-tabs">
-    <button class="nav-tab" onclick="smoothTo('#concept')">Concept</button>
-    <button class="nav-tab" onclick="smoothTo('#pipeline')">Pipeline</button>
     <button class="nav-tab" onclick="smoothTo('#experiments')">Experiments</button>
-    <button class="nav-tab" onclick="smoothTo('#technical')">Technical</button>
-    <button class="nav-tab" onclick="smoothTo('#stack')">Stack</button>
+    <button class="nav-tab" onclick="smoothTo('#current-status')">Current Status</button>
   </div>
   <div class="nav-projects" id="navProjects">
     <button class="nav-projects-btn" onclick="toggleProjects(event)">Projects</button>
@@ -954,6 +961,7 @@ footer {
 <!-- HERO -->
 <section class="hero" id="top">
   <div class="hero-grid"></div>
+  <div class="hero-trail-layer" id="hero-trail-layer"></div>
 
   <h1 class="hero-title reveal reveal-d1">
     SOUL<br><span class="accent-green">GARDEN</span>
@@ -990,12 +998,12 @@ footer {
   </div>
 </section>
 
-<!-- SECTION 1: CONCEPT -->
-<section class="section" id="concept">
+<!-- SECTION 1: TEHCNICAL DIFFICULTIES - CHECK BACK AGAIN TODAY :( -->
+<section class="section" id="experiments">
   <div class="section-num">01</div>
   <div class="section-inner">
     <div class="section-label">Section 01</div>
-    <h2>CONCEPT<br>&amp; APPROACH</h2>
+    <h2>EXPERIMENTS</h2>
 
     <div class="about-grid">
       <div class="reveal">
@@ -1055,17 +1063,8 @@ footer {
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- SECTION 2: PIPELINE -->
-<section class="section" id="pipeline">
-  <div class="section-num">02</div>
-  <div class="section-inner">
-    <div class="section-label">Section 02</div>
-    <h2>GENERATION<br>LINEAGE</h2>
-
-    <div class="viz-layout">
+    <div class="viz-layout" style="margin-top:64px;">
       <div class="reveal">
         <div class="viz-screen">
           <div class="lineage-mock">
@@ -1139,17 +1138,8 @@ footer {
         <div class="callout-body">OrbitControls with autoRotate at speed 0.4. Each sprite gets a glow Sprite child (glowMaterial, scale 3×3). Slow auto-rotate with free user orbit. Positions from spiral_layout(i) distribute organisms in 3D space.</div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- SECTION 3: EXPERIMENTS -->
-<section class="section" id="experiments">
-  <div class="section-num">03</div>
-  <div class="section-inner">
-    <div class="section-label">Section 03</div>
-    <h2>EXPERIMENT<br>SEQUENCE</h2>
-
-    <div class="reveal" style="margin-bottom:56px;">
+    <div class="reveal" style="margin-top:64px;margin-bottom:56px;">
       <p style="margin-bottom:20px;">Experiments run May 8–12, 2026. Prompt generalization: each artwork's color palette drives its own distinct organism character. Running total ~915 credits of 50,000 participant allocation.</p>
       <div class="event-bars">
         <div class="event-bar-row">
@@ -1237,121 +1227,8 @@ footer {
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- SECTION 4: TECHNICAL DECISIONS -->
-<section class="section" id="technical">
-  <div class="section-num">04</div>
-  <div class="section-inner">
-    <div class="section-label">Section 04</div>
-    <h2>API CONSTRAINTS<br>&amp; RESOLUTIONS</h2>
-
-    <div class="reveal" style="margin-bottom:40px;">
-      <p>Constraints encountered and resolved during the hackathon. Each required a design decision that shaped the final pipeline architecture.</p>
-    </div>
-
-    <div class="reveal">
-      <div class="collision-demo">
-        <div class="collision-header">
-          <div>Constraint</div>
-          <div>Value / Behavior</div>
-          <div>Resolution</div>
-        </div>
-        <div class="collision-row">
-          <div class="cr-cell"><span class="kw-tag">image_to_video input</span></div>
-          <div class="cr-cell" style="color:var(--gray)">Single <code style="font-family:monospace;font-size:12px">prompt_image</code> only — no multi-image support</div>
-          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Multi-image: use text_to_image composite first, then feed composite URL to image_to_video</div>
-        </div>
-        <div class="collision-row">
-          <div class="cr-cell"><span class="kw-tag">reference_images tag format</span></div>
-          <div class="cr-cell" style="color:var(--gray)">Non-obvious: object key = <code style="font-family:monospace;font-size:12px">ref0</code>, prompt text = <code style="font-family:monospace;font-size:12px">@ref0</code></div>
-          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Discovered via trial. grow.py --reference flag constructs @ref0 @ref1 prompt prefix automatically</div>
-        </div>
-        <div class="collision-row">
-          <div class="cr-cell"><span class="kw-tag">Large image → HTTP 413</span></div>
-          <div class="cr-cell" style="color:var(--gray)">Payload too large for base64-encoded high-res images</div>
-          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Auto-resize to 1280×720 max, JPEG 85% quality before encoding. Applied in generate_videos.py and grow.py</div>
-        </div>
-        <div class="collision-row">
-          <div class="cr-cell"><span class="kw-tag">CloudFront output URLs</span></div>
-          <div class="cr-cell" style="color:var(--gray)">Output video URLs expire 24–48h after generation</div>
-          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Always download to local .mp4 immediately after poll_until_complete returns. Never use URL as next-gen seed</div>
-        </div>
-        <div class="collision-row">
-          <div class="cr-cell"><span class="kw-tag">prompt_text max</span></div>
-          <div class="cr-cell" style="color:var(--gray)">1000 characters max</div>
-          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Truncate before API call: <code style="font-family:monospace;font-size:12px">prompt_text=prompt[:1000]</code></div>
-        </div>
-        <div class="collision-row">
-          <div class="cr-cell"><span class="kw-tag">Duration range</span></div>
-          <div class="cr-cell" style="color:var(--gray)">2–10 seconds, all experiments use 5s</div>
-          <div class="cr-cell" style="color:var(--gray);font-size:12px;">5s balances credit cost (60 cr) and enough motion for growth chain. Longer durations give more frame candidates for extract_masks.py</div>
-        </div>
-        <div class="collision-row">
-          <div class="cr-cell"><span class="kw-tag">Supported ratios</span></div>
-          <div class="cr-cell" style="color:var(--gray)">1280:720 · 720:1280 · 1104:832 · 832:1104 · 960:960 · 1584:672</div>
-          <div class="cr-cell" style="color:var(--gray);font-size:12px;">All experiments use 1280:720. Auto-resize target matches this ratio to avoid cropping artifacts</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="findings-layout reveal" style="margin-top:48px;">
-      <div class="finding-card works">
-        <div class="finding-tag tag-works">IP &amp; Identity Decisions</div>
-        <div class="finding-items">
-          <div class="fi">
-            <div class="fi-title">No copyrighted characters</div>
-            <div class="fi-body">No Pikachu, Hello Kitty, anime IP, or other licensed characters. Conflicts with judging criteria and creates moderation risk.</div>
-          </div>
-          <div class="fi">
-            <div class="fi-title">No personal photos or videos</div>
-            <div class="fi-body">Runway ToS does not exclude uploads from training. All source artwork is original continuem brand IP. Reference photos (cambodia-ruins.jpg) used as style influence, not subjects.</div>
-          </div>
-          <div class="fi">
-            <div class="fi-title">All output is original IP</div>
-            <div class="fi-body">Every frame is either a continuem drawing or a Runway-generated descendant of one. Own the full output chain outright.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="finding-card fails">
-        <div class="finding-tag" style="color:var(--gray);font-weight:700;font-size:8px;letter-spacing:0.2em;">PROMPT LIBRARY</div>
-        <div class="finding-items">
-          <div class="fi">
-            <div class="fi-title">microorganism</div>
-            <div class="fi-body">reimagine as a living microorganism, pulsing organic membrane, bioluminescent cellular movement, microscopic creature breathing and shifting, fluid organic motion</div>
-          </div>
-          <div class="fi">
-            <div class="fi-title">bacteria</div>
-            <div class="fi-body">biological cell division and growth, bacteria multiplying under microscope, flagella propulsion, colony expanding, dark field microscopy, bioluminescent green fluorescence, membrane dividing and replicating</div>
-          </div>
-          <div class="fi">
-            <div class="fi-title">plant_garden</div>
-            <div class="fi-body">grow a garden of plant species from reference, organic botanical flora emerging, plant cells dividing and branching, leaves and stems unfurling, bioluminescent garden, microscopic plant growth</div>
-          </div>
-          <div class="fi">
-            <div class="fi-title">ruins_mutation</div>
-            <div class="fi-body">parasitic cellular mutation, transforming plant life from a wall of ancient ruins</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <blockquote class="reveal">
-      The hackathon theme: agents and applications that create, manipulate, or orchestrate media using AI — chain creative decisions, not single API calls.
-    </blockquote>
-  </div>
-</section>
-
-<!-- SECTION 5: STACK & CREDITS -->
-<section class="section" id="stack">
-  <div class="section-num">05</div>
-  <div class="section-inner">
-    <div class="section-label">Section 05</div>
-    <h2>STACK &amp;<br>CREDITS</h2>
-
-    <div class="meta-grid">
+    <div class="meta-grid" style="margin-top:64px;">
 
       <div class="meta-card reveal">
         <div class="meta-card-header">
@@ -1450,6 +1327,110 @@ footer {
   </div>
 </section>
 
+<!-- SECTION 2: CURRENT STATUS -->
+<section class="section" id="current-status">
+  <div class="section-num">02</div>
+  <div class="section-inner">
+    <div class="section-label">Section 02</div>
+    <h2>CURRENT<br>STATUS</h2>
+
+    <div class="reveal" style="margin-bottom:40px;">
+      <p>Constraints encountered and resolved during the hackathon. Each required a design decision that shaped the final pipeline architecture.</p>
+    </div>
+
+    <div class="reveal">
+      <div class="collision-demo">
+        <div class="collision-header">
+          <div>Constraint</div>
+          <div>Value / Behavior</div>
+          <div>Resolution</div>
+        </div>
+        <div class="collision-row">
+          <div class="cr-cell"><span class="kw-tag">image_to_video input</span></div>
+          <div class="cr-cell" style="color:var(--gray)">Single <code style="font-family:monospace;font-size:12px">prompt_image</code> only — no multi-image support</div>
+          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Multi-image: use text_to_image composite first, then feed composite URL to image_to_video</div>
+        </div>
+        <div class="collision-row">
+          <div class="cr-cell"><span class="kw-tag">reference_images tag format</span></div>
+          <div class="cr-cell" style="color:var(--gray)">Non-obvious: object key = <code style="font-family:monospace;font-size:12px">ref0</code>, prompt text = <code style="font-family:monospace;font-size:12px">@ref0</code></div>
+          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Discovered via trial. grow.py --reference flag constructs @ref0 @ref1 prompt prefix automatically</div>
+        </div>
+        <div class="collision-row">
+          <div class="cr-cell"><span class="kw-tag">Large image → HTTP 413</span></div>
+          <div class="cr-cell" style="color:var(--gray)">Payload too large for base64-encoded high-res images</div>
+          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Auto-resize to 1280×720 max, JPEG 85% quality before encoding. Applied in generate_videos.py and grow.py</div>
+        </div>
+        <div class="collision-row">
+          <div class="cr-cell"><span class="kw-tag">CloudFront output URLs</span></div>
+          <div class="cr-cell" style="color:var(--gray)">Output video URLs expire 24–48h after generation</div>
+          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Always download to local .mp4 immediately after poll_until_complete returns. Never use URL as next-gen seed</div>
+        </div>
+        <div class="collision-row">
+          <div class="cr-cell"><span class="kw-tag">prompt_text max</span></div>
+          <div class="cr-cell" style="color:var(--gray)">1000 characters max</div>
+          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Truncate before API call: <code style="font-family:monospace;font-size:12px">prompt_text=prompt[:1000]</code></div>
+        </div>
+        <div class="collision-row">
+          <div class="cr-cell"><span class="kw-tag">Duration range</span></div>
+          <div class="cr-cell" style="color:var(--gray)">2–10 seconds, all experiments use 5s</div>
+          <div class="cr-cell" style="color:var(--gray);font-size:12px;">5s balances credit cost (60 cr) and enough motion for growth chain. Longer durations give more frame candidates for extract_masks.py</div>
+        </div>
+        <div class="collision-row">
+          <div class="cr-cell"><span class="kw-tag">Supported ratios</span></div>
+          <div class="cr-cell" style="color:var(--gray)">1280:720 · 720:1280 · 1104:832 · 832:1104 · 960:960 · 1584:672</div>
+          <div class="cr-cell" style="color:var(--gray);font-size:12px;">All experiments use 1280:720. Auto-resize target matches this ratio to avoid cropping artifacts</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="findings-layout reveal" style="margin-top:48px;">
+      <div class="finding-card works">
+        <div class="finding-tag tag-works">IP &amp; Identity Decisions</div>
+        <div class="finding-items">
+          <div class="fi">
+            <div class="fi-title">No copyrighted characters</div>
+            <div class="fi-body">No Pikachu, Hello Kitty, anime IP, or other licensed characters. Conflicts with judging criteria and creates moderation risk.</div>
+          </div>
+          <div class="fi">
+            <div class="fi-title">No personal photos or videos</div>
+            <div class="fi-body">Runway ToS does not exclude uploads from training. All source artwork is original continuem brand IP. Reference photos (cambodia-ruins.jpg) used as style influence, not subjects.</div>
+          </div>
+          <div class="fi">
+            <div class="fi-title">All output is original IP</div>
+            <div class="fi-body">Every frame is either a continuem drawing or a Runway-generated descendant of one. Own the full output chain outright.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="finding-card fails">
+        <div class="finding-tag" style="color:var(--gray);font-weight:700;font-size:8px;letter-spacing:0.2em;">PROMPT LIBRARY</div>
+        <div class="finding-items">
+          <div class="fi">
+            <div class="fi-title">microorganism</div>
+            <div class="fi-body">reimagine as a living microorganism, pulsing organic membrane, bioluminescent cellular movement, microscopic creature breathing and shifting, fluid organic motion</div>
+          </div>
+          <div class="fi">
+            <div class="fi-title">bacteria</div>
+            <div class="fi-body">biological cell division and growth, bacteria multiplying under microscope, flagella propulsion, colony expanding, dark field microscopy, bioluminescent green fluorescence, membrane dividing and replicating</div>
+          </div>
+          <div class="fi">
+            <div class="fi-title">plant_garden</div>
+            <div class="fi-body">grow a garden of plant species from reference, organic botanical flora emerging, plant cells dividing and branching, leaves and stems unfurling, bioluminescent garden, microscopic plant growth</div>
+          </div>
+          <div class="fi">
+            <div class="fi-title">ruins_mutation</div>
+            <div class="fi-body">parasitic cellular mutation, transforming plant life from a wall of ancient ruins</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <blockquote class="reveal">
+      The hackathon theme: agents and applications that create, manipulate, or orchestrate media using AI — chain creative decisions, not single API calls.
+    </blockquote>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-brand">continuem</div>
@@ -1484,7 +1465,7 @@ document.querySelectorAll('.reveal, .reveal-left').forEach(el => revealObserver.
 
 const sections = document.querySelectorAll('section[id]');
 const navTabs  = document.querySelectorAll('.nav-tab');
-const sectionIds = ['concept', 'pipeline', 'experiments', 'technical', 'stack'];
+const sectionIds = ['experiments', 'current-status'];
 
 window.addEventListener('scroll', () => {
   let current = '';
@@ -1495,6 +1476,113 @@ window.addEventListener('scroll', () => {
     tab.classList.toggle('active', sectionIds[i] === current);
   });
 }, { passive: true });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script>
+// ── Hero cursor trail ─────────────────────────────────────────────────────
+(function () {
+  const hero  = document.querySelector('.hero');
+  const layer = document.getElementById('hero-trail-layer');
+  if (!hero || !layer) return;
+
+  const IMGS = [
+    'p2-soul-garden/web/alhambra-01.jpg',
+    'p2-soul-garden/web/ambition-01.jpg',
+    'p2-soul-garden/web/arctic-01.jpg',
+    'p2-soul-garden/web/blanket-01.jpg',
+    'p2-soul-garden/web/blanket-02.jpg',
+    'p2-soul-garden/web/blanket-03.jpg',
+    'p2-soul-garden/web/bloodsister-01.jpg',
+    'p2-soul-garden/web/blossoms-01.jpg',
+    'p2-soul-garden/web/blossoms-02.jpg',
+    'p2-soul-garden/web/depression-01.jpg',
+    'p2-soul-garden/web/disillusion-01.jpg',
+    'p2-soul-garden/web/disillusion-02.jpg',
+    'p2-soul-garden/web/ferrero-01.jpg',
+    'p2-soul-garden/web/holiday-01.jpg',
+    'p2-soul-garden/web/holiday-02.jpg',
+    'p2-soul-garden/web/infinite-garden-01.jpg',
+    'p2-soul-garden/web/liger-01.jpg',
+    'p2-soul-garden/web/liger-02.jpg',
+    'p2-soul-garden/web/mantaeyes-01.jpg',
+    'p2-soul-garden/web/mantaeyes-02.jpg',
+    'p2-soul-garden/web/mintleaf-01.jpg',
+    'p2-soul-garden/web/mintleaf-02.jpg',
+    'p2-soul-garden/web/pondsky-01.jpg',
+    'p2-soul-garden/web/pondsky-02.jpg',
+    'p2-soul-garden/web/pondsky-03.jpg',
+    'p2-soul-garden/web/pondsky-04.jpg',
+    'p2-soul-garden/web/pondsky-05.jpg',
+    'p2-soul-garden/web/pondsky-06.jpg',
+    'p2-soul-garden/web/screenshot-01.jpg',
+    'p2-soul-garden/web/sharingan-01.jpg',
+    'p2-soul-garden/web/silkscarf-01.jpg',
+    'p2-soul-garden/web/tennis-01.jpg',
+    'p2-soul-garden/web/vlcsnap-01.jpg',
+  ];
+
+  const MAX_W     = 320;
+  const MAX_H     = 440;
+  const THRESHOLD = 130;
+  const MIN_DELAY = 130;
+
+  let idx      = 0;
+  let lastPos  = { x: -999, y: -999 };
+  let lastTime = 0;
+
+  hero.addEventListener('mousemove', e => {
+    const rect = hero.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const dx = x - lastPos.x;
+    const dy = y - lastPos.y;
+    if (Math.sqrt(dx * dx + dy * dy) < THRESHOLD) return;
+
+    const now = Date.now();
+    if (now - lastTime < MIN_DELAY) return;
+
+    const wrap = document.createElement('div');
+    wrap.style.cssText = [
+      'position:absolute',
+      `left:${x}px`,
+      `top:${y}px`,
+      'pointer-events:none',
+    ].join(';');
+
+    const img = document.createElement('img');
+    img.src = IMGS[idx % IMGS.length]; idx++;
+    img.style.cssText = [
+      'display:block',
+      `max-width:${MAX_W}px`,
+      `max-height:${MAX_H}px`,
+      'width:auto',
+      'height:auto',
+      'box-shadow:0 8px 32px rgba(0,0,0,0.18)',
+      'pointer-events:none',
+      'user-select:none;-webkit-user-drag:none',
+    ].join(';');
+
+    wrap.appendChild(img);
+    layer.appendChild(wrap);
+
+    gsap.fromTo(wrap,
+      { xPercent: -50, yPercent: -50, scale: 0, opacity: 1 },
+      { scale: 1, opacity: 1, duration: 0.75, ease: 'back.out(2)' }
+    );
+    gsap.to(wrap, {
+      scale: 0,
+      duration: 0.65,
+      delay: 0.75,
+      ease: 'power2.in',
+      onComplete: () => wrap.remove(),
+    });
+
+    lastPos  = { x, y };
+    lastTime = now;
+  });
+})();
 </script>
 </body>
 </html>
