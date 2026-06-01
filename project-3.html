@@ -777,7 +777,7 @@ p {
 
 .collision-header {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 0.45fr 0.85fr 1.3fr;
   background: var(--off-white);
   border-bottom: 1px solid var(--border);
   font-family: 'Babel Sans', sans-serif;
@@ -792,16 +792,16 @@ p {
 
 .collision-row {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 0.45fr 0.85fr 1.3fr;
   border-bottom: 1px solid var(--border);
 }
 .collision-row:last-child { border-bottom: none; }
 
 .cr-cell {
-  padding: 12px 16px;
+  padding: 10px 12px;
   border-right: 1px solid var(--border);
   font-family: 'Babel Sans', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.5;
   color: var(--black);
 }
@@ -1030,6 +1030,118 @@ footer {
 }
 .viz-modal-close:hover { background: rgba(255,255,255,0.22); }
 
+/* ── DROPDOWNS ── */
+.drop-group {
+  margin-top: 40px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+details.drop { border-bottom: 1px solid var(--border); }
+details.drop:last-child { border-bottom: none; }
+details.drop summary {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--black);
+  padding: 14px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--off-white);
+  list-style: none;
+  user-select: none;
+  transition: background 0.15s;
+}
+details.drop summary::-webkit-details-marker { display: none; }
+details.drop summary:hover { background: var(--gray-light); }
+details.drop summary::after {
+  content: '+';
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--gray);
+  flex-shrink: 0;
+  margin-left: 16px;
+  line-height: 1;
+}
+details.drop[open] > summary::after { content: '−'; }
+.drop-body {
+  padding: 24px;
+  border-top: 1px solid var(--border);
+  background: var(--white);
+}
+.drop-body > p { max-width: 100%; }
+.drop-body > p:last-child { margin-bottom: 0; }
+.drop-body pre {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--black);
+  background: var(--off-white);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 16px 20px;
+  overflow-x: auto;
+  white-space: pre;
+  margin: 0 0 16px;
+}
+.drop-body pre:last-child { margin-bottom: 0; }
+.drop-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 14px;
+}
+.drop-table th {
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 10px;
+  color: var(--gray);
+  padding: 8px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  background: var(--off-white);
+}
+.drop-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--black);
+  line-height: 1.6;
+  vertical-align: top;
+}
+.drop-table tr:last-child td { border-bottom: none; }
+.drop-table .gray { color: var(--gray); font-size: 12px; }
+.drop-table .bold { font-weight: 700; }
+.drop-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.drop-stat { background: var(--off-white); padding: 16px 20px; }
+.drop-stat-val {
+  font-family: 'Dry Brush', serif;
+  font-size: 26px;
+  letter-spacing: 2px;
+  color: var(--black);
+  line-height: 1;
+}
+.drop-stat-lbl {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-top: 4px;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .about-grid, .viz-layout, .findings-layout, .meta-grid { grid-template-columns: 1fr; }
@@ -1128,6 +1240,12 @@ footer {
     <div class="section-label">Section 01</div>
     <h2>SHOWCASE</h2>
 
+    <div class="hero-card reveal" style="margin-bottom:48px;max-width:860px;">
+      The service ingests raw YouTube creator gameplay videos and reaction livestreams, converts time-series transcript data into a standardized timeline, and executes multi-layered sentiment and 8-class emotion mapping.
+      <hr style="border:none;border-top:1px solid var(--border);margin:16px 0;">
+      By evaluating content in precise temporal windows and normalizing across various playtimes, Sentiment Engine surfaces granular player psychology, locates high-reactivity choke points, and provides self-contained visual dashboards and unified data layers for client-side consumption.
+    </div>
+
     <div class="viz-layout">
       <div class="reveal">
         <div class="viz-thumb" onclick="openViz()" style="width:100%;aspect-ratio:16/10;">
@@ -1137,35 +1255,20 @@ footer {
       </div>
 
       <div class="reveal reveal-d2">
-        <h3>3D Emotion Crystal Ball</h3>
-        <p>A 3D cylindrical visualization built entirely in Canvas 2D — no WebGL, no Three.js. The cylinder maps the game's emotional data across three axes simultaneously.</p>
+        <h3 style="font-size:23px;font-weight:700;">3D Emotion Crystal Ball</h3>
+        <p>A 3D globe of floating bubbles, each representing an emotion detected in streamer commentary during gameplay. The globe animates through named game events — one at a time — showing how the emotional mix shifts as the game unfolds.</p>
 
-        <p><strong>Horizontal ring axis</strong> — the 57 game events in chronological order, wrapped around the cylinder. Drag to rotate through the game's narrative arc.</p>
+        <h3>The Bubbles</h3>
+        <p>Each bubble's color maps to one of 8 emotions. The <strong>number of bubbles</strong> equals the proportion of streamers expressing that emotion at that moment — the left legend shows the live count (e.g., JOY ×12 = 12 of the 21 streamers registered joy keywords in that event). The <strong>top 4 emotions</strong> by intensity orbit the outer shell; the lower-ranked 4 float in the inner core.</p>
 
-        <p><strong>Vertical axis (on ring face)</strong> — the 7 non-neutral emotions stacked. Each emotion is color-coded and labeled.</p>
+        <h3>Overlays &amp; Sentiment</h3>
+        <p>Bottom-center shows the current named game event. Top-right shows the section label, event count (e.g., EVENT 14/57), and net sentiment score. Top-left lists live counts for all 8 emotions. Sentiment ranges roughly from −0.15 to +0.27, computed as (pos − neg) / (pos + neg + neu × 0.5) across all 30-second windows in that event.</p>
 
-        <p><strong>Height / Z-axis</strong> — emotional intensity. Taller orbs = stronger signal. The glowing spheres scale in size and brightness with the percentage of creators expressing that emotion at that moment.</p>
+        <h3>Timeline &amp; Controls</h3>
+        <p>The colored bar at the bottom maps the full game into sections — click anywhere to jump to a specific event. Play/Pause animates through all events; Stop resets to event 1; the Speed button cycles 0.5× → 4×. Drag to rotate the globe; scroll to zoom.</p>
 
-        <h3>How to read a pattern</h3>
-        <p>A "wall" of tall orbs at a single point on the ring marks a high-reactivity event — a moment where creators responded strongly across multiple emotions at once. The most visually dramatic point is bin 94: <em>Tender Moment Shattered</em>, where the Prototype kills Huggy and Kissy, producing 88.1% non-neutral response — the highest in the dataset.</p>
-      </div>
-    </div>
-
-    <div class="callout-grid reveal">
-      <div class="callout">
-        <div class="callout-icon">⬤</div>
-        <div class="callout-title">Orb Size + Glow</div>
-        <div class="callout-body">Encodes emotional intensity. Larger, brighter orbs signal stronger consensus across creators. Hover to see exact values and event name.</div>
-      </div>
-      <div class="callout">
-        <div class="callout-icon">◯</div>
-        <div class="callout-title">Section Color Tinting</div>
-        <div class="callout-body">Event labels along the ring are tinted by game section — Opening, Factory, Huggy Chase, Mid Puzzles, Lily Dollhouse, Prototype — so emotional clusters map to narrative structure.</div>
-      </div>
-      <div class="callout">
-        <div class="callout-icon">↺</div>
-        <div class="callout-title">Drag to Orbit</div>
-        <div class="callout-body">The cylinder can be freely rotated. This is a deliberate interaction choice: the data is explorable rather than presented as a fixed "answer." Perspective changes what you notice.</div>
+        <h3>The Two Games</h3>
+        <p>Tabs at the bottom switch between <strong>Poppy Playtime Ch.5</strong> (21 streamers, 57 events) and <strong>She Was 98</strong> (24 streamers, 39 events). PP5 is dominated by frustration and surprise throughout; She Was 98 shows a slower build of fear and unease.</p>
       </div>
     </div>
 
@@ -1180,17 +1283,84 @@ footer {
       </div>
 
       <div class="reveal reveal-d2">
-        <h3>Heatmap Dashboard</h3>
-        <p>A grid: rows are the 8 emotions, columns are the 57 game events. Cell intensity is normalized so the dominant emotion in each event gets full saturation, and all others scale relative to it. This lets you read <em>emotional composition</em> across the game's arc — where frustration dominates factory sections, where surprise spikes at the Prototype reveal.</p>
+        <h3 style="font-size:23px;font-weight:700;">Emotion Heatmap</h3>
+        <p>Every video is sliced into 30-second windows. Each window is scored for sentiment and labeled with a dominant emotion, then grouped by named game event and aggregated across all creators. What you see is the combined emotional response of the full creator group — not any single person.</p>
+        <p>The x-axis lists every named game event in order; the y-axis lists the 8 emotion categories. <strong>Cell brightness</strong> = intensity. A <strong>3-pixel cap</strong> at the top of a cell marks the single dominant emotion for that event.</p>
 
-        <h3>View 2 — Sentiment Bars</h3>
-        <p>A bar chart per event showing mean sentiment score from −1 to +1. This is the overall valence curve — PP5 hovers slightly positive throughout (creators engaged and entertained), with dips at creature encounters and the final Prototype sequence.</p>
+        <h3>Sentiment Bars</h3>
+        <p>One vertical bar per event, ranging from −1.0 (fully negative) to +1.0 (fully positive). Bar color reflects the dominant emotion. A faint grey bar behind each colored bar shows the <strong>reactivity score</strong> — the percentage of windows expressing any non-neutral emotion. A tall grey bar with a short colored bar means creators were emotionally engaged but in a mixed or conflicted way.</p>
 
-        <h3>View 3 — Creator Grid</h3>
-        <p>A 19-creator × 57-event matrix. Each cell shows that creator's mean sentiment and dominant emotion for a specific event. This surfaces <em>consensus vs. outlier behavior</em> — moments where all creators respond identically vs. events driven by individual personality differences.</p>
+        <h3>Creator Grid</h3>
+        <p>One row per creator, one column per event. Each cell is colored by that creator's dominant emotion and shaded by strength of their mean score. Creator name and overall mean score appear to the left — green indicates net positive across the full game, red indicates net negative.</p>
 
-        <h3>Controls</h3>
-        <p>Sort events by reactivity (% non-neutral), by dominant emotion, or by game section. Toggle individual emotions on/off to isolate signals. Hover any cell for exact values and window count.</p>
+        <h3>Sorting &amp; Data Log</h3>
+        <p>Re-sort events by <strong>Reactivity</strong> (highest non-neutral % first) or by <strong>Sentiment</strong> (most positive first). Clicking any cell opens a panel showing every creator's score, dominant emotion, window count, and raw transcript samples from that moment — direct, unedited quotes.</p>
+      </div>
+    </div>
+
+    <div class="drop-group reveal" style="margin-top:64px;">
+      <details class="drop">
+        <summary>Dataset Scale — PP5 Case Study</summary>
+        <div class="drop-body">
+          <div class="drop-stat-grid">
+            <div class="drop-stat">
+              <div class="drop-stat-val">21</div>
+              <div class="drop-stat-lbl">Content Creators</div>
+            </div>
+            <div class="drop-stat">
+              <div class="drop-stat-val">78,988</div>
+              <div class="drop-stat-lbl">Caption Segments Analyzed</div>
+            </div>
+            <div class="drop-stat">
+              <div class="drop-stat-val">8,321</div>
+              <div class="drop-stat-lbl">30s Analysis Windows</div>
+            </div>
+            <div class="drop-stat">
+              <div class="drop-stat-val">57</div>
+              <div class="drop-stat-lbl">Named Game Events</div>
+            </div>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div class="reveal" style="margin-top:64px;">
+      <div style="font-family:'Babel Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--gray);margin-bottom:16px;">Data Sources Extracted by Game</div>
+      <div style="border:1px solid var(--border);border-radius:2px;overflow:hidden;">
+        <table class="drop-table">
+          <thead>
+            <tr>
+              <th style="width:200px;border-right:1px solid var(--border);">Game</th>
+              <th>Source Type</th>
+              <th>Platform</th>
+              <th>Volume</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="3" style="vertical-align:top;font-weight:700;border-right:1px solid var(--border);">Poppy Playtime Ch.5</td>
+              <td>Streamer commentary</td>
+              <td class="gray">YouTube (auto-captions)</td>
+              <td class="gray">21 videos · 78,988 caption segments · 69h 38m</td>
+            </tr>
+            <tr>
+              <td>Player reviews</td>
+              <td class="gray">Steam API</td>
+              <td class="gray">500 reviews</td>
+            </tr>
+            <tr>
+              <td>Press coverage</td>
+              <td class="gray">Google News / Web scrape</td>
+              <td class="gray">15 articles</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700;border-right:1px solid var(--border);">She Was 98</td>
+              <td>Streamer commentary</td>
+              <td class="gray">YouTube (auto-captions)</td>
+              <td class="gray">24 videos · 23,534 caption segments · 22h 53m</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -1230,15 +1400,9 @@ footer {
           <div class="step">
             <span class="step-num">04</span>
             <div class="step-text">
-              <div class="step-title">Emotion Label — Primary</div>
+              <div class="step-title">Emotion Label</div>
               <div class="step-desc">Each 30s window is assigned a primary emotion from 8 classes (Joy, Surprise, Frustration, Awe, Fear, Sadness, Disgust, Neutral) via lexicon keyword matching. The emotion whose keywords appear most frequently in the window wins the primary label. Neutral is suppressed — if any other emotion fires, neutral is removed from contention, preventing the most common category from swamping the output.</div>
-            </div>
-          </div>
-          <div class="step">
-            <span class="step-num">04b</span>
-            <div class="step-text">
-              <div class="step-title">Emotion Label — Secondary</div>
-              <div class="step-desc">A secondary emotion is assigned only when its keyword score reaches ≥ 60% of the primary score. This threshold prevents weak co-occurrences from being reported as meaningful signals. Windows where no secondary emotion clears the threshold are reported with a single label — a deliberate conservative choice that favors precision over recall.</div>
+              <div class="step-desc" style="margin-top:8px;">A secondary emotion is assigned only when its keyword score reaches ≥ 60% of the primary score. This threshold prevents weak co-occurrences from being reported as meaningful signals. Windows where no secondary emotion clears the threshold are reported with a single label — a deliberate conservative choice that favors precision over recall.</div>
             </div>
           </div>
           <div class="step">
@@ -1266,17 +1430,167 @@ footer {
       </div>
 
       <div class="reveal reveal-d2">
-        <div class="emotion-chips">
-          <span class="chip joy">Joy</span>
-          <span class="chip surp">Surprise</span>
-          <span class="chip frust">Frustration</span>
-          <span class="chip awe">Awe</span>
-          <span class="chip fear">Fear</span>
-          <span class="chip sad">Sadness</span>
-          <span class="chip disg">Disgust</span>
-          <span class="chip neut">Neutral</span>
+        <div style="background:rgba(200,240,107,0.08);border:1px solid rgba(200,240,107,0.45);border-radius:2px;padding:20px 24px;margin-bottom:28px;">
+          <div style="font-family:'Babel Sans',sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--black);margin-bottom:14px;">Extracting What Was Said</div>
+          <p style="font-size:14px;color:var(--black);line-height:1.75;margin-bottom:12px;">For each video, the system retrieves the spoken transcript. Where YouTube's auto-generated captions are available, those are pulled directly — no audio processing required. Where captions aren't available, the audio is downloaded and transcribed locally using OpenAI's Whisper model.</p>
+          <p style="font-size:14px;color:var(--black);line-height:1.75;margin:0;">The result is a time-stamped transcript: every word a creator said, with its position in the video.</p>
+        </div>
+        <p>Each 30-second window is scored using a keyword lexicon. A sample lexicon covers eight emotion classes:</p>
+        <div style="border:1px solid var(--border);border-radius:2px;overflow:hidden;margin-top:4px;">
+          <table class="drop-table">
+            <thead>
+              <tr>
+                <th style="width:130px;">Emotion</th>
+                <th>Example trigger words</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="chip joy">Joy</span></td>
+                <td class="gray">"love", "amazing", "so good"</td>
+              </tr>
+              <tr>
+                <td><span class="chip surp">Surprise</span></td>
+                <td class="gray">"wait what", "oh my god", "no way"</td>
+              </tr>
+              <tr>
+                <td><span class="chip frust">Frustration</span></td>
+                <td class="gray">"seriously", "come on", "this is stupid"</td>
+              </tr>
+              <tr>
+                <td><span class="chip awe">Awe</span></td>
+                <td class="gray">"beautiful", "incredible", "wow"</td>
+              </tr>
+              <tr>
+                <td><span class="chip fear">Fear</span></td>
+                <td class="gray">"scary", "terrifying", "don't like this"</td>
+              </tr>
+              <tr>
+                <td><span class="chip sad">Sadness</span></td>
+                <td class="gray">"sad", "heartbreaking", "poor"</td>
+              </tr>
+              <tr>
+                <td><span class="chip disg">Disgust</span></td>
+                <td class="gray">"gross", "disgusting", "ew"</td>
+              </tr>
+              <tr>
+                <td><span class="chip neut">Neutral</span></td>
+                <td class="gray">default when no emotion keyword fires</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
+    </div>
+
+    <div class="drop-group reveal" style="margin-top:64px;">
+
+      <details class="drop">
+        <summary>Full Pipeline Architecture</summary>
+        <div class="drop-body">
+<pre>[Raw Captions JSON]
+        │
+        ▼
+1. Ingestion &amp; Validation  ──► Filters out sub-60s short-form filler content
+        │
+        ▼
+2. Temporal Windowing      ──► Slices playback into uniform 30-second intervals
+        │
+        ▼
+3. Sentiment Vectoring     ──► Keyword net-scoring mapped to range [-1.0, +1.0]
+        │
+        ▼
+4. Emotional Mapping       ──► Plugs into an 8-class behavioral psychology lexicon
+        │
+        ▼
+5. Time Normalization      ──► Translates absolute runtime to progress scale (0-100%)
+        │
+        ▼
+6. Cross-Bin Aggregation   ──► Aligns all creator runs into 100 synchronized timeline bins
+        │
+        ▼
+7. Event Semantic Labeling ──► Maps specific bin clusters into 57 named game events
+        │
+        ▼
+8. Visualization Delivery  ──► Injects production data into indexable, static dashboards</pre>
+        </div>
+      </details>
+
+      <details class="drop">
+        <summary>Baseline Game Progression Mapping</summary>
+        <div class="drop-body">
+          <table class="drop-table">
+            <thead>
+              <tr>
+                <th>Narrative Section</th>
+                <th>Progress Range</th>
+                <th>Primary Structural Focus</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="bold">Opening</td>
+                <td>0% — 7%</td>
+                <td class="gray">Narrative setup, cinematic intros, baseline world-building</td>
+              </tr>
+              <tr>
+                <td class="bold">Factory Puzzles</td>
+                <td>7% — 25%</td>
+                <td class="gray">Core mechanic onboarding, spatial and logic puzzles</td>
+              </tr>
+              <tr>
+                <td class="bold">Huggy Chase</td>
+                <td>25% — 38%</td>
+                <td class="gray">High-stress survival action sequence, pacing peak</td>
+              </tr>
+              <tr>
+                <td class="bold">Mid Puzzles</td>
+                <td>38% — 67%</td>
+                <td class="gray">Extended progression, exploration, resource routing</td>
+              </tr>
+              <tr>
+                <td class="bold">Lily Dollhouse</td>
+                <td>67% — 94%</td>
+                <td class="gray">Atmosphere shifts, environmental horror escalation</td>
+              </tr>
+              <tr>
+                <td class="bold">Prototype</td>
+                <td>94% — 100%</td>
+                <td class="gray">Climax, boss encounter, reveal, and credit sequences</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+
+      <details class="drop">
+        <summary>Sentiment Scoring Formula</summary>
+        <div class="drop-body">
+          <div class="formula-block" style="margin:0 0 20px;">
+            <div class="formula">Score = clamp( (pos − neg) ÷ (pos + neg + (neu × 0.5)) , −1.0, +1.0 )</div>
+            <div class="formula-note">The neutral weighting denominator (× 0.5) dampens background linguistic filler, ensuring that conversational banter does not artificially compress emotional highs and lows.</div>
+          </div>
+          <p style="font-family:'Babel Sans',sans-serif;font-size:13px;color:var(--gray);line-height:1.8;margin:0;">
+            <strong style="color:var(--black);">POS_THRESH:</strong> &gt; +0.15 → classified as <code>positive</code><br>
+            <strong style="color:var(--black);">NEG_THRESH:</strong> &lt; −0.15 → classified as <code>negative</code><br>
+            <strong style="color:var(--black);">Neutral zone:</strong> [−0.15, +0.15] → classified as <code>neutral</code>
+          </p>
+        </div>
+      </details>
+
+      <details class="drop">
+        <summary>Production File Layout</summary>
+        <div class="drop-body">
+<pre>/outputs/
+├── 30s_sentiment_flat.csv        # Raw log — 8,321 rows matching windows
+├── 30s_sentiment_timeline.csv    # Consolidated game arc timeline (100 bins)
+├── 30s_sentiment_summary.csv     # Profile stats for all 21 content creators
+├── 30s_event_aggregates.csv      # Analytical summaries for all 57 game events
+├── 30s_heatmap.html              # Embedded client-side interactive visualization
+└── data.json                     # Optimized static data asset for React</pre>
+        </div>
+      </details>
+
     </div>
 
   </div>
@@ -1294,20 +1608,59 @@ footer {
         <div class="finding-tag tag-works">✓ &nbsp;WHAT'S WORKING</div>
         <div class="finding-items">
           <div class="fi">
-            <div class="fi-title">Temporal structural validity</div>
-            <div class="fi-body">Normalizing each creator's absolute playthrough to 0–100% is the system's strongest design decision. A creator who played for 4 hours and one who played for 2 both contribute to the same bin at the same narrative moment — structurally sound even before AI is involved.</div>
+            <div class="fi-title">Progress normalization</div>
+            <div class="fi-body">Maps each creator's playthrough to a 0–100% scale, enabling valid cross-creator comparison regardless of playthrough length.</div>
           </div>
           <div class="fi">
-            <div class="fi-title">High-reactivity event detection</div>
-            <div class="fi-body">Events like "Tender Moment Shattered" (88.1%) reliably cluster at moments any human observer would flag as emotionally significant. The system correctly identifies <em>where</em> something happens, even when the emotion label is uncertain.</div>
+            <div class="fi-title">High-reactivity detection</div>
+            <div class="fi-body">Consistently flags the same narrative moments a human reviewer would identify.
+              <div style="margin-top:12px;border:1px solid var(--border);border-radius:2px;overflow:hidden;">
+                <table style="width:100%;border-collapse:collapse;font-family:'Babel Sans',sans-serif;font-size:14px;">
+                  <thead>
+                    <tr style="background:var(--off-white);">
+                      <th style="padding:6px 10px;text-align:left;border-bottom:1px solid var(--border);font-weight:700;letter-spacing:0.08em;text-transform:uppercase;font-size:10px;color:var(--gray);">Event</th>
+                      <th style="padding:6px 10px;text-align:center;border-bottom:1px solid var(--border);font-weight:700;letter-spacing:0.08em;text-transform:uppercase;font-size:10px;color:var(--gray);">Non-neutral %</th>
+                      <th style="padding:6px 10px;text-align:left;border-bottom:1px solid var(--border);font-weight:700;letter-spacing:0.08em;text-transform:uppercase;font-size:10px;color:var(--gray);">Section</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--black);">Tender Moment Shattered</td>
+                      <td style="padding:7px 10px;border-bottom:1px solid var(--border);text-align:center;font-weight:700;color:#b8001a;">88.1%</td>
+                      <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--gray);">Prototype</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--black);">Prototype Threat Narration</td>
+                      <td style="padding:7px 10px;border-bottom:1px solid var(--border);text-align:center;font-weight:700;color:#b8001a;">85.1%</td>
+                      <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--gray);">Opening</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--black);">Extended Puzzle — Duration Frustration</td>
+                      <td style="padding:7px 10px;border-bottom:1px solid var(--border);text-align:center;font-weight:700;color:#b8001a;">84.7%</td>
+                      <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--gray);">Mid Puzzles</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--black);">Prototype Arrives at Party</td>
+                      <td style="padding:7px 10px;border-bottom:1px solid var(--border);text-align:center;font-weight:700;color:#b8001a;">83.5%</td>
+                      <td style="padding:7px 10px;border-bottom:1px solid var(--border);color:var(--gray);">Lily Dollhouse</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:7px 10px;color:var(--black);">First Valve &amp; Colour Puzzles</td>
+                      <td style="padding:7px 10px;text-align:center;font-weight:700;color:#b8001a;">83.3%</td>
+                      <td style="padding:7px 10px;color:var(--gray);">Opening</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
           <div class="fi">
-            <div class="fi-title">Neutral suppression improves signal</div>
-            <div class="fi-body">Deleting "neutral" from the emotion scores when any other emotion fires is a hand-engineered prior that prevents the most common category from overwhelming the output. This meaningfully improves the quality of dominant emotion labels.</div>
+            <div class="fi-title">Neutral suppression</div>
+            <div class="fi-body">Reduces noise by only assigning neutral when no other emotion scores.</div>
           </div>
           <div class="fi">
             <div class="fi-title">Secondary emotion threshold</div>
-            <div class="fi-body">A secondary emotion is only assigned when its score reaches ≥ 60% of the primary. This prevents weak co-occurrences from being reported as meaningful — a conservative, defensible threshold.</div>
+            <div class="fi-body">≥ 60% of primary score prevents weak co-occurrences from registering.</div>
           </div>
         </div>
       </div>
@@ -1316,20 +1669,28 @@ footer {
         <div class="finding-tag tag-fails">✗ &nbsp;WHAT'S NOT</div>
         <div class="finding-items">
           <div class="fi">
+            <div class="fi-title">Transcription unreliable</div>
+            <div class="fi-body">Using only transcribed text as the data source introduces a wider margin of error. YouTube's own auto-captions perform reasonably well; OpenAI Whisper is less consistent. Adding audio and voice data as a parallel input would be highly advantageous — it would open up tone, pacing, and volume as additional dimensions to analyze.</div>
+          </div>
+          <div class="fi">
             <div class="fi-title">Lexicon collision</div>
-            <div class="fi-body">Words like "awful," "oh wow," and "oh no" appear in multiple emotion lexicons simultaneously. The assigned emotion depends on total keyword count — meaning a single exclamation can flip the dominant label. This is not an edge case in gaming content.</div>
+            <div class="fi-body">Several keywords appear in more than one emotion category. The assigned label depends on surrounding keyword counts, not contextual meaning.</div>
           </div>
           <div class="fi">
-            <div class="fi-title">Gamer register vs. general sentiment</div>
-            <div class="fi-body">"Insane," "broken," "I'm dead" are context-dependent in gaming vernacular. "This puzzle is insane" (stuck = frustration) and "this boss is insane" (won = awe) are assigned identically. The model cannot distinguish irony, register shift, or performative emotion.</div>
+            <div class="fi-title">Gaming vernacular</div>
+            <div class="fi-body">Words like "insane," "broken," and "I'm dead" carry different meanings depending on context (stuck vs. winning). The system does not understand how to distinguish these situations.</div>
           </div>
           <div class="fi">
-            <div class="fi-title">Frustration lexicon inflation</div>
-            <div class="fi-body">Phrases like "come on," "ugh," "seriously," and "why" are in the frustration lexicon but are used constantly during ordinary gameplay navigation — not just genuine frustration. Frustration is therefore the dominant emotion for a disproportionate number of events.</div>
+            <div class="fi-title">Frustration inflation</div>
+            <div class="fi-body">High-frequency filler phrases ("come on," "ugh," "why") are in the frustration lexicon. Repetition of these words from transcript inflates frustration counts across events where no genuine frustration is present.</div>
           </div>
           <div class="fi">
-            <div class="fi-title">30-second window is too coarse</div>
-            <div class="fi-body">A creator who screams in fear for 3 seconds then laughs for 27 produces a "joy"-dominant window — the fear is statistically swamped. The resolution is appropriate for event-level patterns but loses the micro-arc that makes reaction content interesting.</div>
+            <div class="fi-title">Window resolution</div>
+            <div class="fi-body">A 30-second window is wide enough to absorb short emotional spikes. A 3-second fear reaction followed by 27 seconds of laughter produces a joy-dominant window.</div>
+          </div>
+          <div class="fi">
+            <div class="fi-title">No ground truth</div>
+            <div class="fi-body">There is no labeled test set or confusion matrix. Performance cannot be formally measured — can only confirm construct validity, meaning detected patterns align with expected narrative moments.</div>
           </div>
         </div>
       </div>
@@ -1366,9 +1727,85 @@ footer {
       </div>
     </div>
 
-    <blockquote class="reveal">
-      The system has no ground truth. There is no labeled test set, no confusion matrix, no inter-rater reliability score. What can be claimed is <em>construct validity</em> — the patterns found align with what a human observer would expect. That is not the same as accuracy.
-    </blockquote>
+    <div class="drop-group reveal" style="margin-top:48px;">
+
+      <details class="drop">
+        <summary>Behavioral Emotion Distribution — All 8,321 Windows</summary>
+        <div class="drop-body">
+          <div class="event-bars">
+            <div class="event-bar-row">
+              <span class="eb-label">Neutral</span>
+              <div class="eb-track"><div class="eb-fill" style="width:25.9%;background:rgba(96,96,160,0.45);"><span class="eb-pct">25.9%</span></div></div>
+              <span class="eb-section">2,157 windows</span>
+            </div>
+            <div class="event-bar-row">
+              <span class="eb-label">Frustration</span>
+              <div class="eb-track"><div class="eb-fill" style="width:23.7%;background:rgba(255,51,82,0.45);"><span class="eb-pct">23.7%</span></div></div>
+              <span class="eb-section">1,972 windows</span>
+            </div>
+            <div class="event-bar-row">
+              <span class="eb-label">Joy</span>
+              <div class="eb-track"><div class="eb-fill" style="width:18.5%;background:rgba(245,200,66,0.55);"><span class="eb-pct">18.5%</span></div></div>
+              <span class="eb-section">1,543 windows</span>
+            </div>
+            <div class="event-bar-row">
+              <span class="eb-label">Surprise</span>
+              <div class="eb-track"><div class="eb-fill" style="width:18.0%;background:rgba(61,142,255,0.45);"><span class="eb-pct">18.0%</span></div></div>
+              <span class="eb-section">1,497 windows</span>
+            </div>
+            <div class="event-bar-row">
+              <span class="eb-label">Fear</span>
+              <div class="eb-track"><div class="eb-fill" style="width:6.5%;background:rgba(180,79,255,0.45);"><span class="eb-pct">6.5%</span></div></div>
+              <span class="eb-section">544 windows</span>
+            </div>
+            <div class="event-bar-row">
+              <span class="eb-label">Awe</span>
+              <div class="eb-track"><div class="eb-fill" style="width:4.0%;background:rgba(255,122,42,0.5);"><span class="eb-pct">4.0%</span></div></div>
+              <span class="eb-section">335 windows</span>
+            </div>
+            <div class="event-bar-row">
+              <span class="eb-label">Disgust</span>
+              <div class="eb-track"><div class="eb-fill" style="width:2.1%;background:rgba(52,217,106,0.5);"></div></div>
+              <span class="eb-section">171 windows · 2.1%</span>
+            </div>
+            <div class="event-bar-row">
+              <span class="eb-label">Sadness</span>
+              <div class="eb-track"><div class="eb-fill" style="width:1.2%;background:rgba(34,211,238,0.5);"></div></div>
+              <span class="eb-section">102 windows · 1.2%</span>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="drop">
+        <summary>High-Reactivity Choke Points — % Non-Neutral</summary>
+        <div class="drop-body">
+          <div class="event-bars">
+            <div class="event-bar-row">
+              <span class="eb-label">Tender Moment Shattered (Bin 94)</span>
+              <div class="eb-track"><div class="eb-fill" style="width:88.1%;background:rgba(255,51,82,0.3);"><span class="eb-pct">88.1%</span></div></div>
+              <span class="eb-section">Sadness · Frustration</span>
+            </div>
+            <div class="event-bar-row">
+              <span class="eb-label">Prototype Threat Narration (Bins 0–1)</span>
+              <div class="eb-track"><div class="eb-fill" style="width:85.1%;background:rgba(61,142,255,0.3);"><span class="eb-pct">85.1%</span></div></div>
+              <span class="eb-section">Awe · Surprise</span>
+            </div>
+            <div class="event-bar-row">
+              <span class="eb-label">Duration Frustration (Bin 45)</span>
+              <div class="eb-track"><div class="eb-fill" style="width:84.7%;background:rgba(255,122,42,0.3);"><span class="eb-pct">84.7%</span></div></div>
+              <span class="eb-section">Frustration spike</span>
+            </div>
+            <div class="event-bar-row">
+              <span class="eb-label">Prototype Arrives at Party (Bin 78)</span>
+              <div class="eb-track"><div class="eb-fill" style="width:83.5%;background:rgba(61,142,255,0.3);"><span class="eb-pct">83.5%</span></div></div>
+              <span class="eb-section">Surprise vectors</span>
+            </div>
+          </div>
+        </div>
+      </details>
+
+    </div>
   </div>
 </section>
 
@@ -1380,7 +1817,7 @@ footer {
     <h2>META<br>OBSERVATIONS</h2>
 
     <p class="reveal" style="font-family:'Babel Sans',sans-serif;font-size:18px;color:var(--black);line-height:1.7;font-weight:700;margin-bottom:48px;max-width:65ch;">
-      Five conceptual frames for thinking about what this project actually is — from a media design perspective.
+      Taking the concept and research to the next level — some thoughts and further brainstorm.
     </p>
 
     <div class="meta-grid">
@@ -1388,58 +1825,93 @@ footer {
       <div class="meta-card reveal">
         <div class="meta-card-header">
           <span class="meta-card-num">01</span>
-          <span class="meta-card-title">Translation Machine, Not Measurement Device</span>
+          <span class="meta-card-title">Lexicon Schema Not Yet Matured</span>
         </div>
         <div class="meta-card-body">
-          The system doesn't measure emotion — it translates surface features of speech (specific words) into emotion categories. That translation is a designed artifact, not a discovery. Every lexicon choice, threshold value, and suppression rule is an authorial decision that shapes what the data "says." The heatmaps look like objective data but are better understood as structured interpretations.
+          Lexicons, thresholds, and suppression rules are defined very simply in this initial phase. Different choices produce different outputs.
         </div>
       </div>
 
       <div class="meta-card reveal reveal-d1">
         <div class="meta-card-header">
           <span class="meta-card-num">02</span>
-          <span class="meta-card-title">The Data Source Creates a Specific Subject</span>
+          <span class="meta-card-title">The Nature of the Data Source as Performative</span>
         </div>
         <div class="meta-card-body">
-          YouTube creator reactions are performed affect — creators are aware of the camera, aware of their audience, professionally motivated to be expressive. The "emotions" captured are public emotional performances, not internal states. The system measures <em>broadcast affect</em>, not player psychology. A developer using this data learns how their game plays on camera — commercially meaningful but epistemologically distinct.
+          Creators are recording for an audience. The system captures what they say on camera, not what they experience privately.
         </div>
       </div>
 
-      <div class="meta-card reveal reveal-d2">
+      <div class="meta-card reveal reveal-d2" style="grid-column: 1 / -1;">
         <div class="meta-card-header">
           <span class="meta-card-num">03</span>
-          <span class="meta-card-title">Event Naming Is Where Interpretation Happens</span>
+          <span class="meta-card-title">The Visualizations Inflate Interpretation</span>
         </div>
         <div class="meta-card-body">
-          The 57 event names — "Tender Moment Shattered," "Duration Frustration," "Lily's Friends Retrieval — Party Joy" — are human-authored labels for machine-detected high-reactivity bins. The AI pipeline found <em>where</em> reactivity peaked. The analyst named <em>why</em>. This division of labor is the project's real structure: the computational system is a surveyor; the human is the cartographer.
-        </div>
-      </div>
-
-      <div class="meta-card reveal reveal-d3">
-        <div class="meta-card-header">
-          <span class="meta-card-num">04</span>
-          <span class="meta-card-title">Scale Reveals Pattern — Pattern Is Not Meaning</span>
-        </div>
-        <div class="meta-card-body">
-          Processing 8,321 windows across 21 creators simultaneously is what makes this project distinct from watching videos manually. But the interesting outputs still require human interpretation to become actionable. The platform's value is in surfacing pattern quickly enough that interpretation can happen before a game ships — not in automating the interpretation itself.
-        </div>
-      </div>
-
-      <div class="meta-card reveal" style="grid-column: 1 / -1;">
-        <div class="meta-card-header">
-          <span class="meta-card-num">05</span>
-          <span class="meta-card-title">The Visualization IS an Argument</span>
-        </div>
-        <div class="meta-card-body" style="max-width:80ch;">
-          The 3D globe and the heatmap are not neutral representations of data. They make specific claims: that emotion can be mapped spatially, that game experience is a temporal arc, that 21 strangers' reactions constitute something like collective emotional experience. Those claims are contestable. Part of the interest of the project is how visualization design smuggles epistemological assumptions inside aesthetic choices — the dark palette, the glowing orbs, the cylindrical form all suggest scientific authority. That authority is constructed.
+          Representing emotion as color, size, and position treats emotions as discrete and comparable across creators — risks oversimplification and lack of distinction.
         </div>
       </div>
 
     </div>
 
-    <blockquote class="reveal" style="margin-top:56px;">
-      The most honest framing: this is a tool for generating <em>hypotheses</em> about how players will feel — not a tool for confirming them. Its value is in narrowing the space of what's worth investigating, not in closing the question.
-    </blockquote>
+    <div class="reveal" style="margin-top:48px;">
+      <div style="display:inline-block;border:1px solid var(--border);border-radius:4px;overflow:hidden;max-width:480px;">
+        <img src="p3-game-analyzer/meta-notes.jpg" alt="Brainstorming notes" style="display:block;width:100%;height:auto;">
+        <div style="padding:10px 14px;background:var(--off-white);font-family:'Babel Sans',sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray);">More brainstorming</div>
+      </div>
+    </div>
+
+    <div class="drop-group reveal" style="margin-top:48px;">
+      <details class="drop">
+        <summary>Next-Generation Architecture — LLM Transition</summary>
+        <div class="drop-body">
+          <p style="font-family:'Babel Sans',sans-serif;font-size:14px;color:var(--gray);line-height:1.7;margin-bottom:20px;">While the current keyword framework provides rapid, low-overhead evaluations, Continuem has audited LLM providers to transition toward deep contextual analysis for weekly transcript batches (~80K tokens per run).</p>
+          <table class="drop-table">
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th>Cost / 1M Tokens</th>
+                <th>Context</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="bold">Qwen-Plus</td>
+                <td>$0.12</td>
+                <td>1.0M</td>
+                <td class="gray">Selected Production Choice. Best-in-class financial efficiency (~$0.015/game/week). Native json_object mode via OpenAI-compatible SDK allows full single-call batch ingestion.</td>
+              </tr>
+              <tr>
+                <td class="bold">Gemini 2.5 Flash</td>
+                <td>$0.30</td>
+                <td>1.0M</td>
+                <td class="gray">Selected Enterprise Choice. Unmatched structural safety via native response_schema TypedDict enforcement. Mitigates parsing exceptions.</td>
+              </tr>
+              <tr>
+                <td class="bold">GPT-4o mini</td>
+                <td>$0.15</td>
+                <td>128K</td>
+                <td class="gray">Rejected — 2× cost vs. Gemini Flash without superior context windows.</td>
+              </tr>
+              <tr>
+                <td class="bold">Claude Sonnet 4.6</td>
+                <td>$3.00</td>
+                <td>200K</td>
+                <td class="gray">Rejected — 20× price vs. Qwen for identical textual evaluation outputs.</td>
+              </tr>
+              <tr>
+                <td class="bold">Groq Llama 3.3</td>
+                <td>$0.59</td>
+                <td>8K</td>
+                <td class="gray">Rejected — context floor too small for unified 80K token batches; requires complex window chunking.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </div>
+
   </div>
 </section>
 
@@ -1447,7 +1919,6 @@ footer {
 <footer>
   <div class="footer-brand">EMILYYUAN</div>
   <div class="footer-meta">
-    Poppy Playtime Chapter 5 · 21 Creators · 8,321 Windows<br>
     Digital Media Masters Portfolio · 2026
   </div>
 </footer>
