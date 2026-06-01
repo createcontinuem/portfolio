@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>continuem — Digital Garden / Souls · RunwayML Hackathon</title>
+<title>continuem — Soul Garden · RunwayML Hackathon</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <style>
@@ -78,7 +78,7 @@ body {
 
 .nav-tab {
   font-family: 'Babel Sans', sans-serif;
-  font-size: 11px;
+  font-size: 15px;
   color: var(--gray);
   background: none;
   border: 1px solid transparent;
@@ -89,6 +89,64 @@ body {
 }
 .nav-tab:hover { color: var(--black); border-color: var(--border); }
 .nav-tab.active { background: var(--black); color: var(--white); border-color: var(--black); }
+
+.nav-projects {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.nav-projects-btn {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 15px;
+  color: var(--gray);
+  background: none;
+  border: 1px solid transparent;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-projects-btn:hover { color: var(--black); border-color: var(--border); }
+.nav-projects-btn::after { content: '▾'; font-size: 9px; }
+
+.nav-projects-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: var(--white);
+  border: 1px solid var(--border2);
+  min-width: 200px;
+  display: none;
+  flex-direction: column;
+  z-index: 600;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+.nav-projects.open .nav-projects-dropdown { display: flex; }
+
+.nav-projects-item {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 15px;
+  color: var(--black);
+  text-decoration: none;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.nav-projects-item:last-child { border-bottom: none; }
+.nav-projects-item:hover { background: var(--off-white); }
+.nav-projects-item.current { color: var(--gray); cursor: default; pointer-events: none; }
+.nav-projects-item span {
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
 
 /* ── HERO ── */
 .hero {
@@ -138,7 +196,7 @@ body {
   margin-bottom: 8px;
 }
 
-.hero-title .accent-green { color: var(--green); }
+.hero-title .accent-green { color: var(--black); }
 
 .hero-sub {
   font-family: 'Babel Sans', sans-serif;
@@ -869,13 +927,27 @@ footer {
 
 <!-- NAVIGATION -->
 <nav class="project-nav">
-  <a href="index.html" class="nav-back">← continuem</a>
+  <a href="index.html#make" class="nav-back">← EMILYYUAN</a>
   <div class="nav-tabs">
     <button class="nav-tab" onclick="smoothTo('#concept')">Concept</button>
     <button class="nav-tab" onclick="smoothTo('#pipeline')">Pipeline</button>
     <button class="nav-tab" onclick="smoothTo('#experiments')">Experiments</button>
     <button class="nav-tab" onclick="smoothTo('#technical')">Technical</button>
     <button class="nav-tab" onclick="smoothTo('#stack')">Stack</button>
+  </div>
+  <div class="nav-projects" id="navProjects">
+    <button class="nav-projects-btn" onclick="toggleProjects(event)">Projects</button>
+    <div class="nav-projects-dropdown">
+      <a href="project-1.html" class="nav-projects-item">
+        Movement of Memory<span>Project 01</span>
+      </a>
+      <a href="project-2.html" class="nav-projects-item current">
+        Soul Garden<span>Project 02 — current</span>
+      </a>
+      <a href="project-3.html" class="nav-projects-item">
+        Sentiment Engine<span>Project 03</span>
+      </a>
+    </div>
   </div>
 </nav>
 
@@ -886,7 +958,7 @@ footer {
   <div class="hero-badge reveal">RunwayML API Hackathon · May 8–11, 2026</div>
 
   <h1 class="hero-title reveal reveal-d1">
-    DIGITAL<br><span class="accent-green">GARDEN</span>
+    SOUL<br><span class="accent-green">GARDEN</span>
   </h1>
 
   <p class="hero-sub reveal reveal-d2">
@@ -1382,7 +1454,7 @@ footer {
 <footer>
   <div class="footer-brand">continuem</div>
   <div class="footer-meta">
-    Digital Garden / Souls · continuem × Runway Gen-4<br>
+    Soul Garden · continuem × Runway Gen-4<br>
     RunwayML API Hackathon · May 8–11, 2026
   </div>
 </footer>
@@ -1392,6 +1464,15 @@ function smoothTo(id) {
   const el = document.querySelector(id);
   if (el) el.scrollIntoView({ behavior: 'smooth' });
 }
+
+function toggleProjects(e) {
+  e.stopPropagation();
+  document.getElementById('navProjects').classList.toggle('open');
+}
+
+document.addEventListener('click', () => {
+  document.getElementById('navProjects').classList.remove('open');
+});
 
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => {

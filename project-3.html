@@ -81,7 +81,7 @@ body {
 
 .nav-tab {
   font-family: 'Babel Sans', sans-serif;
-  font-size: 11px;
+  font-size: 15px;
   color: var(--gray);
   background: none;
   border: 1px solid transparent;
@@ -92,6 +92,34 @@ body {
 }
 .nav-tab:hover { color: var(--black); border-color: var(--border); }
 .nav-tab.active { background: var(--black); color: var(--white); border-color: var(--black); }
+
+.nav-projects { position: relative; flex-shrink: 0; }
+.nav-projects-btn {
+  font-family: 'Babel Sans', sans-serif; font-size: 15px; color: var(--gray);
+  background: none; border: 1px solid transparent;
+  padding: 6px 14px; cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap; display: flex; align-items: center; gap: 6px;
+}
+.nav-projects-btn:hover { color: var(--black); border-color: var(--border); }
+.nav-projects-btn::after { content: '▾'; font-size: 9px; }
+.nav-projects-dropdown {
+  position: absolute; top: calc(100% + 6px); right: 0;
+  background: var(--white); border: 1px solid var(--border2);
+  min-width: 200px; display: none; flex-direction: column;
+  z-index: 600; box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+.nav-projects.open .nav-projects-dropdown { display: flex; }
+.nav-projects-item {
+  font-family: 'Babel Sans', sans-serif; font-size: 15px; color: var(--black);
+  text-decoration: none; padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s; display: flex; flex-direction: column; gap: 2px;
+}
+.nav-projects-item:last-child { border-bottom: none; }
+.nav-projects-item:hover { background: var(--off-white); }
+.nav-projects-item.current { color: var(--gray); cursor: default; pointer-events: none; }
+.nav-projects-item span { font-size: 15px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); }
 
 /* ── HERO ── */
 .hero {
@@ -155,6 +183,7 @@ body {
   display: flex;
   align-items: center;
   gap: 20px;
+  white-space: nowrap;
 }
 
 .hero-sub::before {
@@ -914,7 +943,7 @@ footer {
 
 <!-- NAVIGATION -->
 <nav class="project-nav">
-  <a href="index.html" class="nav-back">← EMILYYUAN</a>
+  <a href="index.html#make" class="nav-back">← EMILYYUAN</a>
   <div class="nav-tabs">
     <button class="nav-tab" onclick="smoothTo('#about')">About</button>
     <button class="nav-tab" onclick="smoothTo('#globe')">Globe Viz</button>
@@ -922,20 +951,32 @@ footer {
     <button class="nav-tab" onclick="smoothTo('#findings')">Findings</button>
     <button class="nav-tab" onclick="smoothTo('#meta')">Meta</button>
   </div>
+  <div class="nav-projects" id="navProjects">
+    <button class="nav-projects-btn" onclick="toggleProjects(event)">Projects</button>
+    <div class="nav-projects-dropdown">
+      <a href="project-1.html" class="nav-projects-item">
+        Movement of Memory<span>Project 01</span>
+      </a>
+      <a href="project-2.html" class="nav-projects-item">
+        Soul Garden<span>Project 02</span>
+      </a>
+      <a href="project-3.html" class="nav-projects-item current">
+        Sentiment Engine<span>Project 03 — current</span>
+      </a>
+    </div>
+  </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="top">
   <div class="hero-grid"></div>
 
-  <div class="hero-badge reveal">DIGITAL MEDIA MASTERS · PORTFOLIO PRESENTATION</div>
-
   <h1 class="hero-title reveal reveal-d1">
-    EMOTIONAL<br><span class="accent-pink">FREQUENCY</span>
+    SENTIMENT<br>ENGINE
   </h1>
 
   <p class="hero-sub reveal reveal-d2">
-    AI Sentiment Analysis of Player Reactions · Poppy Playtime Chapter 5
+    Tracking Gamer Reactions in Videos-On-Demand (VODS)
   </p>
 
   <div class="hero-stats reveal reveal-d3">
@@ -1452,6 +1493,14 @@ footer {
 
 <script>
 // Smooth scroll helper for nav buttons
+function toggleProjects(e) {
+  e.stopPropagation();
+  document.getElementById('navProjects').classList.toggle('open');
+}
+document.addEventListener('click', () => {
+  document.getElementById('navProjects').classList.remove('open');
+});
+
 function smoothTo(id) {
   const el = document.querySelector(id);
   if (el) el.scrollIntoView({ behavior: 'smooth' });

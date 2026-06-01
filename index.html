@@ -634,8 +634,8 @@
   <a href="#" class="nav-logo">EMILYYUAN</a>
   <ul class="nav-qs">
     <li><a href="#about">Tell me about you?</a></li>
-    <li><a href="#make">What do you make?</a></li>
-    <li><a href="#journey">What's your career journey?</a></li>
+    <li><a href="#make">What's your vibe?</a></li>
+    <li><a href="#journey">What's your story?</a></li>
   </ul>
 </nav>
 
@@ -649,9 +649,9 @@
   </div>
 
   <div class="q-scatter">
-    <a href="#about"   class="q-card"><span class="q-card-text">Tell me about you?</span></a>
-    <a href="#make"    class="q-card"><span class="q-card-text">What do you make?</span></a>
-    <a href="#journey" class="q-card"><span class="q-card-text">What's your career journey?</span></a>
+    <a href="#about"   class="q-card"><span class="q-card-text">"Tell me about you?"</span></a>
+    <a href="#make"    class="q-card"><span class="q-card-text">"What's your vibe?"</span></a>
+    <a href="#journey" class="q-card"><span class="q-card-text">"What's your story?"</span></a>
   </div>
 </header>
 
@@ -659,7 +659,7 @@
      01 — TELL ME ABOUT YOU
 ═══════════════════════════════════════════ -->
 <section class="section" id="about">
-  <p class="section-label reveal-left">Tell me about you?</p>
+  <p class="section-label reveal-left">"Tell me about you?"</p>
 
   <div class="about-layout reveal">
     <!-- Left: sphere visual + portrait overlay -->
@@ -703,7 +703,7 @@
      02 — WHAT DO YOU MAKE
 ═══════════════════════════════════════════ -->
 <section class="section" id="make">
-  <p class="section-label reveal-left">What do you make?</p>
+  <p class="section-label reveal-left">"What's your vibe?"</p>
 
   <div class="project-cards">
     <a href="project-1.html" class="project-card reveal"><span>Movement of Memory</span></a>
@@ -716,14 +716,19 @@
      03 — CAREER JOURNEY
 ═══════════════════════════════════════════ -->
 <section class="section" id="journey">
-  <p class="section-label reveal-left">What's your career journey?</p>
+  <p class="section-label reveal-left">"What's your story?"</p>
 
-  <img src="assets-landing-page/careermap.png" alt="Career Map" class="reveal" style="width:100%; height:calc(100vh - 160px); object-fit:contain; display:block; margin-top:32px;">
+  <img src="assets-landing-page/careermap.png" alt="Career Map" class="reveal careermap-thumb" style="width:100%; height:calc(100vh - 160px); object-fit:contain; display:block; margin-top:32px; cursor:zoom-in;">
 </section>
 
 <!-- ═══════════════════════════════════════════
      04 — WHY US
 ═══════════════════════════════════════════ -->
+<!-- ── Career map lightbox ── -->
+<div id="careermap-modal" style="display:none; position:fixed; inset:0; z-index:900; background:rgba(0,0,0,0.85); backdrop-filter:blur(6px); cursor:zoom-out; align-items:center; justify-content:center;">
+  <img src="assets-landing-page/careermap.png" alt="Career Map" style="max-width:92vw; max-height:92vh; object-fit:contain; box-shadow:0 24px 80px rgba(0,0,0,0.5);">
+</div>
+
 <!-- ── Footer ── -->
 <footer>
   <span class="footer-name">EMILYYUAN © 2026</span>
@@ -757,6 +762,18 @@ document.querySelectorAll('.reveal, .reveal-left').forEach(el =>
     { threshold: 0.08 }
   ).observe(el)
 );
+
+// Reveal elements already in viewport after hash navigation settles
+window.addEventListener('load', function () {
+  requestAnimationFrame(function () {
+    document.querySelectorAll('.reveal, .reveal-left').forEach(function (el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        el.classList.add('in');
+      }
+    });
+  });
+});
 
 // ─────────────────────────────────────────────
 // Career section tabs
@@ -822,6 +839,38 @@ function showCareer(mode) {
     requestAnimationFrame(draw);
   }
   draw();
+})();
+
+// ─────────────────────────────────────────────
+// Reset floating card animations on back-nav (bfcache restore)
+// ─────────────────────────────────────────────
+window.addEventListener('pageshow', function () {
+  document.querySelectorAll('.q-card, .project-card').forEach(function (card) {
+    card.style.animation = 'none';
+    card.offsetHeight; // force reflow
+    card.style.animation = '';
+  });
+});
+
+// ─────────────────────────────────────────────
+// Career map lightbox
+// ─────────────────────────────────────────────
+(function () {
+  const modal = document.getElementById('careermap-modal');
+  const thumb = document.querySelector('.careermap-thumb');
+
+  function open() {
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  thumb.addEventListener('click', open);
+  modal.addEventListener('click', close);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
 })();
 
 </script>

@@ -69,7 +69,7 @@
     .nav-back:hover { color: var(--gray); }
     .nav-tabs { display: flex; gap: 4px; }
     .nav-tab {
-      font-size: 11px; color: var(--gray);
+      font-size: 15px; color: var(--gray);
       background: none; border: 1px solid transparent;
       padding: 6px 14px; cursor: pointer;
       transition: color 0.2s, border-color 0.2s, background 0.2s;
@@ -77,6 +77,34 @@
     }
     .nav-tab:hover { color: var(--black); border-color: var(--border); }
     .nav-tab.active { background: var(--black); color: var(--white); border-color: var(--black); }
+
+    .nav-projects { position: relative; flex-shrink: 0; }
+    .nav-projects-btn {
+      font-family: inherit; font-size: 15px; color: var(--gray);
+      background: none; border: 1px solid transparent;
+      padding: 6px 14px; cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap; display: flex; align-items: center; gap: 6px;
+    }
+    .nav-projects-btn:hover { color: var(--black); border-color: var(--border); }
+    .nav-projects-btn::after { content: '▾'; font-size: 9px; }
+    .nav-projects-dropdown {
+      position: absolute; top: calc(100% + 6px); right: 0;
+      background: var(--white); border: 1px solid var(--border);
+      min-width: 200px; display: none; flex-direction: column;
+      z-index: 600; box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+    .nav-projects.open .nav-projects-dropdown { display: flex; }
+    .nav-projects-item {
+      font-family: inherit; font-size: 15px; color: var(--black);
+      text-decoration: none; padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s; display: flex; flex-direction: column; gap: 2px;
+    }
+    .nav-projects-item:last-child { border-bottom: none; }
+    .nav-projects-item:hover { background: #f5f5f5; }
+    .nav-projects-item.current { color: var(--gray); cursor: default; pointer-events: none; }
+    .nav-projects-item span { font-size: 15px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); }
 
     /* ── New hero ── */
     .new-hero {
@@ -592,12 +620,26 @@
 
 <!-- ── Nav ── -->
 <nav class="project-nav">
-  <a href="index.html" class="nav-back">← EMILYYUAN</a>
+  <a href="index.html#make" class="nav-back">← EMILYYUAN</a>
   <div class="nav-tabs">
     <button class="nav-tab" onclick="window.scrollTo({top:0,behavior:'smooth'})">About</button>
     <button class="nav-tab" data-tab="motivations" onclick="goToSlide(0)">Motivations</button>
     <button class="nav-tab" data-tab="process"     onclick="goToSlide(2)">Process</button>
     <button class="nav-tab" data-tab="reflections" onclick="goToSlide(8)">Exhibit</button>
+  </div>
+  <div class="nav-projects" id="navProjects">
+    <button class="nav-projects-btn" onclick="toggleProjects(event)">Projects</button>
+    <div class="nav-projects-dropdown">
+      <a href="project-1.html" class="nav-projects-item current">
+        Movement of Memory<span>Project 01 — current</span>
+      </a>
+      <a href="project-2.html" class="nav-projects-item">
+        Soul Garden<span>Project 02</span>
+      </a>
+      <a href="project-3.html" class="nav-projects-item">
+        Sentiment Engine<span>Project 03</span>
+      </a>
+    </div>
   </div>
 </nav>
 
@@ -888,6 +930,14 @@ const SECTIONS = ['motivations', 'motivations-2', 'process', 'process-2', 'proce
 
 // ── Horizontal slide navigation ───────────────────────────────────────────
 let _slideIdx = 0;
+
+function toggleProjects(e) {
+  e.stopPropagation();
+  document.getElementById('navProjects').classList.toggle('open');
+}
+document.addEventListener('click', () => {
+  document.getElementById('navProjects').classList.remove('open');
+});
 
 function goToSlide(idx) {
   _slideIdx = Math.max(0, Math.min(SECTIONS.length - 1, idx));
