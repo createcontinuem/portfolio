@@ -10,42 +10,42 @@
   <style>
     @font-face {
       font-family: 'Babel Sans';
-      src: url('assets-landing-page/fonts/babel_sans/BabelSans.ttf') format('truetype');
+      src: url('assets/fonts/babel_sans/BabelSans.ttf') format('truetype');
       font-weight: 400; font-style: normal;
     }
     @font-face {
       font-family: 'Babel Sans';
-      src: url('assets-landing-page/fonts/babel_sans/BabelSans-Bold.ttf') format('truetype');
+      src: url('assets/fonts/babel_sans/BabelSans-Bold.ttf') format('truetype');
       font-weight: 700; font-style: normal;
     }
     @font-face {
       font-family: 'Babel Sans';
-      src: url('assets-landing-page/fonts/babel_sans/BabelSans-Oblique.ttf') format('truetype');
+      src: url('assets/fonts/babel_sans/BabelSans-Oblique.ttf') format('truetype');
       font-weight: 400; font-style: oblique;
     }
     @font-face {
       font-family: 'Babel Sans';
-      src: url('assets-landing-page/fonts/babel_sans/BabelSans-BoldOblique.ttf') format('truetype');
+      src: url('assets/fonts/babel_sans/BabelSans-BoldOblique.ttf') format('truetype');
       font-weight: 700; font-style: oblique;
     }
     @font-face {
       font-family: 'Feeling Passionate';
-      src: url('assets-landing-page/fonts/feeling_passionate/Feeling Passionate Personal Use Only.ttf') format('truetype');
+      src: url('assets/fonts/feeling_passionate/Feeling Passionate Personal Use Only.ttf') format('truetype');
       font-weight: 400; font-style: normal;
     }
     @font-face {
       font-family: 'Dry Brush';
-      src: url('assets-landing-page/fonts/dry_brush/Dry Brush.ttf') format('truetype');
+      src: url('assets/fonts/dry_brush/Dry Brush.ttf') format('truetype');
       font-weight: 400; font-style: normal;
     }
     @font-face {
       font-family: 'Mon Journal Secret';
-      src: url('assets-landing-page/fonts/mon_journal_secret/Mon Journal Secret.ttf') format('truetype');
+      src: url('assets/fonts/mon_journal_secret/Mon Journal Secret.ttf') format('truetype');
       font-weight: 400; font-style: normal;
     }
     @font-face {
       font-family: 'Signature December';
-      src: url('assets-landing-page/fonts/signature_december/Signature December.otf') format('opentype');
+      src: url('assets/fonts/signature_december/Signature December.otf') format('opentype');
       font-weight: 400; font-style: normal;
     }
 
@@ -665,7 +665,7 @@
     <!-- Left: sphere visual + portrait overlay -->
     <div class="about-visual">
       <canvas id="sphere-canvas" width="560" height="560"></canvas>
-      <img src="assets-landing-page/portrait-me.jpg" alt="Emily Yuan" class="portrait-overlay">
+      <img src="assets/portrait-me.jpg" alt="Emily Yuan" class="portrait-overlay">
     </div>
 
     <!-- Right: about text -->
@@ -718,7 +718,7 @@
 <section class="section" id="journey">
   <p class="section-label reveal-left">"What's your story?"</p>
 
-  <img src="assets-landing-page/careermap.png" alt="Career Map" class="reveal careermap-thumb" style="width:100%; height:calc(100vh - 160px); object-fit:contain; display:block; margin-top:32px; cursor:zoom-in;">
+  <img src="assets/careermap.png" alt="Career Map" class="reveal careermap-thumb" style="width:100%; height:calc(100vh - 160px); object-fit:contain; display:block; margin-top:32px; cursor:zoom-in;">
 </section>
 
 <!-- ═══════════════════════════════════════════
@@ -726,7 +726,7 @@
 ═══════════════════════════════════════════ -->
 <!-- ── Career map lightbox ── -->
 <div id="careermap-modal" style="display:none; position:fixed; inset:0; z-index:900; background:rgba(0,0,0,0.85); backdrop-filter:blur(6px); cursor:zoom-out; align-items:center; justify-content:center;">
-  <img src="assets-landing-page/careermap.png" alt="Career Map" style="max-width:92vw; max-height:92vh; object-fit:contain; box-shadow:0 24px 80px rgba(0,0,0,0.5);">
+  <img src="assets/careermap.png" alt="Career Map" style="max-width:92vw; max-height:92vh; object-fit:contain; box-shadow:0 24px 80px rgba(0,0,0,0.5);">
 </div>
 
 <!-- ── Footer ── -->
@@ -764,15 +764,17 @@ document.querySelectorAll('.reveal, .reveal-left').forEach(el =>
 );
 
 // Reveal elements already in viewport after hash navigation settles
-window.addEventListener('load', function () {
-  requestAnimationFrame(function () {
-    document.querySelectorAll('.reveal, .reveal-left').forEach(function (el) {
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-        el.classList.add('in');
-      }
-    });
+function revealInViewport() {
+  document.querySelectorAll('.reveal, .reveal-left').forEach(function (el) {
+    var rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      el.classList.add('in');
+    }
   });
+}
+window.addEventListener('load', function () {
+  requestAnimationFrame(revealInViewport);
+  setTimeout(revealInViewport, 200);
 });
 
 // ─────────────────────────────────────────────

@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abstract Art Gallery</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700&amp;family=Playfair+Display:wght@700&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <style>
+    body { font-family: 'Alegreya', serif; }
+    .gallery-card:hover img { transform: scale(1.05); }
+    .gallery-card img { transition: transform 0.4s ease; }
+    .lightbox { display: none; }
+    .lightbox.active { display: flex; }
+  </style>
+  <script src="/_sdk/resizing_sdk.js" type="text/javascript"></script>
+ <script src="/_sdk/telemetry_sdk.js"></script></head>
+ <body data-template-id="__page-root" class="min-h-screen" style="background: rgb(10, 10, 10);">
+  <header class="text-center py-16 px-4">
+   <h1 data-template-id="gallery-title" class="canva-text font-bold" style="color: rgb(245, 245, 245); font-family: Sailors; font-weight: 400; font-style: normal; font-size: 32px;">Visual Gallery </h1>
+   <p data-template-id="gallery-subtitle" class="canva-text mt-4 max-w-xl mx-auto" style="color: rgb(163, 163, 163); font-weight: 700; font-style: normal; font-size: 19px;">Based on first reactions without overthinking, click on one (or more) images and write about what comes to mind. What emotions, memory, object, person, or any thought comes to mind?</p>
+  </header>
+  <main class="max-w-6xl mx-auto px-6 pb-16">
+   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <button type="button" class="gallery-card overflow-hidden rounded-lg text-left" data-artwork="art-1"> <img data-template-id="art-1" class="canva-image w-full h-80 object-cover" loading="lazy" src="canva://MAHLSfK9SUs/1" alt="Abstract explosion in red and black tones"> <p data-template-id="art-1-title" class="canva-text mt-3 text-center" style="color: rgb(212, 212, 212); font-weight: 500; font-style: normal; font-size: 16px;">Ember Burst</p></button> <button type="button" class="gallery-card overflow-hidden rounded-lg text-left" data-artwork="art-2"> <img data-template-id="art-2" class="canva-image w-full h-80 object-cover" loading="lazy" src="canva://MAHLSYvhF5M/1" alt="Abstract blue and white fluid forms"> <p data-template-id="art-2-title" class="canva-text mt-3 text-center" style="color: rgb(212, 212, 212); font-weight: 500; font-style: normal; font-size: 16px;">Frozen Tide</p></button> <button type="button" class="gallery-card overflow-hidden rounded-lg text-left" data-artwork="art-3"> <img data-template-id="art-3" class="canva-image w-full h-80 object-cover" loading="lazy" src="canva://MAHLSXwLBso/1" alt="Abstract pink and black radiant energy"> <p data-template-id="art-3-title" class="canva-text mt-3 text-center" style="color: rgb(212, 212, 212); font-weight: 500; font-style: normal; font-size: 16px;">Neon Pulse</p></button> <button type="button" class="gallery-card overflow-hidden rounded-lg text-left" data-artwork="art-4"> <img data-template-id="art-4" class="canva-image w-full h-80 object-cover" loading="lazy" src="canva://MAHLSciGVlo/1" alt="Deep blue abstract vortex texture"> <p data-template-id="art-4-title" class="canva-text mt-3 text-center" style="color: rgb(212, 212, 212); font-weight: 500; font-style: normal; font-size: 16px;">Abyssal Current</p></button> <button type="button" class="gallery-card overflow-hidden rounded-lg text-left" data-artwork="art-5"> <img data-template-id="art-5" class="canva-image w-full h-80 object-cover" loading="lazy" src="canva://MAHLSerIXfw/1" alt="Dark crimson abstract crystalline pattern"> <p data-template-id="art-5-title" class="canva-text mt-3 text-center" style="color: rgb(212, 212, 212); font-weight: 500; font-style: normal; font-size: 16px;">Velvet Fracture</p></button> <button type="button" class="gallery-card overflow-hidden rounded-lg text-left" data-artwork="art-6"> <img data-template-id="art-6" class="canva-image w-full h-80 object-cover" loading="lazy" src="https://images.pexels.com/photos/9176070/pexels-photo-9176070.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Rich purple watercolor texture perfect for artistic designs and creative projects."> <p data-template-id="art-6-title" class="canva-text mt-3 text-center" style="color: rgb(212, 212, 212); font-weight: 500; font-style: normal; font-size: 16px;">Amethyst Reverie</p></button> <button type="button" class="gallery-card overflow-hidden rounded-lg text-left" data-artwork="art-7"> <img data-template-id="art-7" class="canva-image w-full h-80 object-cover" loading="lazy" src="https://images.pexels.com/photos/5052701/pexels-photo-5052701.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Elegant marbled art pattern with swirling golden and silver hues."> <p data-template-id="art-7-title" class="canva-text mt-3 text-center" style="color: rgb(212, 212, 212); font-weight: 500; font-style: normal; font-size: 16px;">Golden Ascent</p></button> <button type="button" class="gallery-card overflow-hidden rounded-lg text-left" data-artwork="art-8"> <img data-template-id="art-8" class="canva-image w-full h-80 object-cover" loading="lazy" src="https://images.pexels.com/photos/9977649/pexels-photo-9977649.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Vibrant 3D abstract geometric pattern with teal and coral polygons."> <p data-template-id="art-8-title" class="canva-text mt-3 text-center" style="color: rgb(212, 212, 212); font-weight: 500; font-style: normal; font-size: 16px;">Cipher Realm</p></button> <button type="button" class="gallery-card overflow-hidden rounded-lg text-left" data-artwork="art-9"> <img data-template-id="art-9" class="canva-image w-full h-80 object-cover" loading="lazy" src="https://images.pexels.com/photos/36807309/pexels-photo-36807309.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Black and white geometric pattern art with sharp angles and high contrast."> <p data-template-id="art-9-title" class="canva-text mt-3 text-center" style="color: rgb(212, 212, 212); font-weight: 500; font-style: normal; font-size: 16px;">Edge &amp; Shadow</p></button>
+   </div>
+  </main><!-- Lightbox -->
+  <div id="lightbox" class="lightbox fixed inset-0 z-50 items-center justify-center bg-black/90 overflow-y-auto p-4">
+   <div class="relative max-w-5xl w-full mx-auto my-8 bg-neutral-900 rounded-xl overflow-hidden">
+    <button type="button" id="lightbox-close" class="absolute top-4 right-4 z-10 text-white/70 hover:text-white"> <i data-lucide="x" style="width:28px;height:28px;"></i> </button>
+    <div class="flex flex-col lg:flex-row">
+     <div class="flex-shrink-0 w-full lg:w-1/2 bg-black"><img id="lightbox-img" class="w-full h-auto max-h-[60vh] object-contain" src="" alt="">
+     </div>
+     <div class="w-full lg:w-1/2 p-6 flex flex-col overflow-y-auto" style="max-height: calc(60vh + 2rem)">
+      <h2 id="lightbox-title" class="text-xl font-bold text-neutral-100 mb-4"></h2>
+      <form id="comment-form" class="mb-6">
+       <label data-template-id="comment-name-label" for="comment-name" class="canva-text block mb-1 text-sm" style="color: rgb(163, 163, 163); font-weight: 400; font-style: normal; font-size: 16px;">Your Name</label> <input id="comment-name" type="text" class="w-full mb-3 px-3 py-2 rounded bg-neutral-800 text-neutral-100 border border-neutral-700 focus:outline-none focus:border-neutral-500" required=""> <label data-template-id="comment-text-label" for="comment-text" class="canva-text block mb-1 text-sm" style="color: rgb(163, 163, 163); font-weight: 400; font-style: normal; font-size: 16px;">Your Comment</label> <textarea id="comment-text" rows="3" class="w-full mb-3 px-3 py-2 rounded bg-neutral-800 text-neutral-100 border border-neutral-700 focus:outline-none focus:border-neutral-500" required=""></textarea> <button data-template-id="comment-submit-btn" type="submit" class="canva-button px-5 py-2 rounded font-semibold" style="background: rgb(225, 29, 72); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">Submit Comment</button>
+      </form>
+      <div id="comments-list" class="space-y-3 flex-1 overflow-y-auto"></div>
+      <p id="no-comments" class="text-neutral-500 italic text-sm hidden">No comments yet. Be the first!</p>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script src="/_sdk/editing_sdk.js"></script>
+  <script>
+    let allComments = [];
+    let currentArtwork = null;
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    const commentsList = document.getElementById('comments-list');
+    const noComments = document.getElementById('no-comments');
+    const commentForm = document.getElementById('comment-form');
+
+    // Open lightbox
+    document.querySelectorAll('.gallery-card').forEach(card => {
+      card.addEventListener('click', () => {
+        currentArtwork = card.dataset.artwork;
+        const img = card.querySelector('img');
+        const title = card.querySelector('p');
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightboxTitle.textContent = title.textContent;
+        lightbox.classList.add('active');
+        renderComments();
+      });
+    });
+
+    // Close lightbox
+    document.getElementById('lightbox-close').addEventListener('click', () => {
+      lightbox.classList.remove('active');
+      currentArtwork = null;
+    });
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        lightbox.classList.remove('active');
+        currentArtwork = null;
+      }
+    });
+
+    // Render comments for current artwork
+    function renderComments() {
+      const filtered = allComments.filter(c => c.artwork_id === currentArtwork);
+      if (filtered.length === 0) {
+        commentsList.innerHTML = '';
+        noComments.classList.remove('hidden');
+        return;
+      }
+      noComments.classList.add('hidden');
+      commentsList.innerHTML = filtered.map(c => `
+        <div class="bg-neutral-800 rounded p-3">
+          <p class="text-neutral-300 text-sm font-semibold">${escapeHtml(c.author_name)}</p>
+          <p class="text-neutral-400 text-sm mt-1">${escapeHtml(c.comment_text)}</p>
+        </div>
+      `).join('');
+    }
+
+    function escapeHtml(str) {
+      const d = document.createElement('div');
+      d.textContent = str || '';
+      return d.innerHTML;
+    }
+
+    // Submit comment
+    commentForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!currentArtwork) return;
+      const name = document.getElementById('comment-name').value.trim();
+      const text = document.getElementById('comment-text').value.trim();
+      if (!name || !text) return;
+
+      if (allComments.length >= 999) {
+        noComments.textContent = 'Comment limit reached (999). Please remove some comments first.';
+        noComments.classList.remove('hidden');
+        return;
+      }
+
+      const btn = commentForm.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+
+      const result = await window.dataSdk.create({
+        artwork_id: currentArtwork,
+        author_name: name,
+        comment_text: text,
+        created_at: new Date().toISOString()
+      });
+
+      btn.disabled = false;
+      btn.textContent = 'Submit Comment';
+
+      if (result.isOk) {
+        commentForm.reset();
+      } else {
+        noComments.textContent = 'Failed to submit comment. Please try again.';
+        noComments.classList.remove('hidden');
+      }
+    });
+
+    // Data SDK
+    const dataHandler = {
+      onDataChanged(data) {
+        allComments = data;
+        if (currentArtwork) renderComments();
+      }
+    };
+
+    (async () => {
+      const res = await window.dataSdk.init(dataHandler);
+      if (!res.isOk) console.error('Data SDK init failed');
+    })();
+
+    lucide.createIcons();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a04a93603ccf4e62',t:'MTc4MDI3ODcxMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body></html>

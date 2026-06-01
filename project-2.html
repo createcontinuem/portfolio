@@ -7,14 +7,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <style>
-@font-face { font-family: 'Babel Sans'; src: url('assets-landing-page/fonts/babel_sans/BabelSans.ttf') format('truetype'); font-weight: 400; font-style: normal; }
-@font-face { font-family: 'Babel Sans'; src: url('assets-landing-page/fonts/babel_sans/BabelSans-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; }
-@font-face { font-family: 'Babel Sans'; src: url('assets-landing-page/fonts/babel_sans/BabelSans-Oblique.ttf') format('truetype'); font-weight: 400; font-style: oblique; }
-@font-face { font-family: 'Babel Sans'; src: url('assets-landing-page/fonts/babel_sans/BabelSans-BoldOblique.ttf') format('truetype'); font-weight: 700; font-style: oblique; }
-@font-face { font-family: 'Dry Brush'; src: url('assets-landing-page/fonts/dry_brush/Dry Brush.ttf') format('truetype'); font-weight: 400; }
-@font-face { font-family: 'Feeling Passionate'; src: url('assets-landing-page/fonts/feeling_passionate/Feeling Passionate Personal Use Only.ttf') format('truetype'); font-weight: 400; }
-@font-face { font-family: 'Apple Garamond'; src: url('assets-landing-page/fonts/apple_garamond/AppleGaramond.ttf') format('truetype'); font-weight: 400; }
-@font-face { font-family: 'Apple Garamond'; src: url('assets-landing-page/fonts/apple_garamond/AppleGaramond-Bold.ttf') format('truetype'); font-weight: 700; }
+@font-face { font-family: 'Babel Sans'; src: url('assets/fonts/babel_sans/BabelSans.ttf') format('truetype'); font-weight: 400; font-style: normal; }
+@font-face { font-family: 'Babel Sans'; src: url('assets/fonts/babel_sans/BabelSans-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; }
+@font-face { font-family: 'Babel Sans'; src: url('assets/fonts/babel_sans/BabelSans-Oblique.ttf') format('truetype'); font-weight: 400; font-style: oblique; }
+@font-face { font-family: 'Babel Sans'; src: url('assets/fonts/babel_sans/BabelSans-BoldOblique.ttf') format('truetype'); font-weight: 700; font-style: oblique; }
+@font-face { font-family: 'Dry Brush'; src: url('assets/fonts/dry_brush/Dry Brush.ttf') format('truetype'); font-weight: 400; }
+@font-face { font-family: 'Feeling Passionate'; src: url('assets/fonts/feeling_passionate/Feeling Passionate Personal Use Only.ttf') format('truetype'); font-weight: 400; }
+@font-face { font-family: 'Apple Garamond'; src: url('assets/fonts/apple_garamond/AppleGaramond.ttf') format('truetype'); font-weight: 400; }
+@font-face { font-family: 'Apple Garamond'; src: url('assets/fonts/apple_garamond/AppleGaramond-Bold.ttf') format('truetype'); font-weight: 700; }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -153,7 +153,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
   padding: 120px 80px 80px;
   position: relative;
   overflow: hidden;
@@ -955,8 +955,6 @@ footer {
 <section class="hero" id="top">
   <div class="hero-grid"></div>
 
-  <div class="hero-badge reveal">RunwayML API Hackathon · May 8–11, 2026</div>
-
   <h1 class="hero-title reveal reveal-d1">
     SOUL<br><span class="accent-green">GARDEN</span>
   </h1>
@@ -965,6 +963,7 @@ footer {
     continuem × Runway Gen-4 · Living Artwork Lineages
   </p>
 
+  <!-- HERO STATS — saved for later
   <div class="hero-stats reveal reveal-d3">
     <div class="hero-stat">
       <div class="hs-val">7</div>
@@ -983,6 +982,7 @@ footer {
       <div class="hs-lbl">Credits Used</div>
     </div>
   </div>
+  -->
 
   <div class="scroll-hint reveal">
     <span class="scroll-line"></span>

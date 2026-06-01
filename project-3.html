@@ -5,16 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EMILYYUAN — Sentiment Engine · P3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Serif+Text:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <style>
-@font-face { font-family: 'Babel Sans'; src: url('assets-landing-page/fonts/babel_sans/BabelSans.ttf') format('truetype'); font-weight: 400; font-style: normal; }
-@font-face { font-family: 'Babel Sans'; src: url('assets-landing-page/fonts/babel_sans/BabelSans-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; }
-@font-face { font-family: 'Babel Sans'; src: url('assets-landing-page/fonts/babel_sans/BabelSans-Oblique.ttf') format('truetype'); font-weight: 400; font-style: oblique; }
-@font-face { font-family: 'Babel Sans'; src: url('assets-landing-page/fonts/babel_sans/BabelSans-BoldOblique.ttf') format('truetype'); font-weight: 700; font-style: oblique; }
-@font-face { font-family: 'Dry Brush'; src: url('assets-landing-page/fonts/dry_brush/Dry Brush.ttf') format('truetype'); font-weight: 400; }
-@font-face { font-family: 'Feeling Passionate'; src: url('assets-landing-page/fonts/feeling_passionate/Feeling Passionate Personal Use Only.ttf') format('truetype'); font-weight: 400; }
-@font-face { font-family: 'Apple Garamond'; src: url('assets-landing-page/fonts/apple_garamond/AppleGaramond.ttf') format('truetype'); font-weight: 400; }
-@font-face { font-family: 'Apple Garamond'; src: url('assets-landing-page/fonts/apple_garamond/AppleGaramond-Bold.ttf') format('truetype'); font-weight: 700; }
+@font-face { font-family: 'Babel Sans'; src: url('assets/fonts/babel_sans/BabelSans.ttf') format('truetype'); font-weight: 400; font-style: normal; }
+@font-face { font-family: 'Babel Sans'; src: url('assets/fonts/babel_sans/BabelSans-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; }
+@font-face { font-family: 'Babel Sans'; src: url('assets/fonts/babel_sans/BabelSans-Oblique.ttf') format('truetype'); font-weight: 400; font-style: oblique; }
+@font-face { font-family: 'Babel Sans'; src: url('assets/fonts/babel_sans/BabelSans-BoldOblique.ttf') format('truetype'); font-weight: 700; font-style: oblique; }
+@font-face { font-family: 'Dry Brush'; src: url('assets/fonts/dry_brush/Dry Brush.ttf') format('truetype'); font-weight: 400; }
+@font-face { font-family: 'Feeling Passionate'; src: url('assets/fonts/feeling_passionate/Feeling Passionate Personal Use Only.ttf') format('truetype'); font-weight: 400; }
+@font-face { font-family: 'Apple Garamond'; src: url('assets/fonts/apple_garamond/AppleGaramond.ttf') format('truetype'); font-weight: 400; }
+@font-face { font-family: 'Apple Garamond'; src: url('assets/fonts/apple_garamond/AppleGaramond-Bold.ttf') format('truetype'); font-weight: 700; }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -123,11 +123,11 @@ body {
 
 /* ── HERO ── */
 .hero {
-  min-height: 100vh;
+  min-height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding: 120px 80px 80px;
+  justify-content: flex-start;
+  padding: 80px 80px 64px;
   position: relative;
   overflow: hidden;
   background: linear-gradient(180deg, var(--off-white) 0%, var(--white) 100%);
@@ -160,7 +160,7 @@ body {
 
 .hero-title {
   font-family: 'Dry Brush', serif;
-  font-size: clamp(72px, 12vw, 160px);
+  font-size: clamp(48px, 8vw, 100px);
   letter-spacing: 3px;
   line-height: 0.88;
   color: var(--black);
@@ -173,8 +173,8 @@ body {
 
 .hero-sub {
   font-family: 'Babel Sans', sans-serif;
-  font-size: 11px;
-  letter-spacing: 0.18em;
+  font-size: 22px;
+  letter-spacing: 0.12em;
   color: var(--gray);
   text-transform: uppercase;
   position: relative;
@@ -369,6 +369,7 @@ p {
 
 .step-title {
   font-family: 'Babel Sans', sans-serif;
+  font-size: 15px;
   font-weight: 700;
   color: var(--black);
   margin-bottom: 2px;
@@ -378,7 +379,7 @@ p {
 .step-desc {
   font-family: 'Babel Sans', sans-serif;
   color: var(--gray);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 /* ── EMOTION CHIPS ── */
@@ -580,7 +581,7 @@ p {
 
 .callout-title {
   font-family: 'Babel Sans', sans-serif;
-  font-size: 10px;
+  font-size: 15px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--black);
@@ -590,7 +591,7 @@ p {
 
 .callout-body {
   font-family: 'Babel Sans', sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--gray);
   line-height: 1.7;
   max-width: 100%;
@@ -624,7 +625,7 @@ p {
 
 .finding-tag {
   font-family: 'Babel Sans', sans-serif;
-  font-size: 8px;
+  font-size: 15px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   margin-bottom: 16px;
@@ -650,7 +651,7 @@ p {
 
 .fi-title {
   font-family: 'Babel Sans', sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--black);
   font-weight: 700;
   margin-bottom: 6px;
@@ -659,7 +660,7 @@ p {
 
 .fi-body {
   font-family: 'Babel Sans', sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--gray);
   line-height: 1.7;
   max-width: 100%;
@@ -781,7 +782,7 @@ p {
   background: var(--off-white);
   border-bottom: 1px solid var(--border);
   font-family: 'Babel Sans', sans-serif;
-  font-size: 9px;
+  font-size: 15px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--gray);
@@ -801,7 +802,7 @@ p {
   padding: 12px 16px;
   border-right: 1px solid var(--border);
   font-family: 'Babel Sans', sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.5;
   color: var(--black);
 }
@@ -853,7 +854,7 @@ p {
 
 .meta-card-title {
   font-family: 'Babel Sans', sans-serif;
-  font-size: 12px;
+  font-size: 15px;
   letter-spacing: 0.08em;
   font-weight: 700;
   color: var(--black);
@@ -862,14 +863,15 @@ p {
 .meta-card-body {
   padding: 20px;
   font-family: 'Babel Sans', sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--gray);
   line-height: 1.8;
 }
 
 blockquote {
-  font-family: 'Apple Garamond', 'Playfair Display', serif;
-  font-style: italic;
+  font-family: 'Babel Sans', sans-serif;
+  font-weight: 700;
+  font-style: normal;
   font-size: 18px;
   color: var(--black);
   line-height: 1.6;
@@ -924,10 +926,116 @@ footer {
 .reveal-d2 { transition-delay: 0.2s; }
 .reveal-d3 { transition-delay: 0.35s; }
 
+/* ── HERO LAYOUT ── */
+.hero-main {
+  display: flex;
+  align-items: flex-end;
+  gap: 48px;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+.hero-main-left { flex: 1; min-width: 0; }
+.hero-main-right { flex: 1; min-width: 0; }
+
+/* ── HERO CARD ── */
+/* Font options — change font-family below to swap:
+   'Playfair Display', serif        → elegant, high contrast
+   'EB Garamond', serif             → classical, warm
+   'Cormorant Garamond', serif      → literary, refined
+   'Lora', serif                    → balanced, readable
+   'DM Serif Text', serif           → editorial, modern
+   'Babel Sans', sans-serif         → matches page body
+*/
+.hero-card {
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 16px 22px;
+  font-family: 'EB Garamond', serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--black);
+}
+
+/* ── VIZ THUMBNAIL + MODAL ── */
+.viz-thumb {
+  width: 400px;
+  aspect-ratio: 16/9;
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.viz-thumb:hover .viz-thumb-overlay { opacity: 1; }
+.viz-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.viz-thumb-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.viz-thumb-overlay span {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.6);
+  padding: 8px 16px;
+}
+
+.viz-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 800;
+}
+.viz-modal.active { display: block; }
+
+.viz-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.82);
+  backdrop-filter: blur(8px);
+}
+
+.viz-modal-content {
+  position: absolute;
+  inset: 40px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #030307;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+}
+
+.viz-modal-close {
+  position: absolute;
+  top: 12px; right: 12px;
+  z-index: 10;
+  width: 32px; height: 32px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 2px;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s;
+}
+.viz-modal-close:hover { background: rgba(255,255,255,0.22); }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .about-grid, .viz-layout, .findings-layout, .meta-grid { grid-template-columns: 1fr; }
-  .hero { padding: 100px 32px 60px; }
+  .hero-main { flex-direction: column; gap: 24px; align-items: flex-start; }
+  .hero-main-right { width: 100%; }
+  .hero { padding: 72px 32px 48px; }
   .section { padding: 72px 32px; }
   .project-nav { padding: 14px 24px; }
   .nav-tabs { display: none; }
@@ -945,11 +1053,10 @@ footer {
 <nav class="project-nav">
   <a href="index.html#make" class="nav-back">← EMILYYUAN</a>
   <div class="nav-tabs">
-    <button class="nav-tab" onclick="smoothTo('#about')">About</button>
-    <button class="nav-tab" onclick="smoothTo('#globe')">Globe Viz</button>
-    <button class="nav-tab" onclick="smoothTo('#heatmap')">Heatmap</button>
+    <button class="nav-tab" onclick="smoothTo('#showcase')">Showcase</button>
+    <button class="nav-tab" onclick="smoothTo('#process')">Process</button>
     <button class="nav-tab" onclick="smoothTo('#findings')">Findings</button>
-    <button class="nav-tab" onclick="smoothTo('#meta')">Meta</button>
+    <button class="nav-tab" onclick="smoothTo('#ideas')">Ideas</button>
   </div>
   <div class="nav-projects" id="navProjects">
     <button class="nav-projects-btn" onclick="toggleProjects(event)">Projects</button>
@@ -971,14 +1078,23 @@ footer {
 <section class="hero" id="top">
   <div class="hero-grid"></div>
 
-  <h1 class="hero-title reveal reveal-d1">
-    SENTIMENT<br>ENGINE
-  </h1>
+  <div class="hero-main">
+    <div class="hero-main-left">
+      <h1 class="hero-title reveal reveal-d1">
+        SENTIMENT<br>ENGINE
+      </h1>
+      <p class="hero-sub reveal reveal-d2">
+        Tracking Gamer Reactions in Videos-On-Demand (VODS)
+      </p>
+    </div>
+    <div class="hero-main-right">
+      <div class="hero-card reveal reveal-d3">
+        I am developing a game intelligence platform that transforms YouTube/Twitch creator game streams into structured emotional data for game developers. The LLM engine analyzes what gamers say in real time as they play a video game for the first time. Game developers are able to get a feel for the collective playing experience — especially receive near real-time game feedback about storytelling, gameplay mechanisms, design and audio.
+      </div>
+    </div>
+  </div>
 
-  <p class="hero-sub reveal reveal-d2">
-    Tracking Gamer Reactions in Videos-On-Demand (VODS)
-  </p>
-
+  <!-- HERO STATS — saved for later
   <div class="hero-stats reveal reveal-d3">
     <div class="hero-stat">
       <div class="hs-val">21</div>
@@ -997,6 +1113,7 @@ footer {
       <div class="hs-lbl">Emotions</div>
     </div>
   </div>
+  -->
 
   <div class="scroll-hint reveal">
     <span class="scroll-line"></span>
@@ -1004,111 +1121,23 @@ footer {
   </div>
 </section>
 
-<!-- SECTION 1: ABOUT -->
-<section class="section" id="about">
+<!-- SECTION 1: SHOWCASE -->
+<section class="section" id="showcase">
   <div class="section-num">01</div>
   <div class="section-inner">
     <div class="section-label">Section 01</div>
-    <h2>ABOUT THE<br>PROJECT</h2>
-
-    <div class="about-grid">
-      <div class="reveal">
-        <p>Continuem is a B2B game intelligence platform that transforms YouTube creator reaction videos into structured emotional data for game developers. Rather than reading individual comments or reviews, it analyzes <em>what creators say in real time</em> — moment by moment — as they play a game for the first time.</p>
-
-        <p>The flagship case study is <strong>Poppy Playtime Chapter 5</strong>: 21 YouTube creators, 78,988 caption segments, processed into 8,321 thirty-second windows and 57 named game events, each with a full emotional profile.</p>
-
-        <div class="formula-block">
-          <div class="formula">score = (pos − neg) / (pos + neg + neu × 0.5)</div>
-          <div class="formula-note">
-            Sentiment net score, clamped to [−1, +1]. Positive keyword counts pull upward, negative pull downward. Neutral language is dampened with a 0.5 weight to reduce filler inflation. Threshold: positive &gt; 0.15, negative &lt; −0.15.
-          </div>
-        </div>
-
-        <div class="emotion-chips">
-          <span class="chip joy">Joy</span>
-          <span class="chip surp">Surprise</span>
-          <span class="chip frust">Frustration</span>
-          <span class="chip awe">Awe</span>
-          <span class="chip fear">Fear</span>
-          <span class="chip sad">Sadness</span>
-          <span class="chip disg">Disgust</span>
-          <span class="chip neut">Neutral</span>
-        </div>
-      </div>
-
-      <div class="reveal reveal-d2">
-        <div class="pipeline-steps">
-          <div class="step">
-            <span class="step-num">01</span>
-            <div class="step-text">
-              <div class="step-title">Ingest</div>
-              <div class="step-desc">Validate JSON, resolve segments + duration, filter videos under 60s</div>
-            </div>
-          </div>
-          <div class="step">
-            <span class="step-num">02</span>
-            <div class="step-text">
-              <div class="step-title">Window</div>
-              <div class="step-desc">Slice into 30s windows, concatenate + lowercase transcript text</div>
-            </div>
-          </div>
-          <div class="step">
-            <span class="step-num">03</span>
-            <div class="step-text">
-              <div class="step-title">Sentiment Score</div>
-              <div class="step-desc">Keyword net-score → float [−1, +1] + positive / neutral / negative</div>
-            </div>
-          </div>
-          <div class="step">
-            <span class="step-num">04</span>
-            <div class="step-text">
-              <div class="step-title">Emotion Label</div>
-              <div class="step-desc">8-class label via lexicon matching. Neutral suppressed when other emotions fire.</div>
-            </div>
-          </div>
-          <div class="step">
-            <span class="step-num">05</span>
-            <div class="step-text">
-              <div class="step-title">Normalise</div>
-              <div class="step-desc">Absolute time → 0–100% progress → bin 0–99. Enables cross-creator comparison.</div>
-            </div>
-          </div>
-          <div class="step">
-            <span class="step-num">06</span>
-            <div class="step-text">
-              <div class="step-title">Event Label</div>
-              <div class="step-desc">Bin ranges mapped to 57 named game events from config/games.yaml</div>
-            </div>
-          </div>
-          <div class="step">
-            <span class="step-num">07</span>
-            <div class="step-text">
-              <div class="step-title">Visualize</div>
-              <div class="step-desc">Inject aggregated data into self-contained HTML + React deliverables</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SECTION 2: GLOBE -->
-<section class="section" id="globe">
-  <div class="section-num">02</div>
-  <div class="section-inner">
-    <div class="section-label">Section 02</div>
-    <h2>GLOBE<br>VISUALIZATION</h2>
+    <h2>SHOWCASE</h2>
 
     <div class="viz-layout">
       <div class="reveal">
-        <div class="viz-screen">
-          <img src="p3-game-analyzer/emobulbz.png" alt="Globe visualization — 57 events × 7 emotions" style="width:100%;height:100%;object-fit:cover;">
+        <div class="viz-thumb" onclick="openViz()" style="width:100%;aspect-ratio:16/10;">
+          <img src="p3-game-analyzer/media/emobulbz.png" alt="Globe visualization — 57 events × 7 emotions" style="width:100%;height:100%;object-fit:cover;">
+          <div class="viz-thumb-overlay"><span>↗ Open interactive</span></div>
         </div>
       </div>
 
       <div class="reveal reveal-d2">
-        <h3>What you're looking at</h3>
+        <h3>3D Emotion Crystal Ball</h3>
         <p>A 3D cylindrical visualization built entirely in Canvas 2D — no WebGL, no Three.js. The cylinder maps the game's emotional data across three axes simultaneously.</p>
 
         <p><strong>Horizontal ring axis</strong> — the 57 game events in chronological order, wrapped around the cylinder. Drag to rotate through the game's narrative arc.</p>
@@ -1139,122 +1168,55 @@ footer {
         <div class="callout-body">The cylinder can be freely rotated. This is a deliberate interaction choice: the data is explorable rather than presented as a fixed "answer." Perspective changes what you notice.</div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- SECTION 3: HEATMAP -->
-<section class="section" id="heatmap">
-  <div class="section-num">03</div>
-  <div class="section-inner">
-    <div class="section-label">Section 03</div>
-    <h2>EMOTIONAL<br>HEATMAP</h2>
-
-    <div class="viz-layout">
+    <div class="viz-layout" style="margin-top:64px;">
       <div class="reveal">
-        <div class="viz-screen" style="aspect-ratio: 16/12;">
-          <div class="hmap-mock">
-            <div style="font-family:'Babel Sans',sans-serif;font-size:8px;letter-spacing:.14em;color:var(--gray);margin-bottom:10px;">EMOTION HEATMAP · 57 EVENTS</div>
-            <div class="hmap-row">
-              <span class="hmap-row-lbl" style="color:var(--joy)">JOY</span>
-              <div class="hmap-cells">
-                <div class="hc" style="background:rgba(245,200,66,.45)"></div>
-                <div class="hc" style="background:rgba(245,200,66,.60)"></div>
-                <div class="hc" style="background:rgba(245,200,66,.22)"></div>
-                <div class="hc" style="background:rgba(245,200,66,.35)"></div>
-                <div class="hc" style="background:rgba(245,200,66,.50)"></div>
-                <div class="hc" style="background:rgba(245,200,66,.80)"></div>
-                <div class="hc" style="background:rgba(245,200,66,.28)"></div>
-                <div class="hc" style="background:rgba(245,200,66,.65)"></div>
-                <div class="hc" style="background:rgba(245,200,66,.95)"></div>
-                <div class="hc" style="background:rgba(245,200,66,.38)"></div>
+        <div class="viz-thumb" onclick="openHeatmap()" style="width:100%;aspect-ratio:16/10;">
+          <div style="width:100%;height:100%;background:#04040a;display:flex;flex-direction:column;justify-content:center;padding:20px 24px;position:relative;overflow:hidden;">
+            <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 1px,rgba(0,0,0,.05) 1px,rgba(0,0,0,.05) 2px);pointer-events:none;"></div>
+            <div style="font-family:'Babel Sans',sans-serif;font-size:7px;letter-spacing:.18em;color:rgba(213,213,229,.35);text-transform:uppercase;margin-bottom:12px;position:relative;">EMOTION HEATMAP · 57 EVENTS</div>
+            <div style="display:flex;flex-direction:column;gap:3px;position:relative;">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-family:'Babel Sans',sans-serif;font-size:6px;color:#f5c842;width:52px;text-align:right;letter-spacing:.06em;opacity:.75;">JOY</span>
+                <div style="flex:1;height:9px;border-radius:1px;background:linear-gradient(90deg,rgba(245,200,66,.45),rgba(245,200,66,.6),rgba(245,200,66,.22),rgba(245,200,66,.5),rgba(245,200,66,.8),rgba(245,200,66,.95),rgba(245,200,66,.28),rgba(245,200,66,.65),rgba(245,200,66,.38),rgba(245,200,66,.55),rgba(245,200,66,.72),rgba(245,200,66,.4));"></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-family:'Babel Sans',sans-serif;font-size:6px;color:#3d8eff;width:52px;text-align:right;letter-spacing:.06em;opacity:.75;">SURPRISE</span>
+                <div style="flex:1;height:9px;border-radius:1px;background:linear-gradient(90deg,rgba(61,142,255,.65),rgba(61,142,255,.55),rgba(61,142,255,.38),rgba(61,142,255,.7),rgba(61,142,255,.85),rgba(61,142,255,.98),rgba(61,142,255,.52),rgba(61,142,255,.44),rgba(61,142,255,.72),rgba(61,142,255,.6),rgba(61,142,255,.42),rgba(61,142,255,.78));"></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-family:'Babel Sans',sans-serif;font-size:6px;color:#ff3352;width:52px;text-align:right;letter-spacing:.06em;opacity:.75;">FRUSTRATION</span>
+                <div style="flex:1;height:9px;border-radius:1px;background:linear-gradient(90deg,rgba(255,51,82,.55),rgba(255,51,82,.88),rgba(255,51,82,.78),rgba(255,51,82,.65),rgba(255,51,82,.4),rgba(255,51,82,.72),rgba(255,51,82,.48),rgba(255,51,82,.82),rgba(255,51,82,.58),rgba(255,51,82,.9),rgba(255,51,82,.35),rgba(255,51,82,.62));"></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-family:'Babel Sans',sans-serif;font-size:6px;color:#ff7a2a;width:52px;text-align:right;letter-spacing:.06em;opacity:.75;">AWE</span>
+                <div style="flex:1;height:9px;border-radius:1px;background:linear-gradient(90deg,rgba(255,122,42,.22),rgba(255,122,42,.28),rgba(255,122,42,.12),rgba(255,122,42,.32),rgba(255,122,42,.18),rgba(255,122,42,.25),rgba(255,122,42,.15),rgba(255,122,42,.38),rgba(255,122,42,.2),rgba(255,122,42,.1),rgba(255,122,42,.3),rgba(255,122,42,.16));"></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-family:'Babel Sans',sans-serif;font-size:6px;color:#b44fff;width:52px;text-align:right;letter-spacing:.06em;opacity:.75;">FEAR</span>
+                <div style="flex:1;height:9px;border-radius:1px;background:linear-gradient(90deg,rgba(180,79,255,.15),rgba(180,79,255,.35),rgba(180,79,255,.48),rgba(180,79,255,.22),rgba(180,79,255,.58),rgba(180,79,255,.25),rgba(180,79,255,.3),rgba(180,79,255,.18),rgba(180,79,255,.42),rgba(180,79,255,.12),rgba(180,79,255,.5),rgba(180,79,255,.2));"></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-family:'Babel Sans',sans-serif;font-size:6px;color:#22d3ee;width:52px;text-align:right;letter-spacing:.06em;opacity:.75;">SADNESS</span>
+                <div style="flex:1;height:9px;border-radius:1px;background:linear-gradient(90deg,rgba(34,211,238,.1),rgba(34,211,238,.15),rgba(34,211,238,.08),rgba(34,211,238,.28),rgba(34,211,238,.12),rgba(34,211,238,.07),rgba(34,211,238,.18),rgba(34,211,238,.1),rgba(34,211,238,.22),rgba(34,211,238,.06),rgba(34,211,238,.14),rgba(34,211,238,.09));"></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-family:'Babel Sans',sans-serif;font-size:6px;color:#34d96a;width:52px;text-align:right;letter-spacing:.06em;opacity:.75;">DISGUST</span>
+                <div style="flex:1;height:9px;border-radius:1px;background:linear-gradient(90deg,rgba(52,217,106,.08),rgba(52,217,106,.14),rgba(52,217,106,.2),rgba(52,217,106,.1),rgba(52,217,106,.06),rgba(52,217,106,.18),rgba(52,217,106,.12),rgba(52,217,106,.24),rgba(52,217,106,.08),rgba(52,217,106,.16),rgba(52,217,106,.1),rgba(52,217,106,.2));"></div>
               </div>
             </div>
-            <div class="hmap-row">
-              <span class="hmap-row-lbl" style="color:var(--surp)">SURPRISE</span>
-              <div class="hmap-cells">
-                <div class="hc" style="background:rgba(61,142,255,.65)"></div>
-                <div class="hc" style="background:rgba(61,142,255,.55)"></div>
-                <div class="hc" style="background:rgba(61,142,255,.38)"></div>
-                <div class="hc" style="background:rgba(61,142,255,.50)"></div>
-                <div class="hc" style="background:rgba(61,142,255,.70)"></div>
-                <div class="hc" style="background:rgba(61,142,255,.85)"></div>
-                <div class="hc" style="background:rgba(61,142,255,.72)"></div>
-                <div class="hc" style="background:rgba(61,142,255,.98)"></div>
-                <div class="hc" style="background:rgba(61,142,255,.52)"></div>
-                <div class="hc" style="background:rgba(61,142,255,.44)"></div>
-              </div>
-            </div>
-            <div class="hmap-row">
-              <span class="hmap-row-lbl" style="color:var(--frust)">FRUSTRATION</span>
-              <div class="hmap-cells">
-                <div class="hc" style="background:rgba(255,51,82,.55)"></div>
-                <div class="hc" style="background:rgba(255,51,82,.40)"></div>
-                <div class="hc" style="background:rgba(255,51,82,.88)"></div>
-                <div class="hc" style="background:rgba(255,51,82,.78)"></div>
-                <div class="hc" style="background:rgba(255,51,82,.65)"></div>
-                <div class="hc" style="background:rgba(255,51,82,.48)"></div>
-                <div class="hc" style="background:rgba(255,51,82,.72)"></div>
-                <div class="hc" style="background:rgba(255,51,82,.42)"></div>
-                <div class="hc" style="background:rgba(255,51,82,.58)"></div>
-                <div class="hc" style="background:rgba(255,51,82,.82)"></div>
-              </div>
-            </div>
-            <div class="hmap-row">
-              <span class="hmap-row-lbl" style="color:var(--awe)">AWE</span>
-              <div class="hmap-cells">
-                <div class="hc" style="background:rgba(255,122,42,.22)"></div>
-                <div class="hc" style="background:rgba(255,122,42,.28)"></div>
-                <div class="hc" style="background:rgba(255,122,42,.12)"></div>
-                <div class="hc" style="background:rgba(255,122,42,.20)"></div>
-                <div class="hc" style="background:rgba(255,122,42,.32)"></div>
-                <div class="hc" style="background:rgba(255,122,42,.18)"></div>
-                <div class="hc" style="background:rgba(255,122,42,.25)"></div>
-                <div class="hc" style="background:rgba(255,122,42,.12)"></div>
-                <div class="hc" style="background:rgba(255,122,42,.22)"></div>
-                <div class="hc" style="background:rgba(255,122,42,.15)"></div>
-              </div>
-            </div>
-            <div class="hmap-row">
-              <span class="hmap-row-lbl" style="color:var(--fear)">FEAR</span>
-              <div class="hmap-cells">
-                <div class="hc" style="background:rgba(180,79,255,.15)"></div>
-                <div class="hc" style="background:rgba(180,79,255,.22)"></div>
-                <div class="hc" style="background:rgba(180,79,255,.35)"></div>
-                <div class="hc" style="background:rgba(180,79,255,.48)"></div>
-                <div class="hc" style="background:rgba(180,79,255,.28)"></div>
-                <div class="hc" style="background:rgba(180,79,255,.20)"></div>
-                <div class="hc" style="background:rgba(180,79,255,.58)"></div>
-                <div class="hc" style="background:rgba(180,79,255,.25)"></div>
-                <div class="hc" style="background:rgba(180,79,255,.30)"></div>
-                <div class="hc" style="background:rgba(180,79,255,.18)"></div>
-              </div>
-            </div>
-            <div class="hmap-row">
-              <span class="hmap-row-lbl" style="color:var(--sad)">SADNESS</span>
-              <div class="hmap-cells">
-                <div class="hc" style="background:rgba(34,211,238,.10)"></div>
-                <div class="hc" style="background:rgba(34,211,238,.15)"></div>
-                <div class="hc" style="background:rgba(34,211,238,.08)"></div>
-                <div class="hc" style="background:rgba(34,211,238,.12)"></div>
-                <div class="hc" style="background:rgba(34,211,238,.10)"></div>
-                <div class="hc" style="background:rgba(34,211,238,.28)"></div>
-                <div class="hc" style="background:rgba(34,211,238,.07)"></div>
-                <div class="hc" style="background:rgba(34,211,238,.12)"></div>
-                <div class="hc" style="background:rgba(34,211,238,.18)"></div>
-                <div class="hc" style="background:rgba(34,211,238,.07)"></div>
-              </div>
-            </div>
-            <div style="margin-top:14px;display:flex;gap:8px;">
-              <div style="padding:6px 12px;background:var(--gray-light);border:1px solid var(--border);border-radius:2px;font-family:'Babel Sans',sans-serif;font-size:8px;letter-spacing:.1em;color:var(--gray)">SORT ▾</div>
-              <div style="padding:6px 12px;background:var(--gray-light);border:1px solid var(--border);border-radius:2px;font-family:'Babel Sans',sans-serif;font-size:8px;letter-spacing:.1em;color:var(--gray)">FILTER EMOTIONS</div>
-              <div style="padding:6px 12px;background:var(--gray-light);border:1px solid var(--border);border-radius:2px;font-family:'Babel Sans',sans-serif;font-size:8px;letter-spacing:.1em;color:var(--gray)">VIEW: HEAT</div>
+            <div style="margin-top:14px;display:flex;gap:6px;position:relative;">
+              <div style="padding:3px 8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:2px;font-family:'Babel Sans',sans-serif;font-size:6px;letter-spacing:.1em;color:rgba(213,213,229,.4);">SORT ▾</div>
+              <div style="padding:3px 8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:2px;font-family:'Babel Sans',sans-serif;font-size:6px;letter-spacing:.1em;color:rgba(213,213,229,.4);">FILTER EMOTIONS</div>
+              <div style="padding:3px 8px;background:rgba(0,214,143,.06);border:1px solid rgba(0,214,143,.25);border-radius:2px;font-family:'Babel Sans',sans-serif;font-size:6px;letter-spacing:.1em;color:rgba(0,214,143,.7);">VIEW: HEAT ●</div>
             </div>
           </div>
+          <div class="viz-thumb-overlay"><span>↗ Open interactive</span></div>
         </div>
       </div>
 
       <div class="reveal reveal-d2">
-        <h3>View 1 — Emotion Heatmap</h3>
+        <h3>Heatmap Dashboard</h3>
         <p>A grid: rows are the 8 emotions, columns are the 57 game events. Cell intensity is normalized so the dominant emotion in each event gets full saturation, and all others scale relative to it. This lets you read <em>emotional composition</em> across the game's arc — where frustration dominates factory sections, where surprise spikes at the Prototype reveal.</p>
 
         <h3>View 2 — Sentiment Bars</h3>
@@ -1270,67 +1232,102 @@ footer {
   </div>
 </section>
 
-<!-- SECTION 4: FINDINGS -->
-<section class="section" id="findings">
-  <div class="section-num">04</div>
+<!-- SECTION 2: PROCESS -->
+<section class="section" id="process">
+  <div class="section-num">02</div>
   <div class="section-inner">
-    <div class="section-label">Section 04</div>
-    <h2>DATA QUALITY &amp;<br>LABELING ACCURACY</h2>
+    <div class="section-label">Section 02</div>
+    <h2>PROCESS</h2>
 
-    <div class="reveal" style="margin-bottom:56px;">
-      <p style="margin-bottom:20px;">The most reliable output of the system is <em>where</em> in the game something emotionally significant happens. Top events by % non-neutral response across all 21 creators:</p>
-      <div class="event-bars">
-        <div class="event-bar-row">
-          <span class="eb-label">Tender Moment Shattered</span>
-          <div class="eb-track">
-            <div class="eb-fill" style="width:88.1%;background:linear-gradient(90deg,rgba(61,142,255,0.25),rgba(61,142,255,0.55))">
-              <span class="eb-pct">88.1%</span>
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="pipeline-steps">
+          <div class="step">
+            <span class="step-num">01</span>
+            <div class="step-text">
+              <div class="step-title">Ingest</div>
+              <div class="step-desc">Validate JSON, resolve segments + duration, filter videos under 60s</div>
             </div>
           </div>
-          <span class="eb-section" style="color:var(--fear)">Prototype</span>
+          <div class="step">
+            <span class="step-num">02</span>
+            <div class="step-text">
+              <div class="step-title">Window</div>
+              <div class="step-desc">Slice into 30s windows, concatenate + lowercase transcript text</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">03</span>
+            <div class="step-text">
+              <div class="step-title">Sentiment Score</div>
+              <div class="step-desc">Keyword net-score → float [−1, +1] + positive / neutral / negative</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">04</span>
+            <div class="step-text">
+              <div class="step-title">Emotion Label — Primary</div>
+              <div class="step-desc">Each 30s window is assigned a primary emotion from 8 classes (Joy, Surprise, Frustration, Awe, Fear, Sadness, Disgust, Neutral) via lexicon keyword matching. The emotion whose keywords appear most frequently in the window wins the primary label. Neutral is suppressed — if any other emotion fires, neutral is removed from contention, preventing the most common category from swamping the output.</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">04b</span>
+            <div class="step-text">
+              <div class="step-title">Emotion Label — Secondary</div>
+              <div class="step-desc">A secondary emotion is assigned only when its keyword score reaches ≥ 60% of the primary score. This threshold prevents weak co-occurrences from being reported as meaningful signals. Windows where no secondary emotion clears the threshold are reported with a single label — a deliberate conservative choice that favors precision over recall.</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">05</span>
+            <div class="step-text">
+              <div class="step-title">Normalise</div>
+              <div class="step-desc">Absolute time → 0–100% progress → bin 0–99. Enables cross-creator comparison.</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">06</span>
+            <div class="step-text">
+              <div class="step-title">Event Label</div>
+              <div class="step-desc">Bin ranges mapped to 57 named game events from config/games.yaml</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">07</span>
+            <div class="step-text">
+              <div class="step-title">Visualize</div>
+              <div class="step-desc">Inject aggregated data into self-contained HTML + React deliverables</div>
+            </div>
+          </div>
         </div>
-        <div class="event-bar-row">
-          <span class="eb-label">Prototype Threat Narration</span>
-          <div class="eb-track">
-            <div class="eb-fill" style="width:85.1%;background:linear-gradient(90deg,rgba(61,142,255,0.25),rgba(61,142,255,0.5))">
-              <span class="eb-pct">85.1%</span>
-            </div>
-          </div>
-          <span class="eb-section" style="color:var(--surp)">Opening</span>
-        </div>
-        <div class="event-bar-row">
-          <span class="eb-label">Extended Puzzle — Duration Frustration</span>
-          <div class="eb-track">
-            <div class="eb-fill" style="width:84.7%;background:linear-gradient(90deg,rgba(255,51,82,0.25),rgba(255,51,82,0.55))">
-              <span class="eb-pct">84.7%</span>
-            </div>
-          </div>
-          <span class="eb-section" style="color:var(--frust)">Mid Puzzles</span>
-        </div>
-        <div class="event-bar-row">
-          <span class="eb-label">Prototype Arrives at Party</span>
-          <div class="eb-track">
-            <div class="eb-fill" style="width:83.5%;background:linear-gradient(90deg,rgba(61,142,255,0.25),rgba(61,142,255,0.48))">
-              <span class="eb-pct">83.5%</span>
-            </div>
-          </div>
-          <span class="eb-section" style="color:var(--surp)">Lily Dollhouse</span>
-        </div>
-        <div class="event-bar-row">
-          <span class="eb-label">First Valve &amp; Colour Puzzles</span>
-          <div class="eb-track">
-            <div class="eb-fill" style="width:83.3%;background:linear-gradient(90deg,rgba(255,51,82,0.25),rgba(255,51,82,0.5))">
-              <span class="eb-pct">83.3%</span>
-            </div>
-          </div>
-          <span class="eb-section" style="color:var(--frust)">Opening</span>
+      </div>
+
+      <div class="reveal reveal-d2">
+        <div class="emotion-chips">
+          <span class="chip joy">Joy</span>
+          <span class="chip surp">Surprise</span>
+          <span class="chip frust">Frustration</span>
+          <span class="chip awe">Awe</span>
+          <span class="chip fear">Fear</span>
+          <span class="chip sad">Sadness</span>
+          <span class="chip disg">Disgust</span>
+          <span class="chip neut">Neutral</span>
         </div>
       </div>
     </div>
 
+  </div>
+</section>
+
+<!-- SECTION 3: FINDINGS -->
+<section class="section" id="findings">
+  <div class="section-num">03</div>
+  <div class="section-inner">
+    <div class="section-label">Section 03</div>
+    <h2>DATA QUALITY &amp;<br>LABELING ACCURACY</h2>
+
     <div class="findings-layout">
       <div class="finding-card works reveal">
-        <div class="finding-tag tag-works">✓ &nbsp;Where it works</div>
+        <div class="finding-tag tag-works">✓ &nbsp;WHAT'S WORKING</div>
         <div class="finding-items">
           <div class="fi">
             <div class="fi-title">Temporal structural validity</div>
@@ -1352,7 +1349,7 @@ footer {
       </div>
 
       <div class="finding-card fails reveal reveal-d2">
-        <div class="finding-tag tag-fails">✗ &nbsp;Where it degrades</div>
+        <div class="finding-tag tag-fails">✗ &nbsp;WHAT'S NOT</div>
         <div class="finding-items">
           <div class="fi">
             <div class="fi-title">Lexicon collision</div>
@@ -1385,22 +1382,22 @@ footer {
         <div class="collision-row">
           <div class="cr-cell"><span class="kw-tag">awful</span></div>
           <div class="cr-cell" style="color:var(--gray)"><span style="color:var(--sad)">sadness</span> · <span style="color:var(--disg)">disgust</span> · negative sentiment</div>
-          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Which fires depends on which other words appear nearby — not on actual emotional meaning</div>
+          <div class="cr-cell" style="color:var(--gray);">Which fires depends on which other words appear nearby — not on actual emotional meaning</div>
         </div>
         <div class="collision-row">
           <div class="cr-cell"><span class="kw-tag">oh wow</span></div>
           <div class="cr-cell" style="color:var(--gray)"><span style="color:var(--surp)">surprise</span> · <span style="color:var(--awe)">awe</span> · positive sentiment</div>
-          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Exclamation of delight and exclamation of shock are indistinguishable without audio or context</div>
+          <div class="cr-cell" style="color:var(--gray);">Exclamation of delight and exclamation of shock are indistinguishable without audio or context</div>
         </div>
         <div class="collision-row">
           <div class="cr-cell"><span class="kw-tag">oh no</span></div>
           <div class="cr-cell" style="color:var(--gray)"><span style="color:var(--fear)">fear</span> · <span style="color:var(--sad)">sadness</span></div>
-          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Used performatively, sarcastically, and genuinely — the transcript alone cannot distinguish</div>
+          <div class="cr-cell" style="color:var(--gray);">Used performatively, sarcastically, and genuinely — the transcript alone cannot distinguish</div>
         </div>
         <div class="collision-row">
           <div class="cr-cell"><span class="kw-tag">incredible</span></div>
           <div class="cr-cell" style="color:var(--gray)"><span style="color:var(--awe)">awe</span> · positive sentiment</div>
-          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Gaming use is often sarcastic ("that was incredible" after dying repeatedly)</div>
+          <div class="cr-cell" style="color:var(--gray);">Gaming use is often sarcastic ("that was incredible" after dying repeatedly)</div>
         </div>
       </div>
     </div>
@@ -1411,14 +1408,14 @@ footer {
   </div>
 </section>
 
-<!-- SECTION 5: META -->
-<section class="section" id="meta">
-  <div class="section-num">05</div>
+<!-- SECTION 4: IDEAS -->
+<section class="section" id="ideas">
+  <div class="section-num">04</div>
   <div class="section-inner">
-    <div class="section-label">Section 05</div>
+    <div class="section-label">Section 04</div>
     <h2>META<br>OBSERVATIONS</h2>
 
-    <p class="reveal" style="font-family:'Apple Garamond','Playfair Display',serif;font-size:18px;color:var(--black);line-height:1.7;font-style:italic;margin-bottom:48px;max-width:65ch;">
+    <p class="reveal" style="font-family:'Babel Sans',sans-serif;font-size:18px;color:var(--black);line-height:1.7;font-weight:700;margin-bottom:48px;max-width:65ch;">
       Five conceptual frames for thinking about what this project actually is — from a media design perspective.
     </p>
 
@@ -1519,7 +1516,7 @@ document.querySelectorAll('.reveal, .reveal-left').forEach(el => revealObserver.
 const sections = document.querySelectorAll('section[id]');
 const navTabs  = document.querySelectorAll('.nav-tab');
 
-const sectionIds = ['about', 'globe', 'heatmap', 'findings', 'meta'];
+const sectionIds = ['showcase', 'process', 'findings', 'ideas'];
 
 window.addEventListener('scroll', () => {
   let current = '';
@@ -1531,6 +1528,33 @@ window.addEventListener('scroll', () => {
     tab.classList.toggle('active', matches);
   });
 }, { passive: true });
+
+function openViz() {
+  document.getElementById('vizIframe').src = 'p3-game-analyzer/sentiment-engine-viz.html';
+  document.getElementById('vizModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function openHeatmap() {
+  document.getElementById('vizIframe').src = 'p3-game-analyzer/sentiment_heatmap.html';
+  document.getElementById('vizModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeViz() {
+  document.getElementById('vizModal').classList.remove('active');
+  document.getElementById('vizIframe').src = '';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeViz(); });
 </script>
+
+<!-- VIZ MODAL -->
+<div class="viz-modal" id="vizModal">
+  <div class="viz-modal-backdrop" onclick="closeViz()"></div>
+  <div class="viz-modal-content">
+    <button class="viz-modal-close" onclick="closeViz()">✕</button>
+    <iframe id="vizIframe" style="width:100%;height:100%;border:none;" title="Sentiment Engine Visualization"></iframe>
+  </div>
+</div>
+
 </body>
 </html>
