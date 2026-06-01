@@ -13,8 +13,7 @@
 @font-face { font-family: 'Babel Sans'; src: url('assets/fonts/babel_sans/BabelSans-BoldOblique.ttf') format('truetype'); font-weight: 700; font-style: oblique; }
 @font-face { font-family: 'Dry Brush'; src: url('assets/fonts/dry_brush/Dry Brush.ttf') format('truetype'); font-weight: 400; }
 @font-face { font-family: 'Feeling Passionate'; src: url('assets/fonts/feeling_passionate/Feeling Passionate Personal Use Only.ttf') format('truetype'); font-weight: 400; }
-@font-face { font-family: 'Apple Garamond'; src: url('assets/fonts/apple_garamond/AppleGaramond.ttf') format('truetype'); font-weight: 400; }
-@font-face { font-family: 'Apple Garamond'; src: url('assets/fonts/apple_garamond/AppleGaramond-Bold.ttf') format('truetype'); font-weight: 700; }
+
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -304,9 +303,9 @@ h2 {
 }
 
 h3 {
-  font-family: 'Apple Garamond', 'Playfair Display', serif;
+  font-family: 'Babel Sans', sans-serif;
+  font-weight: 700;
   font-size: 20px;
-  font-style: italic;
   color: var(--black);
   margin-bottom: 12px;
   margin-top: 40px;
@@ -951,7 +950,8 @@ footer {
   border: 1px solid var(--border);
   border-radius: 2px;
   padding: 16px 22px;
-  font-family: 'EB Garamond', serif;
+  font-family: 'Babel Sans', sans-serif;
+  font-weight: 700;
   font-size: 15px;
   line-height: 1.7;
   color: var(--black);
@@ -1171,46 +1171,10 @@ footer {
 
     <div class="viz-layout" style="margin-top:64px;">
       <div class="reveal">
-        <div class="viz-thumb" onclick="openHeatmap()" style="width:100%;aspect-ratio:16/10;">
-          <div style="width:100%;height:100%;background:#04040a;display:flex;flex-direction:column;justify-content:center;padding:20px 24px;position:relative;overflow:hidden;">
-            <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 1px,rgba(0,0,0,.05) 1px,rgba(0,0,0,.05) 2px);pointer-events:none;"></div>
-            <div style="font-family:'Babel Sans',sans-serif;font-size:7px;letter-spacing:.18em;color:rgba(213,213,229,.35);text-transform:uppercase;margin-bottom:12px;position:relative;">EMOTION HEATMAP · 57 EVENTS</div>
-            <div style="display:flex;flex-direction:column;gap:3px;position:relative;">
-              <div style="display:flex;align-items:center;gap:6px;">
-                <span style="font-family:'Babel Sans',sans-serif;font-size:6px;color:#f5c842;width:52px;text-align:right;letter-spacing:.06em;opacity:.75;">JOY</span>
-                <div style="flex:1;height:9px;border-radius:1px;background:linear-gradient(90deg,rgba(245,200,66,.45),rgba(245,200,66,.6),rgba(245,200,66,.22),rgba(245,200,66,.5),rgba(245,200,66,.8),rgba(245,200,66,.95),rgba(245,200,66,.28),rgba(245,200,66,.65),rgba(245,200,66,.38),rgba(245,200,66,.55),rgba(245,200,66,.72),rgba(245,200,66,.4));"></div>
-              </div>
-              <div style="display:flex;align-items:center;gap:6px;">
-                <span style="font-family:'Babel Sans',sans-serif;font-size:6px;color:#3d8eff;width:52px;text-align:right;letter-spacing:.06em;opacity:.75;">SURPRISE</span>
-                <div style="flex:1;height:9px;border-radius:1px;background:linear-gradient(90deg,rgba(61,142,255,.65),rgba(61,142,255,.55),rgba(61,142,255,.38),rgba(61,142,255,.7),rgba(61,142,255,.85),rgba(61,142,255,.98),rgba(61,142,255,.52),rgba(61,142,255,.44),rgba(61,142,255,.72),rgba(61,142,255,.6),rgba(61,142,255,.42),rgba(61,142,255,.78));"></div>
-              </div>
-              <div style="display:flex;align-items:center;gap:6px;">
-                <span style="font-family:'Babel Sans',sans-serif;font-size:6px;color:#ff3352;width:52px;text-align:right;letter-spacing:.06em;opacity:.75;">FRUSTRATION</span>
-                <div style="flex:1;height:9px;border-radius:1px;background:linear-gradient(90deg,rgba(255,51,82,.55),rgba(255,51,82,.88),rgba(255,51,82,.78),rgba(255,51,82,.65),rgba(255,51,82,.4),rgba(255,51,82,.72),rgba(255,51,82,.48),rgba(255,51,82,.82),rgba(255,51,82,.58),rgba(255,51,82,.9),rgba(255,51,82,.35),rgba(255,51,82,.62));"></div>
-              </div>
-              <div style="display:flex;align-items:center;gap:6px;">
-                <span style="font-family:'Babel Sans',sans-serif;font-size:6px;color:#ff7a2a;width:52px;text-align:right;letter-spacing:.06em;opacity:.75;">AWE</span>
-                <div style="flex:1;height:9px;border-radius:1px;background:linear-gradient(90deg,rgba(255,122,42,.22),rgba(255,122,42,.28),rgba(255,122,42,.12),rgba(255,122,42,.32),rgba(255,122,42,.18),rgba(255,122,42,.25),rgba(255,122,42,.15),rgba(255,122,42,.38),rgba(255,122,42,.2),rgba(255,122,42,.1),rgba(255,122,42,.3),rgba(255,122,42,.16));"></div>
-              </div>
-              <div style="display:flex;align-items:center;gap:6px;">
-                <span style="font-family:'Babel Sans',sans-serif;font-size:6px;color:#b44fff;width:52px;text-align:right;letter-spacing:.06em;opacity:.75;">FEAR</span>
-                <div style="flex:1;height:9px;border-radius:1px;background:linear-gradient(90deg,rgba(180,79,255,.15),rgba(180,79,255,.35),rgba(180,79,255,.48),rgba(180,79,255,.22),rgba(180,79,255,.58),rgba(180,79,255,.25),rgba(180,79,255,.3),rgba(180,79,255,.18),rgba(180,79,255,.42),rgba(180,79,255,.12),rgba(180,79,255,.5),rgba(180,79,255,.2));"></div>
-              </div>
-              <div style="display:flex;align-items:center;gap:6px;">
-                <span style="font-family:'Babel Sans',sans-serif;font-size:6px;color:#22d3ee;width:52px;text-align:right;letter-spacing:.06em;opacity:.75;">SADNESS</span>
-                <div style="flex:1;height:9px;border-radius:1px;background:linear-gradient(90deg,rgba(34,211,238,.1),rgba(34,211,238,.15),rgba(34,211,238,.08),rgba(34,211,238,.28),rgba(34,211,238,.12),rgba(34,211,238,.07),rgba(34,211,238,.18),rgba(34,211,238,.1),rgba(34,211,238,.22),rgba(34,211,238,.06),rgba(34,211,238,.14),rgba(34,211,238,.09));"></div>
-              </div>
-              <div style="display:flex;align-items:center;gap:6px;">
-                <span style="font-family:'Babel Sans',sans-serif;font-size:6px;color:#34d96a;width:52px;text-align:right;letter-spacing:.06em;opacity:.75;">DISGUST</span>
-                <div style="flex:1;height:9px;border-radius:1px;background:linear-gradient(90deg,rgba(52,217,106,.08),rgba(52,217,106,.14),rgba(52,217,106,.2),rgba(52,217,106,.1),rgba(52,217,106,.06),rgba(52,217,106,.18),rgba(52,217,106,.12),rgba(52,217,106,.24),rgba(52,217,106,.08),rgba(52,217,106,.16),rgba(52,217,106,.1),rgba(52,217,106,.2));"></div>
-              </div>
-            </div>
-            <div style="margin-top:14px;display:flex;gap:6px;position:relative;">
-              <div style="padding:3px 8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:2px;font-family:'Babel Sans',sans-serif;font-size:6px;letter-spacing:.1em;color:rgba(213,213,229,.4);">SORT ▾</div>
-              <div style="padding:3px 8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:2px;font-family:'Babel Sans',sans-serif;font-size:6px;letter-spacing:.1em;color:rgba(213,213,229,.4);">FILTER EMOTIONS</div>
-              <div style="padding:3px 8px;background:rgba(0,214,143,.06);border:1px solid rgba(0,214,143,.25);border-radius:2px;font-family:'Babel Sans',sans-serif;font-size:6px;letter-spacing:.1em;color:rgba(0,214,143,.7);">VIEW: HEAT ●</div>
-            </div>
-          </div>
+        <div class="viz-thumb" onclick="openHeatmap()" style="width:100%;aspect-ratio:16/10;position:relative;overflow:hidden;">
+          <iframe src="p3-game-analyzer/sentiment_heatmap.html"
+            style="position:absolute;top:0;left:0;width:1440px;height:900px;border:none;transform:scale(0.38);transform-origin:top left;pointer-events:none;"
+            scrolling="no" tabindex="-1"></iframe>
           <div class="viz-thumb-overlay"><span>↗ Open interactive</span></div>
         </div>
       </div>
