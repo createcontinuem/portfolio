@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Soul Garden — Weaving Test #9 (3×3, 3D mesh)</title>
+<style>
+  :root { --bg:#0a0a0a; --fg:#fafaf8; --accent:#c8f06b; --dim:#888; }
+  * { box-sizing:border-box; }
+  html,body { margin:0; padding:0; width:100%; height:100%; overflow:hidden;
+              background:var(--bg); color:var(--fg); font-family:system-ui,sans-serif; }
+  canvas { position:fixed; inset:0; width:100%!important; height:100%!important;
+           cursor:grab; display:block; }
+  canvas:active { cursor:grabbing; }
+
+  /* All UI floats over the canvas */
+  #ui-top { position:fixed; top:16px; left:50%; transform:translateX(-50%);
+            display:flex; flex-direction:column; align-items:center; gap:10px;
+            pointer-events:none; z-index:10; }
+  h1   { font-weight:300; letter-spacing:.12em; margin:0; font-size:13px; color:#888;
+         pointer-events:none; }
+  .tabs { display:flex; gap:6px; pointer-events:all; }
+  .tab { background:rgba(10,10,10,.7); border:1px solid #2a2a2a; color:var(--fg);
+         padding:6px 14px; cursor:pointer; font-family:inherit; font-size:11px;
+         letter-spacing:.06em; transition:all .2s; text-transform:uppercase;
+         backdrop-filter:blur(8px); }
+  .tab:hover { border-color:var(--accent); }
+  .tab.active { background:var(--accent); color:#000; border-color:var(--accent); }
+
+  /* Collapsible controls panel at bottom */
+  #ui-bottom { position:fixed; bottom:0; left:0; right:0; z-index:10;
+               background:rgba(10,10,10,.82); backdrop-filter:blur(10px);
+               border-top:1px solid #1e1e1e; transition:transform .25s ease; }
+  #ui-bottom.collapsed { transform:translateY(calc(100% - 32px)); }
+  #toggle-btn { width:100%; padding:8px; background:none; border:none; color:var(--dim);
+                cursor:pointer; font-family:inherit; font-size:10px; letter-spacing:.1em;
+                text-transform:uppercase; }
+  #toggle-btn:hover { color:var(--fg); }
+  .params { padding:12px 20px 16px; display:flex; gap:18px; flex-wrap:wrap;
+            justify-content:center; font-size:11px; color:#aaa;
+            letter-spacing:.04em; align-items:flex-end; }
+  .params label { display:flex; flex-direction:column; gap:4px; text-transform:uppercase; }
+  .params input[type=range] { width:95px; accent-color:var(--accent); }
+  .params .val { color:#888; font-variant-numeric:tabular-nums; font-size:10px; }
+  .err { position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+         color:#ff7070; font-size:12px; white-space:pre-wrap; padding:40px;
+         background:var(--bg); z-index:100; }
+  .hint { position:fixed; top:16px; left:16px;
+          font-size:10px; color:#444; letter-spacing:.08em; text-transform:uppercase;
+          pointer-events:none; transition:opacity 1s; z-index:5; }
+  .hint.gone { opacity:0; }
+</style>
+</head>
+<body>
+<canvas id="cv"></canvas>
+<div class="hint" id="hint">left drag · orbit &nbsp;|&nbsp; right drag · pan &nbsp;|&nbsp; scroll · zoom</div>
+<div class="err" id="err" style="display:none"></div>
+
+<script type="importmap">
+{ "imports": {
+    "three":         "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const IMGS = [
+  'web/ambition-01.jpg',
+  'web/arctic-01.jpg',
+  'web/bloodsister-01.jpg',
+  'web/depression-01.jpg',
+  'web/ferrero-01.jpg',
+  'web/pondsky-01.jpg',
+  'web/pondsky-02.jpg',
+  'web/pondsky-03.jpg',
+  'web/pondsky-04.jpg',
+];
+
+// ─── Vertex shader ────────────────────────────────────────────────────────────
+// Displacement is already baked into the geometry (CPU-computed, not shader-driven),
+// so the VS just forwards UVs, normals, and world-position for Phong in the FS.
+const VS = `
+varying vec2 v_uv;
+varying vec3 v_normal;
+varying vec3 v_worldPos;
+void main() {
+  v_uv      = uv;
+  v_normal  = normalize(normalMatrix * normal);
+  vec4 wp   = modelMatrix * vec4(position, 1.0);
+  v_worldPos = wp.xyz;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}`;
+
+// ─── Shared GLSL helpers ──────────────────────────────────────────────────────
+const GLSL_HELPERS = `
+vec2 hash2(vec2 p) {
+  p = vec2(dot(p,vec2(127.1,311.7)), dot(p,vec2(269.5,183.3)));
+  return fract(sin(p)*43758.5453);
+}
+vec2 hash2b(vec2 p) {
+  p = vec2(dot(p,vec2(269.5,183.3)), dot(p,vec2(127.1,311.7)));
+  return fract(sin(p+17.3)*43758.5453);
+}
+float smootherstep(float e0,float e1,float x) {
+  float t=clamp((x-e0)/(e1-e0),0.,1.);
+  return t*t*t*(t*(t*6.-15.)+10.);
+}
+vec3 sampleImg(float idx,vec2 uv) {
+  if(idx<.5) return texture2D(u_0,uv).rgb;
+  if(idx<1.5) return texture2D(u_1,uv).rgb;
+  if(idx<2.5) return texture2D(u_2,uv).rgb;
+  if(idx<3.5) return texture2D(u_3,uv).rgb;
+  if(idx<4.5) return texture2D(u_4,uv).rgb;
+  if(idx<5.5) return texture2D(u_5,uv).rgb;
+  if(idx<6.5) return texture2D(u_6,uv).rgb;
+  if(idx<7.5) return texture2D(u_7,uv).rgb;
+  return          texture2D(u_8,uv).rgb;
+}`;
+
+// ─── Multi-octave Worley ──────────────────────────────────────────────────────
+const GLSL_MO = `
+const int MAX_OCT = 4;
+
+void mo_dAdB(vec2 cs, out float dA, out float dB) {
+  dA=0.; dB=0.;
+  float amp=.5, freq=1.;
+  for(int oct=0;oct<MAX_OCT;oct++) {
+    if(oct>=u_octaves) break;
+    vec2 csf=cs*freq, ip=floor(csf), fp=fract(csf);
+    float dAo=8., dBo=8.;
+    for(int j=-1;j<=1;j++) for(int i=-1;i<=1;i++) {
+      vec2 nb=vec2(float(i),float(j));
+      vec2 oA=hash2(ip+nb);  oA=.5+.45*sin(u_t*u_animate+6.2831*oA);
+      dAo=min(dAo,length(nb+oA-fp));
+      vec2 oB=hash2b(ip+nb); oB=.5+.45*sin(u_t*u_animate+6.2831*oB+1.7);
+      dBo=min(dBo,length(nb+oB-fp));
+    }
+    dA+=amp*dAo; dB+=amp*dBo;
+    amp*=.5; freq*=2.;
+  }
+}
+
+void mo_crack(vec2 cs, out float mask, out vec2 bCell, out vec2 bOff) {
+  mask=0.; bCell=vec2(0.); bOff=vec2(.5);
+  float freq=1., thick=u_thickness;
+  for(int oct=0;oct<MAX_OCT;oct++) {
+    if(oct>=u_octaves) break;
+    vec2 csf=cs*freq, ip=floor(csf), fp=fract(csf);
+    float d1=8.,d2=8.; vec2 cell=vec2(0.),coff=vec2(.5);
+    for(int j=-1;j<=1;j++) for(int i=-1;i<=1;i++) {
+      vec2 nb=vec2(float(i),float(j));
+      vec2 off=hash2(ip+nb); off=.5+.45*sin(u_t*u_animate+6.2831*off);
+      float d=length(nb+off-fp);
+      if(d<d1){d2=d1;d1=d;cell=ip+nb;coff=off;} else if(d<d2) d2=d;
+    }
+    mask=max(mask,1.-smootherstep(0.,thick,d2-d1));
+    if(oct==0){bCell=cell;bOff=coff;}
+    freq*=2.; thick*=.5;
+  }
+}`;
+
+// ─── Blob connectors ──────────────────────────────────────────────────────────
+const GLSL_BLOB_H = `
+vec3 worleyBlobH(float p,float rowY,float L,float R) {
+  vec2 cs=vec2(p,rowY*u_yScale)*u_scale;
+  float dA,dB; mo_dAdB(cs,dA,dB);
+  float side=smootherstep(.5-u_edgeSoft,.5+u_edgeSoft,
+                          dA/(dA+dB)+u_positionalBias*(p-.5));
+  vec3 cL=sampleImg(L,vec2(mix(1.,1.-u_stretch,p),rowY));
+  vec3 cR=sampleImg(R,vec2(mix(u_stretch,0.,p),rowY));
+  vec3 eL=sampleImg(L,vec2(1.,rowY)), eR=sampleImg(R,vec2(0.,rowY));
+  float fade=min(smootherstep(0.,u_fadeMargin,p),smootherstep(1.,1.-u_fadeMargin,p));
+  return mix(mix(eL,eR,step(.5,p)),mix(cL,cR,side),fade);
+}`;
+
+const GLSL_BLOB_V = `
+vec3 worleyBlobV(float p,float colX,float T,float B) {
+  vec2 cs=vec2(colX*u_xScale,p)*u_scale;
+  float dA,dB; mo_dAdB(cs,dA,dB);
+  float side=smootherstep(.5-u_edgeSoft,.5+u_edgeSoft,
+                          dA/(dA+dB)+u_positionalBias*(p-.5));
+  vec3 cT=sampleImg(T,vec2(colX,mix(0.,u_stretch,p)));
+  vec3 cB=sampleImg(B,vec2(colX,mix(1.-u_stretch,1.,p)));
+  vec3 eT=sampleImg(T,vec2(colX,0.)), eB=sampleImg(B,vec2(colX,1.));
+  float fade=min(smootherstep(0.,u_fadeMargin,p),smootherstep(1.,1.-u_fadeMargin,p));
+  return mix(mix(eT,eB,step(.5,p)),mix(cT,cB,side),fade);
+}`;
+
+const GLSL_BLOB_C = `
+vec3 worleyBlobC(float px,float py,float tl,float tr,float bl,float br) {
+  vec2 cs=vec2(px*u_cornerXScale,py)*u_scale;
+  float dA1,dB1; mo_dAdB(cs,dA1,dB1);
+  float dA2,dB2; mo_dAdB(cs+vec2(17.3,31.1),dA2,dB2);
+  float xs=smootherstep(.5-u_edgeSoft,.5+u_edgeSoft,dA1/(dA1+dB1)+u_positionalBias*(px-.5));
+  float ys=smootherstep(.5-u_edgeSoft,.5+u_edgeSoft,dA2/(dA2+dB2)+u_positionalBias*(py-.5));
+  vec3 cTL=sampleImg(tl,vec2(mix(1.,1.-u_stretch,px),mix(0.,u_stretch,py)));
+  vec3 cTR=sampleImg(tr,vec2(mix(u_stretch,0.,px),  mix(0.,u_stretch,py)));
+  vec3 cBL=sampleImg(bl,vec2(mix(1.,1.-u_stretch,px),mix(1.-u_stretch,1.,py)));
+  vec3 cBR=sampleImg(br,vec2(mix(u_stretch,0.,px),  mix(1.-u_stretch,1.,py)));
+  return mix(mix(cTL,cTR,xs),mix(cBL,cBR,xs),ys);
+}`;
+
+// ─── Crack connectors ─────────────────────────────────────────────────────────
+const GLSL_CRACK_H = `
+vec3 worleyCrackH(float p,float rowY,float L,float R) {
+  vec2 cs=vec2(p,rowY*u_yScale)*u_scale;
+  float mask; vec2 cell,coff; mo_crack(cs,mask,cell,coff);
+  float cx=(cell.x+coff.x)/u_scale;
+  float side=(hash2(cell+7.3).x<u_biasRange) ? step(.5,hash2(cell+13.7).x) : step(.5,cx);
+  vec3 cL=sampleImg(L,vec2(mix(1.,1.-u_stretch,p),rowY));
+  vec3 cR=sampleImg(R,vec2(mix(u_stretch,0.,p),rowY));
+  vec3 eL=sampleImg(L,vec2(1.,rowY)), eR=sampleImg(R,vec2(0.,rowY));
+  vec3 conn=mix(mix(cL,cR,side),mix(cL,cR,1.-side),mask);
+  float fade=min(smootherstep(0.,u_fadeMargin,p),smootherstep(1.,1.-u_fadeMargin,p));
+  return mix(mix(eL,eR,step(.5,p)),conn,fade);
+}`;
+
+const GLSL_CRACK_V = `
+vec3 worleyCrackV(float p,float colX,float T,float B) {
+  vec2 cs=vec2(colX*u_xScale,p)*u_scale;
+  float mask; vec2 cell,coff; mo_crack(cs,mask,cell,coff);
+  float cy=(cell.y+coff.y)/u_scale;
+  float side=(hash2(cell+7.3).x<u_biasRange) ? step(.5,hash2(cell+13.7).x) : step(.5,cy);
+  vec3 cT=sampleImg(T,vec2(colX,mix(0.,u_stretch,p)));
+  vec3 cB=sampleImg(B,vec2(colX,mix(1.-u_stretch,1.,p)));
+  vec3 eT=sampleImg(T,vec2(colX,0.)), eB=sampleImg(B,vec2(colX,1.));
+  vec3 conn=mix(mix(cT,cB,side),mix(cT,cB,1.-side),mask);
+  float fade=min(smootherstep(0.,u_fadeMargin,p),smootherstep(1.,1.-u_fadeMargin,p));
+  return mix(mix(eT,eB,step(.5,p)),conn,fade);
+}`;
+
+const GLSL_CRACK_C = `
+vec3 pickQ(float q,vec3 a,vec3 b,vec3 c,vec3 d){
+  if(q<.5)return a; if(q<1.5)return b; if(q<2.5)return c; return d;
+}
+vec3 worleyCrackC(float px,float py,float tl,float tr,float bl,float br) {
+  vec2 cs=vec2(px*u_cornerXScale,py)*u_scale;
+  float mask; vec2 cell,coff; mo_crack(cs,mask,cell,coff);
+  float cpx=(cell.x+coff.x)/(u_cornerXScale*u_scale);
+  float cpy=(cell.y+coff.y)/u_scale;
+  float pos=step(.5,cpx)+2.*step(.5,cpy);
+  float rnd=floor(hash2(cell+23.1).x*3.999);
+  float inn=(hash2(cell+7.3).x<u_biasRange)?rnd:pos;
+  vec3 cTL=sampleImg(tl,vec2(mix(1.,1.-u_stretch,px),mix(0.,u_stretch,py)));
+  vec3 cTR=sampleImg(tr,vec2(mix(u_stretch,0.,px),  mix(0.,u_stretch,py)));
+  vec3 cBL=sampleImg(bl,vec2(mix(1.,1.-u_stretch,px),mix(1.-u_stretch,1.,py)));
+  vec3 cBR=sampleImg(br,vec2(mix(u_stretch,0.,px),  mix(1.-u_stretch,1.,py)));
+  return mix(pickQ(inn,cTL,cTR,cBL,cBR),pickQ(mod(inn+1.,4.),cTL,cTR,cBL,cBR),mask);
+}`;
+
+// ─── Fragment shader builder ──────────────────────────────────────────────────
+function makeFS(tech) {
+  const connH = tech==='blobs' ? 'worleyBlobH' : 'worleyCrackH';
+  const connV = tech==='blobs' ? 'worleyBlobV' : 'worleyCrackV';
+  const connC = tech==='blobs' ? 'worleyBlobC' : 'worleyCrackC';
+  const extras = tech==='blobs'
+    ? 'uniform float u_edgeSoft; uniform float u_positionalBias;'
+    : 'uniform float u_biasRange;';
+  const connSrc = tech==='blobs'
+    ? GLSL_BLOB_H+GLSL_BLOB_V+GLSL_BLOB_C
+    : GLSL_CRACK_H+GLSL_CRACK_V+GLSL_CRACK_C;
+
+  return `
+precision highp float;
+varying vec2 v_uv;
+varying vec3 v_normal;
+varying vec3 v_worldPos;
+uniform sampler2D u_0,u_1,u_2,u_3,u_4,u_5,u_6,u_7,u_8;
+uniform float u_t,u_imgW,u_imgH,u_gapH,u_gapV;
+uniform float u_yScale,u_xScale,u_cornerXScale;
+uniform float u_stretch,u_scale,u_animate,u_fadeMargin;
+uniform int   u_octaves;
+uniform float u_thickness;
+uniform float u_ambient,u_specular;
+${extras}
+${GLSL_HELPERS}
+${GLSL_MO}
+${connSrc}
+
+void main() {
+  float x=v_uv.x, y=v_uv.y;
+
+  int ct; int ci; float cl;
+  if(x<u_imgW){ct=0;ci=0;cl=x/u_imgW;}
+  else if(x<u_imgW+u_gapH){ct=1;ci=0;cl=(x-u_imgW)/u_gapH;}
+  else if(x<2.*u_imgW+u_gapH){ct=0;ci=1;cl=(x-u_imgW-u_gapH)/u_imgW;}
+  else if(x<2.*u_imgW+2.*u_gapH){ct=1;ci=1;cl=(x-2.*u_imgW-u_gapH)/u_gapH;}
+  else{ct=0;ci=2;cl=(x-2.*u_imgW-2.*u_gapH)/u_imgW;}
+
+  int rt; int ri; float rl;
+  if(y<u_imgH){rt=0;ri=2;rl=y/u_imgH;}
+  else if(y<u_imgH+u_gapV){rt=1;ri=1;rl=1.-(y-u_imgH)/u_gapV;}
+  else if(y<2.*u_imgH+u_gapV){rt=0;ri=1;rl=(y-u_imgH-u_gapV)/u_imgH;}
+  else if(y<2.*u_imgH+2.*u_gapV){rt=1;ri=0;rl=1.-(y-2.*u_imgH-u_gapV)/u_gapV;}
+  else{rt=0;ri=0;rl=(y-2.*u_imgH-2.*u_gapV)/u_imgH;}
+
+  vec3 col;
+  if(ct==0&&rt==0) {
+    col=sampleImg(float(ri*3+ci),vec2(cl,rl));
+  } else if(ct==1&&rt==0) {
+    float l=float(ri*3+ci);
+    col=${connH}(cl,rl,l,l+1.);
+  } else if(ct==0&&rt==1) {
+    float t=float(ri*3+ci);
+    col=${connV}(rl,cl,t,t+3.);
+  } else {
+    float tl=float(ri*3+ci);
+    col=${connC}(cl,rl,tl,tl+1.,tl+3.,tl+4.);
+  }
+
+  // Phong lighting using the mesh's displaced vertex normals.
+  vec3 N = normalize(v_normal);
+  vec3 L = normalize(vec3(1.0, 1.2, 2.0));
+  vec3 V = normalize(cameraPosition - v_worldPos);
+  float diff = max(0., dot(N, L));
+  float spec = pow(max(0., dot(normalize(L+V), N)), 40.);
+  float lit  = u_ambient + (1.-u_ambient)*diff + u_specular*spec;
+  gl_FragColor = vec4(col * lit, 1.0);
+}`;
+}
+
+// ─── Image loading (fetch→blob→blobURL) ──────────────────────────────────────
+async function loadImg(url) {
+  const blob = await fetch(url).then(r => r.blob());
+  const blobURL = URL.createObjectURL(blob);
+  return new Promise((res,rej) => {
+    const img = new Image();
+    img.onload = () => res(img);
+    img.onerror = rej;
+    img.src = blobURL;
+  });
+}
+function imgToCanvas(img) {
+  const c = document.createElement('canvas');
+  c.width = img.naturalWidth; c.height = img.naturalHeight;
+  c.getContext('2d').drawImage(img, 0, 0);
+  return c;
+}
+function getPixelData(img) {
+  const c = imgToCanvas(img);
+  return { d: c.getContext('2d').getImageData(0,0,c.width,c.height), w:c.width, h:c.height };
+}
+function sampleLum(px, u, v) {
+  const x = Math.round(Math.min(Math.max(u,0),1) * (px.w-1));
+  const y = Math.round(Math.min(Math.max(1-v,0),1) * (px.h-1)); // v=1 → top row
+  const i = (y*px.w+x)*4;
+  return 0.299*px.d.data[i]/255 + 0.587*px.d.data[i+1]/255 + 0.114*px.d.data[i+2]/255;
+}
+function lmix(a,b,t){ return a*(1-t)+b*t; }
+
+// ─── CPU depth for one vertex UV ─────────────────────────────────────────────
+// Mirrors the zone-classification in the fragment shader so depth matches
+// the rendered boundaries exactly.
+function vertexDepth(u, v, P, pxs) {
+  const iW = (1-2*P.gapH)/3, iH = (1-2*P.gapV)/3;
+  const S  = P.stretch;
+
+  let ct,ci,cl;
+  if      (u<iW)              {ct=0;ci=0;cl=u/iW;}
+  else if (u<iW+P.gapH)       {ct=1;ci=0;cl=(u-iW)/P.gapH;}
+  else if (u<2*iW+P.gapH)     {ct=0;ci=1;cl=(u-iW-P.gapH)/iW;}
+  else if (u<2*iW+2*P.gapH)   {ct=1;ci=1;cl=(u-2*iW-P.gapH)/P.gapH;}
+  else                         {ct=0;ci=2;cl=(u-2*iW-2*P.gapH)/iW;}
+
+  let rt,ri,rl;
+  if      (v<iH)              {rt=0;ri=2;rl=v/iH;}
+  else if (v<iH+P.gapV)       {rt=1;ri=1;rl=1-(v-iH)/P.gapV;}
+  else if (v<2*iH+P.gapV)     {rt=0;ri=1;rl=(v-iH-P.gapV)/iH;}
+  else if (v<2*iH+2*P.gapV)   {rt=1;ri=0;rl=1-(v-2*iH-P.gapV)/P.gapV;}
+  else                         {rt=0;ri=0;rl=(v-2*iH-2*P.gapV)/iH;}
+
+  if (ct===0 && rt===0) {
+    return sampleLum(pxs[ri*3+ci], cl, rl);
+  } else if (ct===1 && rt===0) {
+    const p = cl;
+    return lmix(sampleLum(pxs[ri*3+ci],   1-S*p, rl),
+                sampleLum(pxs[ri*3+ci+1], S*(1-p), rl), p);
+  } else if (ct===0 && rt===1) {
+    const p = rl; // 0=top-of-connector (near top image bottom), 1=bottom
+    return lmix(sampleLum(pxs[ri*3+ci],   cl, S*p),
+                sampleLum(pxs[(ri+1)*3+ci], cl, 1-S*(1-p)), p);
+  } else {
+    const px=cl, py=rl;
+    const lumTL = sampleLum(pxs[ri*3+ci],     1-S*px,   S*py);
+    const lumTR = sampleLum(pxs[ri*3+ci+1],   S*(1-px), S*py);
+    const lumBL = sampleLum(pxs[(ri+1)*3+ci], 1-S*px,   1-S*(1-py));
+    const lumBR = sampleLum(pxs[(ri+1)*3+ci+1], S*(1-px), 1-S*(1-py));
+    return lmix(lmix(lumTL,lumTR,px), lmix(lumBL,lumBR,px), py);
+  }
+}
+
+// ─── Params ───────────────────────────────────────────────────────────────────
+const params = {
+  blobs: { gapH:.08, gapV:.05, stretch:.06, scale:2, octaves:3, animate:1.5,
+           edgeSoft:.115, positionalBias:.44, fadeMargin:.22,
+           disp:.05, ambient:.56, specular:.64 },
+};
+
+const REBUILD_KEYS = new Set(['gapH','gapV','stretch','disp']);
+
+let currentTech = 'blobs';
+
+// ─── Three.js setup ───────────────────────────────────────────────────────────
+const cvs      = document.getElementById('cv');
+const renderer = new THREE.WebGLRenderer({ canvas:cvs, antialias:true });
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+
+const scene  = new THREE.Scene();
+scene.background = new THREE.Color(0x0a0a0a);
+
+const camera = new THREE.PerspectiveCamera(38, innerWidth/innerHeight, .01, 50);
+camera.position.set(0, 0, 1.8);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping      = true;
+controls.dampingFactor      = .08;
+controls.autoRotate         = true;
+controls.autoRotateSpeed    = .28;
+controls.enablePan          = true;
+controls.screenSpacePanning = true;
+controls.panSpeed           = 1.2;
+controls.addEventListener('start', () => {
+  controls.autoRotate = false;
+  document.getElementById('hint').classList.add('gone');
+});
+
+// Fit camera so the entire grid (GW × GH world units) is visible in the viewport
+function fitCamera(GW, GH) {
+  const fovH = camera.fov * Math.PI / 180;
+  const aspect = innerWidth / innerHeight;
+  const dH = (GH / 2) / Math.tan(fovH / 2);
+  const dW = (GW / 2) / (aspect * Math.tan(fovH / 2));
+  camera.position.z = Math.max(dH, dW) * 1.08;
+  controls.target.set(0, 0, 0);
+  controls.update();
+}
+
+function onResize() {
+  renderer.setSize(innerWidth, innerHeight, false);
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  if (mesh) fitCamera(mesh.geometry.parameters.width, mesh.geometry.parameters.height);
+}
+window.addEventListener('resize', onResize);
+
+// Shared uniforms object (both materials read the same reference)
+const sharedUniforms = {
+  u_0:{value:null},u_1:{value:null},u_2:{value:null},u_3:{value:null},
+  u_4:{value:null},u_5:{value:null},u_6:{value:null},u_7:{value:null},u_8:{value:null},
+  u_t:{value:0},
+  u_imgW:{value:.307},u_imgH:{value:.307},
+  u_gapH:{value:.04},u_gapV:{value:.04},
+  u_yScale:{value:1},u_xScale:{value:1},u_cornerXScale:{value:1},
+  u_stretch:{value:.10},u_scale:{value:5},u_animate:{value:.4},
+  u_fadeMargin:{value:.15},u_octaves:{value:4},
+  u_thickness:{value:.10},
+  u_ambient:{value:.25},u_specular:{value:.5},
+  u_edgeSoft:{value:.04},u_positionalBias:{value:.4}, // blobs only
+  u_biasRange:{value:.4},                             // cracks only
+};
+
+const matBlobs  = new THREE.ShaderMaterial({ vertexShader:VS, fragmentShader:makeFS('blobs'),  uniforms:sharedUniforms, side:THREE.DoubleSide });
+const matCracks = new THREE.ShaderMaterial({ vertexShader:VS, fragmentShader:makeFS('cracks'), uniforms:sharedUniforms, side:THREE.DoubleSide });
+
+let mesh = null;
+let pxDatas = null; // pixel data for each image (CPU luminance sampling)
+let imgAspect = .75;
+const CANVAS_W = 760;
+
+function canvasH_fromP(P) {
+  const iW = (1-2*P.gapH)/3;
+  const iWpx = CANVAS_W * iW;
+  const iHpx = iWpx / imgAspect;
+  return Math.round(3*iHpx / (1-2*P.gapV));
+}
+
+function buildMesh() {
+  const P = params[currentTech];
+  const H = canvasH_fromP(P);
+
+  renderer.setSize(innerWidth, innerHeight, false);
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+
+  const GW = 1.0, GH = H / CANVAS_W;
+
+  // Segments proportional to grid (more verts per image, fewer per gap)
+  const iPerImg = 52, iPerGap = 8;
+  const SX = 3*iPerImg + 2*iPerGap;
+  const SY = Math.round(SX * GH);
+
+  if (mesh) { scene.remove(mesh); mesh.geometry.dispose(); mesh = null; }
+
+  const geo  = new THREE.PlaneGeometry(GW, GH, SX, SY);
+  const pos  = geo.attributes.position;
+  const uvs  = geo.attributes.uv;
+  const iW   = (1-2*P.gapH)/3, iH = (1-2*P.gapV)/3;
+  const iWpx = CANVAS_W*iW, iHpx = H*iH;
+  const gHpx = CANVAS_W*P.gapH, gVpx = H*P.gapV;
+
+  // Bake luminance displacement into Z
+  for (let i = 0; i < pos.count; i++) {
+    const u = uvs.getX(i), v = uvs.getY(i);
+    const lum = vertexDepth(u, v, P, pxDatas);
+    pos.setZ(i, lum * P.disp);
+  }
+  pos.needsUpdate = true;
+  geo.computeVertexNormals();
+
+  // Update layout uniforms
+  sharedUniforms.u_imgW.value = iW;
+  sharedUniforms.u_imgH.value = iH;
+  sharedUniforms.u_gapH.value = P.gapH;
+  sharedUniforms.u_gapV.value = P.gapV;
+  sharedUniforms.u_yScale.value       = iHpx / gHpx;
+  sharedUniforms.u_xScale.value       = iWpx / gVpx;
+  sharedUniforms.u_cornerXScale.value = gHpx / gVpx;
+
+  const mat = currentTech==='blobs' ? matBlobs : matCracks;
+  mesh = new THREE.Mesh(geo, mat);
+  scene.add(mesh);
+  fitCamera(GW, GH);
+}
+
+function updateUniforms() {
+  const P = params[currentTech];
+  sharedUniforms.u_stretch.value       = P.stretch;
+  sharedUniforms.u_scale.value         = P.scale;
+  sharedUniforms.u_animate.value       = P.animate;
+  sharedUniforms.u_fadeMargin.value    = P.fadeMargin;
+  sharedUniforms.u_octaves.value       = P.octaves;
+  sharedUniforms.u_thickness.value     = P.thickness   ?? .1;
+  sharedUniforms.u_ambient.value       = P.ambient;
+  sharedUniforms.u_specular.value      = P.specular;
+  sharedUniforms.u_edgeSoft.value      = P.edgeSoft     ?? .04;
+  sharedUniforms.u_positionalBias.value= P.positionalBias ?? .4;
+  sharedUniforms.u_biasRange.value     = P.biasRange    ?? .4;
+}
+
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+const tStart = performance.now();
+
+(async () => {
+  try {
+    const imgs = await Promise.all(IMGS.map(loadImg));
+    imgAspect  = imgs[0].naturalWidth / imgs[0].naturalHeight;
+    pxDatas    = imgs.map(getPixelData);
+
+    // Build Three.js textures from canvas (flipY default = true matches our UV convention)
+    imgs.forEach((img, i) => {
+      sharedUniforms[`u_${i}`].value = new THREE.CanvasTexture(imgToCanvas(img));
+    });
+
+    updateUniforms();
+    buildMesh();
+
+    (function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      sharedUniforms.u_t.value = (performance.now()-tStart)/1000;
+      renderer.render(scene, camera);
+    })();
+
+  } catch(e) {
+    const el = document.getElementById('err');
+    el.style.display = '';
+    el.textContent = 'Could not load. Run: npx serve .\nThen open: localhost:3000/soul-garden-weaving-9.html\n\n' + e;
+  }
+})();
+</script>
+</body>
+</html>

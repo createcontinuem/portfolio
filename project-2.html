@@ -44,7 +44,7 @@ body {
   color: var(--black);
   font-family: 'Babel Sans', sans-serif;
   line-height: 1.7;
-  font-size: 16px;
+  font-size: 18px;
   overflow-x: hidden;
 }
 
@@ -193,6 +193,11 @@ body {
   position: relative;
   z-index: 2;
   margin-bottom: 8px;
+  text-shadow:
+    0 0 20px rgba(255,255,255,1),
+    0 0 40px rgba(255,255,255,1),
+    0 0 80px rgba(255,255,255,0.8),
+    0 0 120px rgba(255,255,255,0.5);
 }
 
 .hero-title .accent-green { color: var(--black); }
@@ -206,10 +211,16 @@ body {
   position: relative;
   z-index: 2;
   margin-top: 24px;
-  display: flex;
+  display: table;
   align-items: center;
   gap: 20px;
   white-space: nowrap;
+  font-weight: 700;
+  border-radius: 2px;
+  padding: 16px 22px;
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .hero-sub::before {
@@ -370,6 +381,9 @@ p {
   font-size: 15px;
   line-height: 1.7;
   color: var(--black);
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 /* ── ABOUT GRID ── */
@@ -392,7 +406,7 @@ p {
   display: flex;
   gap: 20px;
   align-items: flex-start;
-  padding: 14px 20px;
+  padding: 20px 24px;
   background: var(--off-white);
   border: 1px solid var(--border);
   border-bottom: none;
@@ -404,16 +418,16 @@ p {
 
 .step-num {
   font-family: 'Dry Brush', serif;
-  font-size: 22px;
+  font-size: 32px;
   letter-spacing: 2px;
   color: var(--gray);
   flex-shrink: 0;
-  min-width: 32px;
+  min-width: 42px;
   line-height: 1.3;
 }
 
 .step-text {
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.6;
 }
 
@@ -421,14 +435,14 @@ p {
   font-family: 'Babel Sans', sans-serif;
   font-weight: 700;
   color: var(--black);
-  margin-bottom: 2px;
+  margin-bottom: 4px;
   letter-spacing: 0.05em;
 }
 
 .step-desc {
   font-family: 'Babel Sans', sans-serif;
   color: var(--gray);
-  font-size: 12px;
+  font-size: 18px;
 }
 
 /* ── PIPELINE CHIPS ── */
@@ -441,10 +455,10 @@ p {
 
 .chip {
   font-family: 'Babel Sans', sans-serif;
-  font-size: 10px;
+  font-size: 13px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 5px 12px;
+  padding: 7px 16px;
   border-radius: 2px;
   border: 1px solid currentColor;
 }
@@ -488,28 +502,28 @@ p {
 .lineage-mock {
   width: 100%;
   height: 100%;
-  padding: 20px 24px;
+  padding: 28px 32px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0;
   font-family: 'Babel Sans', sans-serif;
-  font-size: 9px;
+  font-size: 13px;
   letter-spacing: 0.1em;
   position: relative;
 }
 
 .ln-source-row {
   display: flex;
-  gap: 6px;
+  gap: 10px;
   align-items: center;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .ln-node {
-  padding: 4px 10px;
+  padding: 7px 14px;
   border-radius: 2px;
-  font-size: 8px;
+  font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   white-space: nowrap;
@@ -522,40 +536,40 @@ p {
 .ln-node.garden { color: #008899; border-color: rgba(34,211,238,0.35); background: rgba(34,211,238,0.07); }
 
 .ln-op {
-  font-size: 7px;
+  font-size: 11px;
   letter-spacing: 0.1em;
   color: var(--gray);
   text-transform: uppercase;
-  padding: 0 6px;
+  padding: 0 8px;
 }
 
 .ln-arrow {
-  font-size: 9px;
+  font-size: 12px;
   color: var(--gray);
   line-height: 1;
-  margin: 2px 0;
+  margin: 5px 0;
   text-align: center;
 }
 
 .ln-branch-row {
   display: flex;
-  gap: 6px;
+  gap: 10px;
   align-items: flex-start;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 .ln-branch-col {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  gap: 5px;
 }
 
 .ln-label {
   position: absolute;
-  bottom: 10px; left: 14px;
+  bottom: 12px; left: 16px;
   font-family: 'Babel Sans', sans-serif;
-  font-size: 7px;
+  font-size: 10px;
   letter-spacing: 0.18em;
   color: var(--gray);
   text-transform: uppercase;
@@ -610,7 +624,7 @@ p {
 }
 
 .finding-card {
-  padding: 28px;
+  padding: 42px;
   border: 1px solid var(--border);
   border-radius: 2px;
   background: var(--off-white);
@@ -630,10 +644,10 @@ p {
 
 .finding-tag {
   font-family: 'Babel Sans', sans-serif;
-  font-size: 8px;
+  font-size: 12px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -645,27 +659,27 @@ p {
 .finding-items {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 27px;
 }
 
 .fi {
-  padding-top: 16px;
+  padding-top: 24px;
   border-top: 1px solid var(--border);
 }
 .fi:first-child { border-top: none; padding-top: 0; }
 
 .fi-title {
   font-family: 'Babel Sans', sans-serif;
-  font-size: 13px;
+  font-size: 20px;
   color: var(--black);
   font-weight: 700;
-  margin-bottom: 6px;
+  margin-bottom: 9px;
   letter-spacing: 0.04em;
 }
 
 .fi-body {
   font-family: 'Babel Sans', sans-serif;
-  font-size: 13px;
+  font-size: 18px;
   color: var(--gray);
   line-height: 1.7;
   max-width: 100%;
@@ -1096,6 +1110,14 @@ footer {
 .cg-thumb:hover .cg-footer-expand { color: var(--black); }
 .cg-footer-expand::after { content: '↗'; font-size: 11px; }
 
+/* ── GALLERY THUMBNAIL — Section 2 enlarged instance ── */
+#galleryThumb { width: 100%; }
+#galleryThumb .cg-grid img { height: 151px; }
+#galleryThumb .cg-footer { padding: 20px 24px; }
+#galleryThumb .cg-footer-title { font-size: 13px; }
+#galleryThumb .cg-footer-expand { font-size: 12px; }
+#galleryThumb .cg-footer-expand::after { font-size: 13px; }
+
 /* ── IMAGE LIGHTBOX ── */
 .img-lightbox {
   display: none;
@@ -1205,37 +1227,54 @@ footer {
 .gallery-modal.open { display: flex; }
 
 .gallery-modal-inner {
-  position: relative;
+  display: flex;
+  align-items: stretch;
   width: 100%;
-  max-width: 1100px;
+  max-width: 1300px;
   height: 90vh;
   background: var(--white);
   border-radius: 2px;
   overflow: hidden;
   border: 1px solid var(--border2);
+  box-shadow: 0 32px 100px rgba(0,0,0,0.5);
+  cursor: default;
 }
-.gallery-modal-inner iframe {
+.gallery-modal-left {
+  flex: 1;
+  min-width: 0;
+}
+.gallery-modal-left iframe {
   width: 100%;
   height: 100%;
   border: none;
   display: block;
 }
+.gallery-modal-right {
+  width: 300px;
+  flex-shrink: 0;
+  background: var(--white);
+  border-left: 1px solid var(--border);
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
 .gallery-modal-close {
   position: absolute;
-  top: 14px;
-  right: 16px;
+  top: 20px;
+  right: 20px;
   z-index: 10;
-  background: var(--white);
-  border: 1px solid var(--border);
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.3);
   font-family: 'Babel Sans', sans-serif;
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  color: var(--black);
-  padding: 5px 12px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: rgba(255,255,255,0.7);
+  padding: 6px 14px;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: color 0.15s, border-color 0.15s;
 }
-.gallery-modal-close:hover { background: var(--gray-light); }
+.gallery-modal-close:hover { color: #fff; border-color: rgba(255,255,255,0.7); }
 
 @keyframes cfloat   { 0%,100%{ transform:translateY(0)    } 50%{ transform:translateY(-16px) } }
 @keyframes cfloat-b { 0%,100%{ transform:translateY(0)    } 50%{ transform:translateY(-26px) } }
@@ -1273,7 +1312,6 @@ footer {
     <button class="nav-tab" onclick="smoothTo('#motivations')">Motivations</button>
     <button class="nav-tab" onclick="smoothTo('#concept-design')">Concept Design</button>
     <button class="nav-tab" onclick="smoothTo('#experiments')">Experiments</button>
-    <button class="nav-tab" onclick="smoothTo('#current-status')">Current Status</button>
   </div>
   <div class="nav-projects" id="navProjects">
     <button class="nav-projects-btn" onclick="toggleProjects(event)">Projects</button>
@@ -1307,7 +1345,7 @@ footer {
     </div>
     <div class="hero-main-right">
       <div class="hero-card reveal reveal-d3">
-        Soul Garden is a digital sanctuary that grows and cultivates each image's identity and being — this is a generative experiment that relies on human feedback to "grow" and "nurture" an image — the more digital input is fed, the more the artifact is shaped into a sentient microspecies determined by the collective.
+        Soul Garden is a speculative digital sanctuary that grows and cultivates each image's identity and being — this is a generative experiment that relies on human feedback to "grow" and "nurture" an image — the more digital input is fed, the more the artifact is shaped into a sentient microspecies determined by the collective.
       </div>
     </div>
   </div>
@@ -1340,114 +1378,84 @@ footer {
 </section>
 
 <!-- SECTION 1: MOTIVATIONS -->
-<section class="section" id="motivations" style="padding:0;min-height:100vh;display:flex;flex-direction:column;overflow:hidden;">
+<section class="section" id="motivations" style="padding:0;height:100vh;overflow:hidden;position:relative;">
   <div class="section-num">01</div>
-  <div style="padding:80px 80px 28px;flex-shrink:0;position:relative;z-index:2;">
-    <div class="section-label">Section 01</div>
-    <h2 style="margin-bottom:0;">Motivations</h2>
-  </div>
-  <div style="flex:1;position:relative;min-height:0;">
-    <div class="concept-track" id="motivationsSlider">
 
-      <div class="ci" style="margin-top:60px;animation:cfloat-b 5.1s ease-in-out -1.2s infinite;">
-        <img src="p1-memory-show/show/cafebureau-art-show-thom-0105.JPG" style="width:420px;height:280px;"
-          data-title="Art Show" data-desc="Placeholder — add notes here.">
+  <div style="display:flex;gap:32px;padding:80px 80px 56px;height:100vh;box-sizing:border-box;align-items:stretch;">
+
+    <!-- Left column: section header + motivation2 -->
+    <div style="flex:0 0 260px;display:flex;flex-direction:column;gap:32px;">
+      <div style="flex-shrink:0;position:relative;z-index:2;">
+        <div class="section-label">Section 01</div>
+        <h2 style="margin-bottom:0;">Motivations</h2>
       </div>
-
-      <div class="ci" style="margin-top:130px;animation:cfloat-c 4.8s ease-in-out -2.7s infinite;">
-        <img src="p2-soul-garden/motivations1.jpg" style="width:420px;height:252px;"
-          data-title="Motivation 01" data-desc="Placeholder — add notes here.">
-      </div>
-
-      <div class="ci" style="margin-top:20px;animation:cfloat-b 5.4s ease-in-out -0.5s infinite;">
-        <img src="p2-soul-garden/motivations2.jpg" style="width:276px;height:400px;"
+      <div class="ci reveal" style="flex:1;min-height:0;overflow:hidden;animation:cfloat-b 5.4s ease-in-out -0.5s infinite;">
+        <img src="p2-soul-garden/conceptdesign/motivation1.jpg" style="width:100%;height:100%;object-fit:cover;"
           data-title="Motivation 02" data-desc="Placeholder — add notes here.">
       </div>
+    </div>
 
-      <div class="ci" style="margin-top:100px;animation:cfloat-c 4.7s ease-in-out -1.8s infinite;">
-        <img src="p2-soul-garden/conceptdesign/ideation1.jpg" style="width:400px;height:254px;"
+    <!-- Right column: cafebureau + ideation1 -->
+    <div id="motivationsSlider" style="flex:1;display:flex;flex-direction:column;gap:16px;">
+      <div class="ci reveal" style="flex:1;min-height:0;overflow:hidden;animation:cfloat-b 5.1s ease-in-out -1.2s infinite;">
+        <img src="p1-memory-show/show/cafebureau-art-show-thom-0105.JPG" style="width:100%;height:100%;object-fit:cover;"
+          data-title="Art Show" data-desc="After exhibiting &quot;The Movement of Memory&quot;, I was inspired to keep iterating and create new image collections for art licensing. This experience also moved me to ponder more about the cognitive experience of holding meaning in art, how emotional attachment to memories and imaging occur — and wanted to continue exploring further.">
+      </div>
+      <div class="ci reveal" style="flex:1;min-height:0;overflow:hidden;animation:cfloat-c 4.7s ease-in-out -1.8s infinite;">
+        <img src="p2-soul-garden/conceptdesign/ideation1.jpg" style="width:100%;height:100%;object-fit:cover;"
           data-title="Ideation 01" data-desc="Placeholder — add notes here.">
       </div>
-
-      <div class="ci" style="margin-top:40px;animation:cfloat-b 5.2s ease-in-out -3.1s infinite;">
-        <img src="p2-soul-garden/conceptdesign/ideation3.jpg" style="width:400px;height:242px;"
-          data-title="Ideation 03" data-desc="Placeholder — add notes here.">
-      </div>
-
-      <div style="flex-shrink:0;width:80px;"></div>
     </div>
-    <div class="concept-drag-hint">drag to explore</div>
+
   </div>
 </section>
 
 <!-- SECTION 2: CONCEPT DESIGN -->
-<section class="section" id="concept-design" style="padding:0;min-height:100vh;display:flex;flex-direction:column;overflow:hidden;">
+<section class="section" id="concept-design" style="padding:0;min-height:100vh;overflow:hidden;position:relative;">
   <div class="section-num">02</div>
-  <div style="padding:80px 80px 28px;flex-shrink:0;position:relative;z-index:2;">
-    <div class="section-label">Section 02</div>
-    <h2 style="margin-bottom:0;">CONCEPT<br>DESIGN</h2>
-  </div>
-  <div style="flex:1;position:relative;min-height:0;">
-    <div class="concept-track" id="conceptSlider">
 
-      <div class="cg-thumb" style="margin-top:65px;animation:cfloat-b 4.9s ease-in-out -2.5s infinite;" id="galleryThumb">
-        <div class="cg-grid">
-          <img src="p2-soul-garden/web/alhambra-01.jpg">
-          <img src="p2-soul-garden/web/ambition-01.jpg">
-          <img src="p2-soul-garden/web/arctic-01.jpg">
-          <img src="p2-soul-garden/web/blanket-01.jpg">
-          <img src="p2-soul-garden/web/bloodsister-01.jpg">
-          <img src="p2-soul-garden/web/blossoms-01.jpg">
-        </div>
-        <div class="cg-footer">
-          <span class="cg-footer-title">Visual Gallery</span>
-          <span class="cg-footer-expand">Open</span>
-        </div>
-      </div>
+  <div id="conceptSlider" style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;grid-template-rows:auto auto;gap:20px;padding:80px 80px 56px;min-height:100vh;box-sizing:border-box;align-items:start;">
 
-      <div class="ci" style="margin-top:130px;animation:cfloat-c 5.9s ease-in-out -2.3s infinite;">
-        <img src="p2-soul-garden/conceptdesign/concept2-darkroom.jpg" style="width:400px;height:251px;"
-          data-title="Dark Room" data-desc="Placeholder — add notes here.">
-      </div>
-
-      <div class="ci" style="margin-top:20px;animation:cfloat-b 4.8s ease-in-out -0.6s infinite;">
-        <img src="p2-soul-garden/conceptdesign/concept1.jpg" style="width:400px;height:247px;"
-          data-title="Concept 01" data-desc="Placeholder — add notes here.">
-      </div>
-
-      <div class="ci" style="margin-top:100px;animation:cfloat-b 5.2s ease-in-out -1.1s infinite;">
-        <img src="p2-soul-garden/conceptdesign/concept2-flowerwall.jpg" style="width:300px;height:356px;"
-          data-title="Flower Wall" data-desc="Placeholder — add notes here.">
-      </div>
-
-      <div class="ci" style="margin-top:30px;animation:cfloat-c 4.6s ease-in-out -0.4s infinite;">
-        <img src="p2-soul-garden/conceptdesign/ideation1.jpg" style="width:400px;height:254px;"
-          data-title="Ideation 01" data-desc="Placeholder — add notes here.">
-      </div>
-
-      <div class="ci" style="margin-top:110px;animation:cfloat-b 5.0s ease-in-out -1.9s infinite;">
-        <img src="p2-soul-garden/conceptdesign/ideation3.jpg" style="width:400px;height:242px;"
-          data-title="Ideation 03" data-desc="Placeholder — add notes here.">
-      </div>
-
-      <div class="ci" style="margin-top:40px;animation:cfloat-c 4.7s ease-in-out -0.8s infinite;">
-        <img src="p2-soul-garden/conceptdesign/ideation21.jpg" style="width:390px;height:267px;"
-          data-title="Ideation 21" data-desc="Placeholder — add notes here.">
-      </div>
-
-      <div class="ci" style="margin-top:120px;animation:cfloat-b 5.3s ease-in-out -2.4s infinite;">
-        <img src="p2-soul-garden/conceptdesign/ideation22.jpg" style="width:390px;height:261px;"
-          data-title="Ideation 22" data-desc="Placeholder — add notes here.">
-      </div>
-
-      <div class="ci" style="margin-top:50px;animation:cfloat-c 4.9s ease-in-out -1.5s infinite;">
-        <img src="p2-soul-garden/conceptdesign/ideation23.jpg" style="width:292px;height:400px;"
-          data-title="Ideation 23" data-desc="Placeholder — add notes here.">
-      </div>
-
-      <div style="flex-shrink:0;width:80px;"></div>
+    <!-- Row 1, Col 1: section heading -->
+    <div style="grid-column:1;grid-row:1;position:relative;z-index:2;">
+      <div class="section-label">Section 02</div>
+      <h2>CONCEPT<br>DESIGN</h2>
     </div>
-    <div class="concept-drag-hint">drag to explore</div>
+
+    <!-- Row 1, Col 2: first sketch card -->
+    <div class="ci reveal" style="grid-column:2;grid-row:1;animation:cfloat-c 5.9s ease-in-out -2.3s infinite;">
+      <img src="p2-soul-garden/conceptdesign/concept2-darkroom.jpg" style="width:100%;height:auto;"
+        data-title="Dark Room" data-desc="Placeholder — add notes here.">
+    </div>
+
+    <!-- Cols 3–4, Rows 1–2: gallery spanning 2 rows -->
+    <div class="cg-thumb reveal" style="grid-column:3/5;grid-row:1/3;animation:cfloat-b 4.9s ease-in-out -2.5s infinite;" id="galleryThumb">
+      <div class="cg-grid">
+        <img src="p2-soul-garden/web/alhambra-01.jpg">
+        <img src="p2-soul-garden/web/ambition-01.jpg">
+        <img src="p2-soul-garden/web/arctic-01.jpg">
+        <img src="p2-soul-garden/web/blanket-01.jpg">
+        <img src="p2-soul-garden/web/bloodsister-01.jpg">
+        <img src="p2-soul-garden/web/blossoms-01.jpg">
+      </div>
+      <div class="cg-footer">
+        <span class="cg-footer-title">Visual Gallery</span>
+        <span class="cg-footer-expand">Open</span>
+      </div>
+    </div>
+
+    <!-- Row 2, Col 1: second sketch card -->
+    <div class="ci reveal" style="grid-column:1;grid-row:2;animation:cfloat-b 4.8s ease-in-out -0.6s infinite;">
+      <img src="p2-soul-garden/conceptdesign/concept1.jpg" style="width:100%;height:auto;"
+        data-title="Concept 01" data-desc="Placeholder — add notes here.">
+    </div>
+
+    <!-- Row 2, Col 2: third sketch card -->
+    <div class="ci reveal" style="grid-column:2;grid-row:2;width:60%;animation:cfloat-b 5.2s ease-in-out -1.1s infinite;">
+      <img src="p2-soul-garden/conceptdesign/concept2-flowerwall.jpg" style="width:100%;height:auto;"
+        data-title="Flower Wall" data-desc="Placeholder — add notes here.">
+    </div>
+
   </div>
 </section>
 
@@ -1470,8 +1478,22 @@ footer {
 <div class="gallery-modal" id="galleryModal">
   <div class="gallery-modal-inner">
     <button class="gallery-modal-close" id="galleryModalClose">✕ Close</button>
-    <iframe src="p2-soul-garden/soul-garden-gallery.html" title="Soul Garden Visual Gallery" loading="lazy"></iframe>
+    <div class="gallery-modal-left">
+      <iframe src="p2-soul-garden/soul-garden-gallery.html" title="Soul Garden Visual Gallery" loading="lazy"></iframe>
+    </div>
+    <div class="gallery-modal-right">
+      <div class="img-lightbox-label">Visual Gallery</div>
+      <div class="img-lightbox-title">Soul Garden</div>
+      <div class="img-lightbox-body">Each image in Soul Garden carries its own identity — a digital microspecies shaped by collective input. Click any image and write what comes to mind: an emotion, a memory, a word. Your response becomes part of its growth.</div>
+    </div>
   </div>
+</div>
+
+<!-- WEAVING MODAL -->
+<div id="weavingModal" style="display:none;position:fixed;inset:0;z-index:800;background:#0a0a0a;">
+  <button id="weavingModalClose" class="gallery-modal-close">✕ Close</button>
+  <iframe id="weavingModalIframe" src="" title="Soul Garden — Weaving"
+    style="width:100%;height:100%;border:none;display:block;"></iframe>
 </div>
 
 <!-- SECTION 3: EXPERIMENTS -->
@@ -1481,206 +1503,170 @@ footer {
     <div class="section-label">Section 03</div>
     <h2>EXPERIMENTS</h2>
 
-    <div class="about-grid">
-      <div class="reveal">
-        <p>Original hand-drawn artwork animated into living organisms, then grown iteratively across generations — each generation's final frame becoming the seed of the next. The resulting video lineage is displayed as a Three.js "digital garden": masked cutout sprites floating in 3D space with bioluminescent glow and particle systems.</p>
-
-        <p>The work is entirely original IP: no stock footage, no copyrighted characters, no personal photographs. Every frame is either a continuem drawing or a Runway-generated descendant of one.</p>
-
-        <div class="pipeline-chips">
-          <span class="chip animate">Animate</span>
-          <span class="chip fuse">Fuse</span>
-          <span class="chip grow">Grow</span>
-          <span class="chip extract">Extract</span>
-          <span class="chip render">Render</span>
-          <span class="chip mutate">Mutate</span>
+    <!-- Experiment #1 -->
+    <div class="reveal" style="margin-bottom:80px;">
+      <p style="font-family:'Babel Sans',sans-serif;font-size:18px;font-weight:700;line-height:1.5;color:var(--black);margin:0 0 8px;">#1. Experiment — Simple AI Prompt with Claude Sonnet 4.6</p>
+      <div style="position:relative;">
+        <div id="exp1-track" style="display:flex;overflow:hidden;border-radius:2px;height:calc(100vh - 220px);background:#0a0a0a;">
+          <img src="p2-soul-garden/experiments/try1-cell1.png" style="min-width:100%;width:100%;height:100%;object-fit:cover;flex-shrink:0;">
+          <img src="p2-soul-garden/experiments/try1-cell2.png" style="min-width:100%;width:100%;height:100%;object-fit:cover;flex-shrink:0;">
+          <img src="p2-soul-garden/experiments/try1-cell3.png" style="min-width:100%;width:100%;height:100%;object-fit:cover;flex-shrink:0;">
+          <img src="p2-soul-garden/experiments/try1-cell4.png" style="min-width:100%;width:100%;height:100%;object-fit:cover;flex-shrink:0;">
+          <img src="p2-soul-garden/experiments/try1-cell5.png" style="min-width:100%;width:100%;height:100%;object-fit:cover;flex-shrink:0;">
+          <div style="min-width:100%;flex-shrink:0;position:relative;height:100%;">
+            <iframe src="https://player.vimeo.com/video/1197309637?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="try1-output1"></iframe>
+          </div>
+          <div style="min-width:100%;flex-shrink:0;position:relative;height:100%;">
+            <iframe src="https://player.vimeo.com/video/1197597796?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="try1-output23"></iframe>
+          </div>
+          <div style="min-width:100%;flex-shrink:0;position:relative;height:100%;">
+            <iframe src="https://player.vimeo.com/video/1197597795?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="try1-output45"></iframe>
+          </div>
         </div>
-
-        <p>Each generation drifts further from the source artwork. By gen03, the image is purely organism — no artwork origin visible. Generations stabilize after 4 iterations; subject stays organism-like but visual variety plateaus.</p>
+        <button onclick="exp1Move(-1)" style="position:absolute;left:0;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.2);color:#fff;font-family:'Babel Sans',sans-serif;font-size:18px;padding:10px 16px;cursor:pointer;backdrop-filter:blur(4px);">&#8592;</button>
+        <button onclick="exp1Move(1)"  style="position:absolute;right:0;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.2);color:#fff;font-family:'Babel Sans',sans-serif;font-size:18px;padding:10px 16px;cursor:pointer;backdrop-filter:blur(4px);">&#8594;</button>
+        <div id="exp1-counter" style="position:absolute;bottom:12px;right:16px;background:rgba(0,0,0,0.55);color:#fff;font-family:'Babel Sans',sans-serif;font-size:11px;letter-spacing:0.1em;padding:4px 10px;border:1px solid rgba(255,255,255,0.2);backdrop-filter:blur(4px);">1 / 8</div>
       </div>
+      <script src="https://player.vimeo.com/api/player.js"></script>
+      <script>
+        (function(){
+          const track = document.getElementById('exp1-track');
+          const counter = document.getElementById('exp1-counter');
+          const total = 8;
+          let cur = 0;
+          window.exp1Move = function(dir){
+            cur = (cur + dir + total) % total;
+            track.scrollTo({ left: cur * track.offsetWidth, behavior: 'smooth' });
+            counter.textContent = (cur + 1) + ' / ' + total;
+          };
+        })();
+      </script>
+    </div>
 
-      <div class="reveal reveal-d2">
+    <!-- #2 Experiment -->
+    <div class="reveal" style="margin-bottom:40px;">
+      <p style="font-family:'Babel Sans',sans-serif;font-size:18px;font-weight:700;line-height:1.5;color:var(--black);margin:0 0 20px;">#2. Experiment 2 — RunwayML Gen-4 Agentic Organism Growth</p>
+      <p>I prompted on RunwayML Gen-4 to reimagine an art piece I made as a living microorganism. This generates a video, then my recursive python script takes a screenshot of the generation and runs the prompt repeatedly — up to 3 times for now — as an act of "feeding and growing" the piece.</p>
+      <p>All content uses only my original visuals and reference inputs of microscopic lab photos of microcellular organisms.</p>
+    </div>
+
+    <!-- Workflow diagram + step table side by side -->
+    <div style="display:flex;gap:40px;align-items:flex-start;margin-bottom:64px;">
+      <div class="reveal" style="flex:1;">
+        <div class="viz-screen" style="aspect-ratio:auto;min-height:420px;">
+          <div class="lineage-mock">
+            <div class="ln-source-row">
+              <div class="ln-node src">Drawing 239</div>
+              <span class="ln-op">+</span>
+              <div class="ln-node src">Drawing 247</div>
+            </div>
+            <div class="ln-arrow">↓ fuse into one organism</div>
+            <div class="ln-node fusion">Fused organism · gen 0</div>
+            <div class="ln-arrow">↓ grow × 3</div>
+            <div class="ln-node growth">Generation 3</div>
+            <div class="ln-arrow">↓ grow × 4 more</div>
+            <div class="ln-node growth">Generations 3.1 · 3.2 · 3.3 · 3.4</div>
+            <div class="ln-arrow">↓ introduce reference photo, branch</div>
+            <div class="ln-branch-row">
+              <div class="ln-branch-col">
+                <div class="ln-node branch">Plant Garden</div>
+                <div class="ln-op" style="font-size:11px;color:var(--gray)">botanical direction</div>
+              </div>
+              <div class="ln-branch-col">
+                <div class="ln-node branch">Ruins Mutation</div>
+                <div class="ln-op" style="font-size:11px;color:var(--gray)">decay direction</div>
+              </div>
+              <div class="ln-branch-col">
+                <div class="ln-node garden">→ garden display</div>
+                <div class="ln-op" style="font-size:11px;color:var(--gray)">3D viewer</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal reveal-d2" style="flex:1;">
         <div class="pipeline-steps">
           <div class="step">
             <span class="step-num">01</span>
             <div class="step-text">
-              <div class="step-title">Single Animate</div>
-              <div class="step-desc">image_to_video (Gen4.5) — one drawing → 5s organism video · 60 credits</div>
+              <div class="step-title">Animate a drawing</div>
+              <div class="step-desc">One original artwork goes in. A 5-second video of it moving as a living organism comes out.</div>
             </div>
           </div>
           <div class="step">
             <span class="step-num">02</span>
             <div class="step-text">
-              <div class="step-title">Multi-Fuse</div>
-              <div class="step-desc">text_to_image (Gen4 Image) with @ref tags → composite still → 5s organism video · 65 credits</div>
+              <div class="step-title">Fuse two drawings</div>
+              <div class="step-desc">Two artworks are blended into a single composite image first, then animated — the organism inherits both.</div>
             </div>
           </div>
           <div class="step">
             <span class="step-num">03</span>
             <div class="step-text">
-              <div class="step-title">Grow</div>
-              <div class="step-desc">Extract last frame → optional reference blend → image_to_video → repeat ×N</div>
+              <div class="step-title">Grow it forward</div>
+              <div class="step-desc">The last frame of a video becomes the seed for the next one. Repeat to build a generational chain.</div>
             </div>
           </div>
           <div class="step">
             <span class="step-num">04</span>
             <div class="step-text">
-              <div class="step-title">Extract Masks</div>
-              <div class="step-desc">rembg background removal → PNG alpha sprites for garden display</div>
+              <div class="step-title">Cut out the organism</div>
+              <div class="step-desc">The background is removed from a still frame, leaving a shaped, transparent cutout of the creature.</div>
             </div>
           </div>
           <div class="step">
             <span class="step-num">05</span>
             <div class="step-text">
-              <div class="step-title">Garden Viewer</div>
-              <div class="step-desc">Three.js scene on localhost:8080 · masked sprites + glow halo + particle system + orbit camera</div>
+              <div class="step-title">Place it in the garden</div>
+              <div class="step-desc">All organisms are arranged in 3D space — floating, glowing, slowly rotating. Drag to explore.</div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="viz-layout" style="margin-top:64px;">
-      <div class="reveal">
-        <div class="viz-screen">
-          <div class="lineage-mock">
-            <div class="ln-source-row">
-              <div class="ln-node src">jpn-sakura-239</div>
-              <span class="ln-op">+</span>
-              <div class="ln-node src">jpn-sakura-247</div>
-            </div>
-            <div class="ln-arrow">↓ multi-fuse · text_to_image</div>
-            <div class="ln-node fusion">soul_fusion_239_247.mp4</div>
-            <div class="ln-arrow">↓ grow × 3 · image_to_video</div>
-            <div class="ln-node growth">gen03.mp4</div>
-            <div class="ln-arrow">↓ grow × 4 · image_to_video</div>
-            <div class="ln-node growth">gen03_gen01.mp4 &nbsp;·&nbsp; gen03_gen02 / 03 / 04</div>
-            <div class="ln-arrow">↓ branch</div>
-            <div class="ln-branch-row">
-              <div class="ln-branch-col">
-                <div class="ln-node branch">plant_garden</div>
-                <div class="ln-op" style="font-size:7px;color:var(--gray)">+cambodia ref</div>
-              </div>
-              <div class="ln-branch-col">
-                <div class="ln-node branch">ruins_mutation</div>
-                <div class="ln-op" style="font-size:7px;color:var(--gray)">+cambodia ref</div>
-              </div>
-              <div class="ln-branch-col">
-                <div class="ln-node garden">masks → garden.html</div>
-                <div class="ln-op" style="font-size:7px;color:var(--gray)">Three.js</div>
-              </div>
-            </div>
-            <div class="ln-label">FULL LINEAGE · continuem × Runway Gen-4</div>
+    <!-- #3 3D Study -->
+    <div class="reveal" style="margin-bottom:64px;display:flex;gap:24px;align-items:stretch;">
+
+      <!-- Left: title + flowerwall image -->
+      <div style="flex:0 0 260px;display:flex;flex-direction:column;gap:16px;">
+        <p style="font-family:'Babel Sans',sans-serif;font-size:18px;font-weight:700;line-height:1.5;color:var(--black);margin:0;">#3. 3D Study — Reimagining image texture as Digital Terrain for Soul Garden environment building</p>
+        <div class="ci reveal" style="flex:1;min-height:0;overflow:hidden;border-radius:2px;">
+          <img src="p2-soul-garden/conceptdesign/concept2-flowerwall.jpg" style="width:100%;height:100%;object-fit:cover;"
+            data-title="Flower Wall" data-desc="Placeholder — add notes here.">
+        </div>
+      </div>
+
+      <!-- Right: weaving 3D viewer -->
+      <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+        <div id="weavingThumb" style="flex:1;min-height:0;height:70vh;background:#0a0a0a;border:1px solid var(--border);border-radius:2px;overflow:hidden;position:relative;cursor:pointer;">
+          <iframe src="p2-soul-garden/soul-garden-weaving-9.html" title="Soul Garden — Weaving"
+            style="position:absolute;top:-100%;left:-100%;width:300%;height:300%;border:none;display:block;pointer-events:none;transform:scale(0.8);transform-origin:center center;"
+            loading="lazy" tabindex="-1"></iframe>
+          <div style="position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:flex-end;padding:14px;">
+            <span style="background:rgba(0,0,0,0.55);color:#fff;font-family:'Babel Sans',sans-serif;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:5px 12px;border:1px solid rgba(255,255,255,0.25);backdrop-filter:blur(4px);">↗ Expand</span>
           </div>
         </div>
+        <div style="padding:2px 0;font-family:'Babel Sans',sans-serif;font-size:12px;color:var(--gray);letter-spacing:0.08em;text-transform:uppercase;">3D Terrain Render Study — Three.js · WebGL GLSL · OrbitControls</div>
       </div>
 
-      <div class="reveal reveal-d2">
-        <h3>Single mode</h3>
-        <p>Reference image → resize to max 1280×720 → base64 data URI → gen4.5 image_to_video (5s) → download .mp4. Prompt source priority: <code style="font-family:monospace;font-size:13px;background:var(--gray-light);padding:1px 5px;border-radius:2px;">--prompt</code> arg → prompts.json per-image key → prompts.json._default.</p>
-
-        <h3>Multi mode</h3>
-        <p>2–3 reference images each encoded as base64, tagged ref0 / ref1 / ref2 → gen4_image text_to_image with @ref tags in prompt (5 credits) → composite image → gen4.5 image_to_video on composite URL (5s, 60 credits). Combo config: <code style="font-family:monospace;font-size:13px;background:var(--gray-light);padding:1px 5px;border-radius:2px;">references/images/photos/multi.json</code></p>
-
-        <h3>Growth mode</h3>
-        <p>Seed .mp4 → for each iteration: cv2 extracts last frame → <strong>without reference</strong>: gen4.5 image_to_video on last frame (60 credits) · <strong>with reference</strong>: gen4_image blends last frame + reference (5 credits) → composite URL → gen4.5 image_to_video (60 credits). Chain breaks on first failure. Each iteration: video → last frame → video.</p>
-
-        <div class="formula-block">
-          <div class="formula">for i in 1..N:
-  frame = extract_last_frame(video)  # OpenCV
-  if reference:
-    composite = text_to_image(frame, ref)  # 5 cr
-    seed = composite
-  video = image_to_video(seed, prompt)     # 60 cr</div>
-          <div class="formula-note">grow.py core loop. Each iteration 60–65 credits. CloudFront output URLs expire 24–48h — always download to local .mp4 immediately.</div>
-        </div>
-      </div>
     </div>
 
-    <div class="callout-grid reveal">
-      <div class="callout">
-        <div class="callout-icon">◈</div>
-        <div class="callout-title">Garden Pipeline</div>
-        <div class="callout-body">garden.py scans videos/ and growth/ → assigns 3D grid positions (spacing=3.5, ±jitter) → assigns float speed, amplitude, phase per organism → writes garden_state.json. extract_masks.py picks sharpest frame (Laplacian variance) across 25/50/75% candidates → rembg removes background → transparent PNG.</div>
-      </div>
-      <div class="callout">
-        <div class="callout-icon">◎</div>
-        <div class="callout-title">Background Removal</div>
-        <div class="callout-body">Rectangular video planes looked like copy-pasted screens. rembg extracts subject per video → alpha mask → Three.js alphaMap. Result: organisms float as shaped cutouts with glow halo. Three.js: MeshBasicMaterial with map + alphaMap + transparent:true + depthWrite:false.</div>
-      </div>
-      <div class="callout">
-        <div class="callout-icon">↺</div>
-        <div class="callout-title">Orbit Camera</div>
-        <div class="callout-body">OrbitControls with autoRotate at speed 0.4. Each sprite gets a glow Sprite child (glowMaterial, scale 3×3). Slow auto-rotate with free user orbit. Positions from spiral_layout(i) distribute organisms in 3D space.</div>
-      </div>
-    </div>
-
-    <div class="reveal" style="margin-top:64px;margin-bottom:56px;">
-      <p style="margin-bottom:20px;">Experiments run May 8–12, 2026. Prompt generalization: each artwork's color palette drives its own distinct organism character. Running total ~915 credits of 50,000 participant allocation.</p>
-      <div class="event-bars">
-        <div class="event-bar-row">
-          <span class="eb-label">Exp 0 — Baseline Singles</span>
-          <div class="eb-track">
-            <div class="eb-fill" style="width:100%;background:linear-gradient(90deg,rgba(61,142,255,0.2),rgba(61,142,255,0.5))">
-              <span class="eb-pct">485 cr</span>
-            </div>
-          </div>
-          <span class="eb-section" style="color:var(--animate)">7 artworks · gen4.5</span>
-        </div>
-        <div class="event-bar-row">
-          <span class="eb-label">Exp 2+3 — Growth Chain</span>
-          <div class="eb-track">
-            <div class="eb-fill" style="width:86%;background:linear-gradient(90deg,rgba(52,217,106,0.2),rgba(52,217,106,0.5))">
-              <span class="eb-pct">420 cr</span>
-            </div>
-          </div>
-          <span class="eb-section" style="color:var(--grow)">3 gen + 4 gen</span>
-        </div>
-        <div class="event-bar-row">
-          <span class="eb-label">Exp 1 — Multi-Image Fusion</span>
-          <div class="eb-track">
-            <div class="eb-fill" style="width:13.4%;background:linear-gradient(90deg,rgba(245,200,66,0.3),rgba(245,200,66,0.6))">
-              <span class="eb-pct">65 cr</span>
-            </div>
-          </div>
-          <span class="eb-section" style="color:var(--fuse)">239 + 247</span>
-        </div>
-        <div class="event-bar-row">
-          <span class="eb-label">Exp 4a — Plant Garden</span>
-          <div class="eb-track">
-            <div class="eb-fill" style="width:13.4%;background:linear-gradient(90deg,rgba(52,217,106,0.2),rgba(52,217,106,0.5))">
-              <span class="eb-pct">65 cr</span>
-            </div>
-          </div>
-          <span class="eb-section" style="color:var(--grow)">+cambodia ref</span>
-        </div>
-        <div class="event-bar-row">
-          <span class="eb-label">Exp 4b — Ruins Mutation</span>
-          <div class="eb-track">
-            <div class="eb-fill" style="width:13.4%;background:linear-gradient(90deg,rgba(255,122,42,0.2),rgba(255,122,42,0.5))">
-              <span class="eb-pct">65 cr</span>
-            </div>
-          </div>
-          <span class="eb-section" style="color:var(--mutate)">+cambodia ref</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="findings-layout">
+    <div class="findings-layout" style="margin-top:64px;display:none;">
       <div class="finding-card works reveal">
         <div class="finding-tag tag-works">✓ &nbsp;What worked</div>
         <div class="finding-items">
           <div class="fi">
-            <div class="fi-title">Multi-fuse as primary seed</div>
-            <div class="fi-body">Composite fuses visual DNA of both artworks. More interesting than single-image mode. soul_fusion_239_247.mp4 used as primary seed for growth chain — downstream generations inherit blended character from both source artworks.</div>
+            <div class="fi-title">Fusing two artworks as the starting seed</div>
+            <div class="fi-body">Starting from a blend of two drawings produced more interesting organisms than starting from one alone. The creature inherited something from both sources — you could feel both artworks in the result.</div>
           </div>
           <div class="fi">
-            <div class="fi-title">Reference blending for visual variation</div>
-            <div class="fi-body">Same seed and reference (cambodia-ruins.jpg), different prompt intent produces clearly distinct visual direction: plant_garden achieves bioluminescent botanical aesthetic; ruins_mutation produces more aggressive mutation aesthetic. Reference photo introduces architectural stone texture into organic growth.</div>
+            <div class="fi-title">Introducing a reference photo mid-growth</div>
+            <div class="fi-body">Using the same organism seed but pointing growth toward different reference images produced clearly distinct results. The same creature became a glowing botanical garden in one direction and a parasitic ruin mutation in another.</div>
           </div>
           <div class="fi">
-            <div class="fi-title">Experiment folder scoping</div>
-            <div class="fi-body">All scripts accept --experiment &lt;name&gt; to scope outputs under output/experiments/&lt;name&gt;/. Separates videos/, composites/, growth/, masks/, results.json, growth_log.json per experiment. --build-only flag separates state build from serving.</div>
+            <div class="fi-title">Each artwork's palette shaped its organism</div>
+            <div class="fi-body">The same animation prompt applied to all 7 source artworks produced 7 visually distinct creatures. The colour and form of the original drawing carried through into the organism's character.</div>
           </div>
         </div>
       </div>
@@ -1689,269 +1675,24 @@ footer {
         <div class="finding-tag tag-fails">✗ &nbsp;What to push further</div>
         <div class="finding-items">
           <div class="fi">
-            <div class="fi-title">Microorganism prompt too abstract</div>
-            <div class="fi-body">Default experiment: visually interesting but not reading as actual microbiology. Prompt generalized well across all 7 artworks but produced abstract results rather than convincing microscopic organisms. Bacteria prompt in gen03_garden addresses this with dark field microscopy framing.</div>
+            <div class="fi-title">The organisms read as abstract, not biological</div>
+            <div class="fi-body">The results are visually compelling but don't quite read as real microorganisms. Shifting the prompt toward dark-field microscopy framing brought the results closer to convincing microbiology.</div>
           </div>
           <div class="fi">
-            <div class="fi-title">Generation variety plateaus</div>
-            <div class="fi-body">gen03_garden (4 iterations): chained growth pipeline working, generations look similar across iterations. gen03_gen01 identified as best branch point for reference-blended experiments rather than continuing the chain further. Visual variety requires reference injection to maintain drift.</div>
+            <div class="fi-title">Generations plateau without new input</div>
+            <div class="fi-body">After four growth cycles on the same chain, each new generation looks similar to the last. Injecting a reference photo is what keeps the evolution moving — without it, the organism stops changing.</div>
           </div>
           <div class="fi">
-            <div class="fi-title">Runway API interpolation is generative</div>
-            <div class="fi-body">interpolate.py using text_to_image composite → image_to_video: generative/hallucinated, not a real interpolation. Local alternatives tested: crossfade (clean dissolve, no motion), Farneback optical flow (also reads as dissolve for dissimilar images), homography + Delaunay mesh morph evaluated separately.</div>
+            <div class="fi-title">Interpolating between organisms doesn't work as expected</div>
+            <div class="fi-body">Attempting to smoothly transition between two very different organisms produced a hallucinated blend rather than a true morph. Simple crossfade and motion-flow alternatives were tested but both read as a dissolve, not a transformation.</div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="meta-grid" style="margin-top:64px;">
-
-      <div class="meta-card reveal">
-        <div class="meta-card-header">
-          <span class="meta-card-num">01</span>
-          <span class="meta-card-title">Animation API</span>
-        </div>
-        <div class="meta-card-body">
-          Runway Gen-4 / Gen-4.5 — <code style="font-family:monospace;font-size:12px">image_to_video</code> and <code style="font-family:monospace;font-size:12px">text_to_image</code>. Python SDK: runwayml v4.14.0. API key in .env as RUNWAYML_API_SECRET (must start with key_).
-        </div>
-      </div>
-
-      <div class="meta-card reveal reveal-d1">
-        <div class="meta-card-header">
-          <span class="meta-card-num">02</span>
-          <span class="meta-card-title">Image &amp; Video Processing</span>
-        </div>
-        <div class="meta-card-body">
-          opencv-python for frame extraction (frame N-1 via cv2). Pillow for resize + JPEG encode before base64. rembg for background removal → transparent PNG alpha sprites. Python 3.12.
-        </div>
-      </div>
-
-      <div class="meta-card reveal reveal-d2">
-        <div class="meta-card-header">
-          <span class="meta-card-num">03</span>
-          <span class="meta-card-title">3D Garden Viewer</span>
-        </div>
-        <div class="meta-card-body">
-          Three.js with OrbitControls, MeshBasicMaterial, Sprite. Served via Python http.server on localhost:8080 with CORS enabled. Organisms rendered as floating video planes with alphaMap cutouts and Sprite glow halos. Auto-rotate speed 0.4.
-        </div>
-      </div>
-
-      <div class="meta-card reveal reveal-d3">
-        <div class="meta-card-header">
-          <span class="meta-card-num">04</span>
-          <span class="meta-card-title">Pipeline Scripts</span>
-        </div>
-        <div class="meta-card-body">
-          generate_videos.py — single + multi-image generation<br>
-          grow.py — iterative growth chain (video → frame → video)<br>
-          extract_masks.py — background removal via rembg<br>
-          garden.py — scene state builder + localhost:8080 server<br>
-          credits.py — Runway credit balance + 30-day usage
-        </div>
-      </div>
-
-      <div class="meta-card reveal" style="grid-column: 1 / -1;">
-        <div class="meta-card-header">
-          <span class="meta-card-num">05</span>
-          <span class="meta-card-title">Credit Budget</span>
-        </div>
-        <div class="meta-card-body" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
-          <div>
-            <table style="width:100%;border-collapse:collapse;font-size:12px;">
-              <thead>
-                <tr style="border-bottom:1px solid var(--border);">
-                  <th style="text-align:left;padding:4px 0;letter-spacing:0.08em;font-size:9px;text-transform:uppercase;color:var(--gray);font-weight:700;">Experiment</th>
-                  <th style="text-align:right;padding:4px 0;letter-spacing:0.08em;font-size:9px;text-transform:uppercase;color:var(--gray);font-weight:700;">Credits</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;">Baseline singles (7 images)</td><td style="text-align:right;">420</td></tr>
-                <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;">Fusion seed</td><td style="text-align:right;">65</td></tr>
-                <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;">gen03_garden (4 gen)</td><td style="text-align:right;">240</td></tr>
-                <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;">plant_garden + ruins_mutation</td><td style="text-align:right;">130</td></tr>
-                <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;">Frame interpolation</td><td style="text-align:right;">65</td></tr>
-                <tr style="border-top:2px solid var(--black);font-weight:700;"><td style="padding:8px 0;">Total used</td><td style="text-align:right;">~1,035</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div>
-            <table style="width:100%;border-collapse:collapse;font-size:12px;">
-              <thead>
-                <tr style="border-bottom:1px solid var(--border);">
-                  <th style="text-align:left;padding:4px 0;letter-spacing:0.08em;font-size:9px;text-transform:uppercase;color:var(--gray);font-weight:700;">Operation</th>
-                  <th style="text-align:right;padding:4px 0;letter-spacing:0.08em;font-size:9px;text-transform:uppercase;color:var(--gray);font-weight:700;">Cost</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;">gen4.5 video (5s)</td><td style="text-align:right;">60 cr</td></tr>
-                <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;">gen4_image composite</td><td style="text-align:right;">5 cr</td></tr>
-                <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;">Growth with reference</td><td style="text-align:right;">65 cr/gen</td></tr>
-                <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;">Growth without reference</td><td style="text-align:right;">60 cr/gen</td></tr>
-                <tr style="border-top:1px solid var(--border);color:var(--gray);"><td style="padding:6px 0;">Participant allocation</td><td style="text-align:right;">50,000 cr</td></tr>
-                <tr style="color:var(--gray);"><td style="padding:6px 0;">Remaining (est.)</td><td style="text-align:right;">~49,000 cr</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
     </div>
 
     <blockquote class="reveal" style="margin-top:56px;">
-      No copyrighted characters, no personal photos, no stock assets. All source artwork is original continuem brand IP. Every generated frame is a descendant of a continuem drawing.
+      All images used in the experiments are available stock photos (microcells) and artworks created by me.
     </blockquote>
-
-    <div class="section-label" style="margin-top:80px;">Technical Notes</div>
-
-    <div class="reveal" style="margin-bottom:40px;">
-      <p>Constraints encountered and resolved during the hackathon. Each required a design decision that shaped the final pipeline architecture.</p>
-    </div>
-
-    <div class="reveal">
-      <div class="collision-demo">
-        <div class="collision-header">
-          <div>Constraint</div>
-          <div>Value / Behavior</div>
-          <div>Resolution</div>
-        </div>
-        <div class="collision-row">
-          <div class="cr-cell"><span class="kw-tag">image_to_video input</span></div>
-          <div class="cr-cell" style="color:var(--gray)">Single <code style="font-family:monospace;font-size:12px">prompt_image</code> only — no multi-image support</div>
-          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Multi-image: use text_to_image composite first, then feed composite URL to image_to_video</div>
-        </div>
-        <div class="collision-row">
-          <div class="cr-cell"><span class="kw-tag">reference_images tag format</span></div>
-          <div class="cr-cell" style="color:var(--gray)">Non-obvious: object key = <code style="font-family:monospace;font-size:12px">ref0</code>, prompt text = <code style="font-family:monospace;font-size:12px">@ref0</code></div>
-          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Discovered via trial. grow.py --reference flag constructs @ref0 @ref1 prompt prefix automatically</div>
-        </div>
-        <div class="collision-row">
-          <div class="cr-cell"><span class="kw-tag">Large image → HTTP 413</span></div>
-          <div class="cr-cell" style="color:var(--gray)">Payload too large for base64-encoded high-res images</div>
-          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Auto-resize to 1280×720 max, JPEG 85% quality before encoding. Applied in generate_videos.py and grow.py</div>
-        </div>
-        <div class="collision-row">
-          <div class="cr-cell"><span class="kw-tag">CloudFront output URLs</span></div>
-          <div class="cr-cell" style="color:var(--gray)">Output video URLs expire 24–48h after generation</div>
-          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Always download to local .mp4 immediately after poll_until_complete returns. Never use URL as next-gen seed</div>
-        </div>
-        <div class="collision-row">
-          <div class="cr-cell"><span class="kw-tag">prompt_text max</span></div>
-          <div class="cr-cell" style="color:var(--gray)">1000 characters max</div>
-          <div class="cr-cell" style="color:var(--gray);font-size:12px;">Truncate before API call: <code style="font-family:monospace;font-size:12px">prompt_text=prompt[:1000]</code></div>
-        </div>
-        <div class="collision-row">
-          <div class="cr-cell"><span class="kw-tag">Duration range</span></div>
-          <div class="cr-cell" style="color:var(--gray)">2–10 seconds, all experiments use 5s</div>
-          <div class="cr-cell" style="color:var(--gray);font-size:12px;">5s balances credit cost (60 cr) and enough motion for growth chain. Longer durations give more frame candidates for extract_masks.py</div>
-        </div>
-        <div class="collision-row">
-          <div class="cr-cell"><span class="kw-tag">Supported ratios</span></div>
-          <div class="cr-cell" style="color:var(--gray)">1280:720 · 720:1280 · 1104:832 · 832:1104 · 960:960 · 1584:672</div>
-          <div class="cr-cell" style="color:var(--gray);font-size:12px;">All experiments use 1280:720. Auto-resize target matches this ratio to avoid cropping artifacts</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="findings-layout reveal" style="margin-top:48px;">
-      <div class="finding-card works">
-        <div class="finding-tag tag-works">IP &amp; Identity Decisions</div>
-        <div class="finding-items">
-          <div class="fi">
-            <div class="fi-title">No copyrighted characters</div>
-            <div class="fi-body">No Pikachu, Hello Kitty, anime IP, or other licensed characters. Conflicts with judging criteria and creates moderation risk.</div>
-          </div>
-          <div class="fi">
-            <div class="fi-title">No personal photos or videos</div>
-            <div class="fi-body">Runway ToS does not exclude uploads from training. All source artwork is original continuem brand IP. Reference photos (cambodia-ruins.jpg) used as style influence, not subjects.</div>
-          </div>
-          <div class="fi">
-            <div class="fi-title">All output is original IP</div>
-            <div class="fi-body">Every frame is either a continuem drawing or a Runway-generated descendant of one. Own the full output chain outright.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="finding-card fails">
-        <div class="finding-tag" style="color:var(--gray);font-weight:700;font-size:8px;letter-spacing:0.2em;">PROMPT LIBRARY</div>
-        <div class="finding-items">
-          <div class="fi">
-            <div class="fi-title">microorganism</div>
-            <div class="fi-body">reimagine as a living microorganism, pulsing organic membrane, bioluminescent cellular movement, microscopic creature breathing and shifting, fluid organic motion</div>
-          </div>
-          <div class="fi">
-            <div class="fi-title">bacteria</div>
-            <div class="fi-body">biological cell division and growth, bacteria multiplying under microscope, flagella propulsion, colony expanding, dark field microscopy, bioluminescent green fluorescence, membrane dividing and replicating</div>
-          </div>
-          <div class="fi">
-            <div class="fi-title">plant_garden</div>
-            <div class="fi-body">grow a garden of plant species from reference, organic botanical flora emerging, plant cells dividing and branching, leaves and stems unfurling, bioluminescent garden, microscopic plant growth</div>
-          </div>
-          <div class="fi">
-            <div class="fi-title">ruins_mutation</div>
-            <div class="fi-body">parasitic cellular mutation, transforming plant life from a wall of ancient ruins</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <blockquote class="reveal">
-      The hackathon theme: agents and applications that create, manipulate, or orchestrate media using AI — chain creative decisions, not single API calls.
-    </blockquote>
-
-    <div class="section-label" style="margin-top:80px;">Experiments</div>
-
-    <div class="meta-grid reveal" style="margin-top:8px;">
-
-      <div class="meta-card">
-        <div class="meta-card-header">
-          <span class="meta-card-num">01</span>
-          <span class="meta-card-title">Claude Sonnet 4.6</span>
-        </div>
-        <div class="meta-card-body">
-          Development assistant across all pipeline phases — prompt engineering, Python scripting, debugging API constraints, and iterating on the Three.js garden viewer.
-        </div>
-      </div>
-
-      <div class="meta-card">
-        <div class="meta-card-header">
-          <span class="meta-card-num">02</span>
-          <span class="meta-card-title">RunwayML API Gen-4</span>
-        </div>
-        <div class="meta-card-body">
-          Core generation engine. <code style="font-family:monospace;font-size:12px">image_to_video</code> (Gen-4.5) and <code style="font-family:monospace;font-size:12px">text_to_image</code> (Gen-4 Image) power single animate, multi-fuse, and iterative growth chain experiments.
-        </div>
-      </div>
-
-      <div class="meta-card">
-        <div class="meta-card-header">
-          <span class="meta-card-num">03</span>
-          <span class="meta-card-title">Studies of Terrain "Construction"</span>
-        </div>
-        <div class="meta-card-body">
-          Placeholder — add content here.
-        </div>
-      </div>
-
-      <div class="meta-card">
-        <div class="meta-card-header">
-          <span class="meta-card-num">04</span>
-          <span class="meta-card-title">Worldbuilding Exercise</span>
-        </div>
-        <div class="meta-card-body">
-          Placeholder — add content here.
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- SECTION 4: CURRENT STATUS -->
-<section class="section" id="current-status">
-  <div class="section-num">04</div>
-  <div class="section-inner">
-    <div class="section-label">Section 04</div>
-    <h2>CURRENT<br>STATUS</h2>
   </div>
 </section>
 
@@ -2009,8 +1750,9 @@ document.addEventListener('click', () => {
 
   const lbTitle = document.getElementById('imgLightboxTitle');
   const lbBody  = document.getElementById('imgLightboxBody');
+  const lbLabel = lightbox.querySelector('.img-lightbox-label');
 
-  document.querySelectorAll('#motivationsSlider .ci, #conceptSlider .ci').forEach(ci => {
+  document.querySelectorAll('#motivations .ci, #conceptSlider .ci').forEach(ci => {
     ci.addEventListener('click', () => {
       const track = ci.closest('.concept-track');
       if (track && track.dataset.dragged === '1') return;
@@ -2020,6 +1762,7 @@ document.addEventListener('click', () => {
       lbImg.alt = img.alt;
       lbTitle.textContent = img.dataset.title || '';
       lbBody.textContent  = img.dataset.desc  || '';
+      if (lbLabel) lbLabel.textContent = ci.closest('#motivations') ? 'Motivation' : 'Concept Design';
       lightbox.classList.add('open');
     });
   });
@@ -2041,6 +1784,22 @@ document.addEventListener('click', () => {
   document.addEventListener('keydown', e => { if (e.key === 'Escape') modal.classList.remove('open'); });
 })();
 
+// weaving modal
+(function () {
+  const thumb  = document.getElementById('weavingThumb');
+  const modal  = document.getElementById('weavingModal');
+  const close  = document.getElementById('weavingModalClose');
+  const iframe = document.getElementById('weavingModalIframe');
+  if (!thumb || !modal) return;
+  thumb.addEventListener('click', () => {
+    if (!iframe.src || iframe.src === window.location.href) iframe.src = 'p2-soul-garden/soul-garden-weaving-9.html';
+    modal.style.display = 'block';
+  });
+  const closeModal = () => { modal.style.display = 'none'; };
+  close.addEventListener('click', closeModal);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+})();
+
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) e.target.classList.add('in');
@@ -2051,7 +1810,7 @@ document.querySelectorAll('.reveal, .reveal-left').forEach(el => revealObserver.
 
 const sections = document.querySelectorAll('section[id]');
 const navTabs  = document.querySelectorAll('.nav-tab');
-const sectionIds = ['motivations', 'concept-design', 'experiments', 'current-status'];
+const sectionIds = ['motivations', 'concept-design', 'experiments'];
 
 window.addEventListener('scroll', () => {
   let current = '';
