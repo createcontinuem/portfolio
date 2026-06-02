@@ -1604,6 +1604,27 @@ footer {
 </div>
 
 
+<!-- WEAVING MODAL -->
+<div id="weavingModal" style="display:none;position:fixed;inset:0;z-index:800;background:#0a0a0a;">
+  <button id="weavingModalClose" class="gallery-modal-close">✕ Close</button>
+  <iframe id="weavingModalIframe" src="" title="Soul Garden — Weaving"
+    style="width:100%;height:100%;border:none;display:block;"></iframe>
+</div>
+
+<div class="gallery-modal" id="expLogModal">
+  <div class="gallery-modal-inner">
+    <button class="gallery-modal-close" id="expLogModalClose">✕ Close</button>
+    <div class="gallery-modal-left">
+      <iframe id="expLogModalIframe" src="" title="Experiment Log" loading="lazy"></iframe>
+    </div>
+    <div class="gallery-modal-right">
+      <div class="img-lightbox-label">Experiments</div>
+      <div class="img-lightbox-title">Experiment Log</div>
+      <div class="img-lightbox-body">Full generation lineage, credit breakdown, and experiment results for the Soul Garden recursive growth pipeline.<br><br>It is clear that the generated video results still need more experimentation and do not reflect the aesthetic that I have.</div>
+    </div>
+  </div>
+</div>
+
 <!-- SECTION 3: EXPERIMENTS -->
 <section class="section" id="experiments">
   <div class="section-num">03</div>
@@ -1650,73 +1671,10 @@ footer {
         <span class="exp-hdr-sub">RunwayML Gen-4</span>
       </div>
       <p>I prompted RunwayML Gen-4 to reimagine an art piece as a living microorganism. A recursive Python script takes a screenshot of each generation and re-runs the prompt — up to 3 times — as an act of "feeding and growing" the piece. All content uses only my original visuals and reference inputs of microscopic lab photos.</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:32px;">
-        <div class="viz-screen" style="aspect-ratio:auto;min-height:360px;">
-          <div class="lineage-mock">
-            <div class="ln-source-row">
-              <div class="ln-node src">Drawing 239</div>
-              <span class="ln-op">+</span>
-              <div class="ln-node src">Drawing 247</div>
-            </div>
-            <div class="ln-arrow">↓ fuse into one organism</div>
-            <div class="ln-node fusion">Fused organism · gen 0</div>
-            <div class="ln-arrow">↓ grow × 3</div>
-            <div class="ln-node growth">Generation 3</div>
-            <div class="ln-arrow">↓ grow × 4 more</div>
-            <div class="ln-node growth">Generations 3.1 · 3.2 · 3.3 · 3.4</div>
-            <div class="ln-arrow">↓ introduce reference photo, branch</div>
-            <div class="ln-branch-row">
-              <div class="ln-branch-col">
-                <div class="ln-node branch">Plant Garden</div>
-                <div class="ln-op" style="font-size:11px;color:var(--gray)">botanical direction</div>
-              </div>
-              <div class="ln-branch-col">
-                <div class="ln-node branch">Ruins Mutation</div>
-                <div class="ln-op" style="font-size:11px;color:var(--gray)">decay direction</div>
-              </div>
-              <div class="ln-branch-col">
-                <div class="ln-node garden">→ garden display</div>
-                <div class="ln-op" style="font-size:11px;color:var(--gray)">3D viewer</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="pipeline-steps">
-          <div class="step">
-            <span class="step-num">01</span>
-            <div class="step-text">
-              <div class="step-title">Animate a drawing</div>
-              <div class="step-desc">One original artwork goes in. A 5-second video of it moving as a living organism comes out.</div>
-            </div>
-          </div>
-          <div class="step">
-            <span class="step-num">02</span>
-            <div class="step-text">
-              <div class="step-title">Fuse two drawings</div>
-              <div class="step-desc">Two artworks are blended into a single composite, then animated — the organism inherits both.</div>
-            </div>
-          </div>
-          <div class="step">
-            <span class="step-num">03</span>
-            <div class="step-text">
-              <div class="step-title">Grow it forward</div>
-              <div class="step-desc">The last frame becomes the seed for the next generation. Repeat to build a chain.</div>
-            </div>
-          </div>
-          <div class="step">
-            <span class="step-num">04</span>
-            <div class="step-text">
-              <div class="step-title">Branch with a reference</div>
-              <div class="step-desc">Inject a reference photo mid-growth to steer the organism in a new direction.</div>
-            </div>
-          </div>
-          <div class="step">
-            <span class="step-num">05</span>
-            <div class="step-text">
-              <div class="step-title">Place it in the garden</div>
-              <div class="step-desc">All organisms are arranged in 3D space — floating, glowing, slowly rotating.</div>
-            </div>
-          </div>
+      <div id="expLogThumb" style="height:62vh;background:#070b0f;border-radius:2px;overflow:hidden;position:relative;cursor:pointer;margin-top:24px;">
+        <iframe src="p2-soul-garden/experiment-log.html" loading="lazy" style="width:100%;height:100%;border:none;display:block;pointer-events:none;"></iframe>
+        <div style="position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:flex-end;padding:16px;">
+          <span style="background:rgba(0,0,0,0.55);color:#fff;font-family:'Babel Sans',sans-serif;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:6px 14px;border:1px solid rgba(255,255,255,0.25);backdrop-filter:blur(4px);">↗ Expand</span>
         </div>
       </div>
     </div>
@@ -1729,9 +1687,19 @@ footer {
         <span class="exp-hdr-sub">Three.js · WebGL GLSL · OrbitControls</span>
       </div>
       <p>Reimagining image texture as digital terrain for Soul Garden environment building. The weaving pattern from my original artwork is extruded into a 3D landscape — drag to explore.</p>
-      <div class="ci reveal" style="margin-top:24px;animation:cfloat-b 5.2s ease-in-out -1.1s infinite;">
-        <img src="p2-soul-garden/conceptdesign/concept2-flowerwall.jpg" style="width:100%;height:auto;"
-          data-title="Flower Wall" data-desc="Placeholder — add notes here.">
+      <div style="display:grid;grid-template-columns:1fr 2fr;gap:20px;margin-top:24px;align-items:start;">
+        <div class="ci reveal" style="animation:cfloat-b 5.2s ease-in-out -1.1s infinite;">
+          <img src="p2-soul-garden/conceptdesign/concept2-flowerwall.jpg" style="width:100%;height:auto;"
+            data-title="Flower Wall" data-desc="Placeholder — add notes here.">
+        </div>
+        <div id="weavingThumb" style="height:62vh;background:#0a0a0a;border-radius:2px;overflow:hidden;position:relative;cursor:pointer;">
+          <iframe src="p2-soul-garden/soul-garden-weaving-9.html" title="Soul Garden — Weaving"
+            style="width:100%;height:100%;border:none;display:block;pointer-events:none;transform:scale(1.35);transform-origin:center center;filter:contrast(1.08) saturate(1.1);"
+            loading="lazy" tabindex="-1" id="exp3Iframe"></iframe>
+          <div style="position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:flex-end;padding:16px;">
+            <span style="background:rgba(0,0,0,0.55);color:#fff;font-family:'Babel Sans',sans-serif;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:6px 14px;border:1px solid rgba(255,255,255,0.25);backdrop-filter:blur(4px);">↗ Expand</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1854,6 +1822,38 @@ document.addEventListener('click', () => {
   const close = document.getElementById('workflowModalClose');
   if (!thumb || !modal) return;
   thumb.addEventListener('click', () => modal.classList.add('open'));
+  close.addEventListener('click', () => modal.classList.remove('open'));
+  modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('open'); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') modal.classList.remove('open'); });
+})();
+
+// weaving modal
+(function () {
+  const thumb  = document.getElementById('weavingThumb');
+  const modal  = document.getElementById('weavingModal');
+  const close  = document.getElementById('weavingModalClose');
+  const iframe = document.getElementById('weavingModalIframe');
+  if (!thumb || !modal) return;
+  thumb.addEventListener('click', () => {
+    if (!iframe.src || iframe.src === window.location.href) iframe.src = 'p2-soul-garden/soul-garden-weaving-9.html';
+    modal.style.display = 'block';
+  });
+  const closeModal = () => { modal.style.display = 'none'; };
+  close.addEventListener('click', closeModal);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+})();
+
+// experiment log modal
+(function () {
+  const thumb  = document.getElementById('expLogThumb');
+  const modal  = document.getElementById('expLogModal');
+  const close  = document.getElementById('expLogModalClose');
+  const iframe = document.getElementById('expLogModalIframe');
+  if (!thumb || !modal) return;
+  thumb.addEventListener('click', () => {
+    if (!iframe.src || iframe.src === window.location.href) iframe.src = 'p2-soul-garden/experiment-log.html';
+    modal.classList.add('open');
+  });
   close.addEventListener('click', () => modal.classList.remove('open'));
   modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('open'); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') modal.classList.remove('open'); });
