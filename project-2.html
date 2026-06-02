@@ -427,7 +427,7 @@ p {
 }
 
 .step-text {
-  font-size: 16px;
+  font-size: 12px;
   line-height: 1.6;
 }
 
@@ -442,7 +442,7 @@ p {
 .step-desc {
   font-family: 'Babel Sans', sans-serif;
   color: var(--gray);
-  font-size: 18px;
+  font-size: 27px;
 }
 
 /* ── PIPELINE CHIPS ── */
@@ -1280,6 +1280,100 @@ footer {
 @keyframes cfloat-b { 0%,100%{ transform:translateY(0)    } 50%{ transform:translateY(-26px) } }
 @keyframes cfloat-c { 0%,100%{ transform:translateY(0)    } 50%{ transform:translateY(-10px) } }
 
+/* ── EXPERIMENTS ── */
+.exp-block { margin-bottom: 88px; }
+
+.exp-hdr {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.exp-hdr-num {
+  font-family: 'Dry Brush', serif;
+  font-size: 40px;
+  letter-spacing: 2px;
+  color: rgba(0,0,0,0.1);
+  line-height: 1;
+}
+.exp-hdr-title {
+  font-family: 'Babel Sans', sans-serif;
+  font-weight: 700;
+  font-size: 27px;
+  color: var(--black);
+}
+.exp-hdr-sub {
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-left: auto;
+}
+.exp-media-stage {
+  position: relative;
+  width: 100%;
+  height: 62vh;
+  background: #0a0a0a;
+  overflow: hidden;
+  border-radius: 2px;
+  margin-top: 24px;
+}
+.exp-media-track {
+  display: flex;
+  height: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.exp-media-track::-webkit-scrollbar { display: none; }
+.exp-media-slide {
+  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+  scroll-snap-align: start;
+}
+.exp-media-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.exp-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 16px;
+  width: 40px; height: 40px;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s;
+}
+.exp-nav-btn:hover { background: rgba(0,0,0,0.8); }
+.exp-nav-prev { left: 16px; }
+.exp-nav-next { right: 16px; }
+.exp-nav-counter {
+  position: absolute;
+  bottom: 14px;
+  right: 16px;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  font-family: 'Babel Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(4px);
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .concept-track { padding: 20px 24px 48px; gap: 16px; }
@@ -1391,7 +1485,7 @@ footer {
       </div>
       <div class="ci reveal" style="flex:1;min-height:0;overflow:hidden;animation:cfloat-b 5.4s ease-in-out -0.5s infinite;">
         <img src="p2-soul-garden/conceptdesign/motivation1.jpg" style="width:100%;height:100%;object-fit:cover;"
-          data-title="Motivation 02" data-desc="Placeholder — add notes here.">
+          data-title="Theories" data-desc="Watching people study art at exhibitions, I think about creating systems that can gather data of reactions, emotions, thoughts from the onlookers. Zooming out of this system reminds me of theories like: Émile Durkheim's theory on collective consciousness, Chaos Theory in math and physics, Microcellular growth and Plant/Forest Symbiosis in Nature.">
       </div>
     </div>
 
@@ -1403,7 +1497,7 @@ footer {
       </div>
       <div class="ci reveal" style="flex:1;min-height:0;overflow:hidden;animation:cfloat-c 4.7s ease-in-out -1.8s infinite;">
         <img src="p2-soul-garden/conceptdesign/ideation1.jpg" style="width:100%;height:100%;object-fit:cover;"
-          data-title="Ideation 01" data-desc="Placeholder — add notes here.">
+          data-title="&quot;Emotional Engineering&quot;" data-desc="I find the world of psychology and neuroscience fascinating as it is such a crux of human behavior yet there's still so much we don't know about the brain and how human behavior works. Coming from the field of data science, there's a vast amount of data on human behavior and emotions that research and algorithms have yet to grasp.">
       </div>
     </div>
 
@@ -1422,10 +1516,10 @@ footer {
       <h2>CONCEPT<br>DESIGN</h2>
     </div>
 
-    <!-- Row 1, Col 2: first sketch card -->
-    <div class="ci reveal" style="grid-column:2;grid-row:1;animation:cfloat-c 5.9s ease-in-out -2.3s infinite;">
+    <!-- Row 2, Col 2: first sketch card -->
+    <div class="ci reveal" style="grid-column:2;grid-row:2;animation:cfloat-c 5.9s ease-in-out -2.3s infinite;">
       <img src="p2-soul-garden/conceptdesign/concept2-darkroom.jpg" style="width:100%;height:auto;"
-        data-title="Dark Room" data-desc="Placeholder — add notes here.">
+        data-title="Interactive Gallery Viewing" data-desc="Designing viewer experience and narrative. Includes entering a darkroom with project screen of digital organism of the art presented outside the room. QR code provide beside LED display for attendees to submit thoughts about the artpiece outside the room.">
     </div>
 
     <!-- Cols 3–4, Rows 1–2: gallery spanning 2 rows -->
@@ -1439,7 +1533,7 @@ footer {
         <img src="p2-soul-garden/web/blossoms-01.jpg">
       </div>
       <div class="cg-footer">
-        <span class="cg-footer-title">Visual Gallery</span>
+        <span class="cg-footer-title">Concept Visual Gallery User Comment Function</span>
         <span class="cg-footer-expand">Open</span>
       </div>
     </div>
@@ -1447,13 +1541,18 @@ footer {
     <!-- Row 2, Col 1: second sketch card -->
     <div class="ci reveal" style="grid-column:1;grid-row:2;animation:cfloat-b 4.8s ease-in-out -0.6s infinite;">
       <img src="p2-soul-garden/conceptdesign/concept1.jpg" style="width:100%;height:auto;"
-        data-title="Concept 01" data-desc="Placeholder — add notes here.">
+        data-title="Immersive Spatial Design" data-desc="Envisioning live LED screen exhibit for Soul Garden.">
     </div>
 
-    <!-- Row 2, Col 2: third sketch card -->
-    <div class="ci reveal" style="grid-column:2;grid-row:2;width:60%;animation:cfloat-b 5.2s ease-in-out -1.1s infinite;">
-      <img src="p2-soul-garden/conceptdesign/concept2-flowerwall.jpg" style="width:100%;height:auto;"
-        data-title="Flower Wall" data-desc="Placeholder — add notes here.">
+    <!-- Row 1, Col 2: Workflow card -->
+    <div class="cg-thumb reveal" style="grid-column:2;grid-row:1;animation:cfloat-c 5.3s ease-in-out -1.4s infinite;" id="workflowThumb">
+      <div style="height:280px;background:#080c10;position:relative;overflow:hidden;">
+        <iframe src="p2-soul-garden/workflow.html" loading="lazy" style="width:100%;height:100%;border:none;display:block;pointer-events:none;"></iframe>
+      </div>
+      <div class="cg-footer">
+        <span class="cg-footer-title">Process Workflow</span>
+        <span class="cg-footer-expand">Open</span>
+      </div>
     </div>
 
   </div>
@@ -1489,6 +1588,21 @@ footer {
   </div>
 </div>
 
+<!-- WORKFLOW MODAL -->
+<div class="gallery-modal" id="workflowModal">
+  <div class="gallery-modal-inner">
+    <button class="gallery-modal-close" id="workflowModalClose">✕ Close</button>
+    <div class="gallery-modal-left">
+      <iframe src="p2-soul-garden/workflow.html" title="Soul Garden Process Workflow" loading="lazy"></iframe>
+    </div>
+    <div class="gallery-modal-right">
+      <div class="img-lightbox-label">Concept Design</div>
+      <div class="img-lightbox-title">Process Workflow</div>
+      <div class="img-lightbox-body">The end-to-end process of Soul Garden — from source artwork to living organism.</div>
+    </div>
+  </div>
+</div>
+
 <!-- WEAVING MODAL -->
 <div id="weavingModal" style="display:none;position:fixed;inset:0;z-index:800;background:#0a0a0a;">
   <button id="weavingModalClose" class="gallery-modal-close">✕ Close</button>
@@ -1503,57 +1617,47 @@ footer {
     <div class="section-label">Section 03</div>
     <h2>EXPERIMENTS</h2>
 
-    <!-- Experiment #1 -->
-    <div class="reveal" style="margin-bottom:80px;">
-      <p style="font-family:'Babel Sans',sans-serif;font-size:18px;font-weight:700;line-height:1.5;color:var(--black);margin:0 0 8px;">#1. Experiment — Simple AI Prompt with Claude Sonnet 4.6</p>
-      <div style="position:relative;">
-        <div id="exp1-track" style="display:flex;overflow:hidden;border-radius:2px;height:calc(100vh - 220px);background:#0a0a0a;">
-          <img src="p2-soul-garden/experiments/try1-cell1.png" style="min-width:100%;width:100%;height:100%;object-fit:cover;flex-shrink:0;">
-          <img src="p2-soul-garden/experiments/try1-cell2.png" style="min-width:100%;width:100%;height:100%;object-fit:cover;flex-shrink:0;">
-          <img src="p2-soul-garden/experiments/try1-cell3.png" style="min-width:100%;width:100%;height:100%;object-fit:cover;flex-shrink:0;">
-          <img src="p2-soul-garden/experiments/try1-cell4.png" style="min-width:100%;width:100%;height:100%;object-fit:cover;flex-shrink:0;">
-          <img src="p2-soul-garden/experiments/try1-cell5.png" style="min-width:100%;width:100%;height:100%;object-fit:cover;flex-shrink:0;">
-          <div style="min-width:100%;flex-shrink:0;position:relative;height:100%;">
+    <!-- ── Experiment 1 ── -->
+    <div class="exp-block">
+      <div class="exp-hdr">
+        <span class="exp-hdr-num">01</span>
+        <span class="exp-hdr-title">Simple AI Prompt</span>
+        <span class="exp-hdr-sub">Claude Sonnet 4.6</span>
+      </div>
+      <p>I started by prompting Claude Sonnet 4.6 with a simple image-generation request — feeding in my original artwork and asking it to reimagine it as a living microorganism.</p>
+      <div class="exp-media-stage">
+        <div class="exp-media-track" id="exp1-track">
+          <div class="exp-media-slide"><img src="p2-soul-garden/experiments/try1-cell1.png"></div>
+          <div class="exp-media-slide"><img src="p2-soul-garden/experiments/try1-cell2.png"></div>
+          <div class="exp-media-slide"><img src="p2-soul-garden/experiments/try1-cell3.png"></div>
+          <div class="exp-media-slide"><img src="p2-soul-garden/experiments/try1-cell4.png"></div>
+          <div class="exp-media-slide"><img src="p2-soul-garden/experiments/try1-cell5.png"></div>
+          <div class="exp-media-slide" style="position:relative;">
             <iframe src="https://player.vimeo.com/video/1197309637?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="try1-output1"></iframe>
           </div>
-          <div style="min-width:100%;flex-shrink:0;position:relative;height:100%;">
+          <div class="exp-media-slide" style="position:relative;">
             <iframe src="https://player.vimeo.com/video/1197597796?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="try1-output23"></iframe>
           </div>
-          <div style="min-width:100%;flex-shrink:0;position:relative;height:100%;">
+          <div class="exp-media-slide" style="position:relative;">
             <iframe src="https://player.vimeo.com/video/1197597795?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="try1-output45"></iframe>
           </div>
         </div>
-        <button onclick="exp1Move(-1)" style="position:absolute;left:0;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.2);color:#fff;font-family:'Babel Sans',sans-serif;font-size:18px;padding:10px 16px;cursor:pointer;backdrop-filter:blur(4px);">&#8592;</button>
-        <button onclick="exp1Move(1)"  style="position:absolute;right:0;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.2);color:#fff;font-family:'Babel Sans',sans-serif;font-size:18px;padding:10px 16px;cursor:pointer;backdrop-filter:blur(4px);">&#8594;</button>
-        <div id="exp1-counter" style="position:absolute;bottom:12px;right:16px;background:rgba(0,0,0,0.55);color:#fff;font-family:'Babel Sans',sans-serif;font-size:11px;letter-spacing:0.1em;padding:4px 10px;border:1px solid rgba(255,255,255,0.2);backdrop-filter:blur(4px);">1 / 8</div>
+        <button class="exp-nav-btn exp-nav-prev" onclick="exp1Nav(-1)">←</button>
+        <button class="exp-nav-btn exp-nav-next" onclick="exp1Nav(1)">→</button>
+        <div class="exp-nav-counter" id="exp1-counter">1 / 8</div>
       </div>
-      <script src="https://player.vimeo.com/api/player.js"></script>
-      <script>
-        (function(){
-          const track = document.getElementById('exp1-track');
-          const counter = document.getElementById('exp1-counter');
-          const total = 8;
-          let cur = 0;
-          window.exp1Move = function(dir){
-            cur = (cur + dir + total) % total;
-            track.scrollTo({ left: cur * track.offsetWidth, behavior: 'smooth' });
-            counter.textContent = (cur + 1) + ' / ' + total;
-          };
-        })();
-      </script>
     </div>
 
-    <!-- #2 Experiment -->
-    <div class="reveal" style="margin-bottom:40px;">
-      <p style="font-family:'Babel Sans',sans-serif;font-size:18px;font-weight:700;line-height:1.5;color:var(--black);margin:0 0 20px;">#2. Experiment 2 — RunwayML Gen-4 Agentic Organism Growth</p>
-      <p>I prompted on RunwayML Gen-4 to reimagine an art piece I made as a living microorganism. This generates a video, then my recursive python script takes a screenshot of the generation and runs the prompt repeatedly — up to 3 times for now — as an act of "feeding and growing" the piece.</p>
-      <p>All content uses only my original visuals and reference inputs of microscopic lab photos of microcellular organisms.</p>
-    </div>
-
-    <!-- Workflow diagram + step table side by side -->
-    <div style="display:flex;gap:40px;align-items:flex-start;margin-bottom:64px;">
-      <div class="reveal" style="flex:1;">
-        <div class="viz-screen" style="aspect-ratio:auto;min-height:420px;">
+    <!-- ── Experiment 2 ── -->
+    <div class="exp-block">
+      <div class="exp-hdr">
+        <span class="exp-hdr-num">02</span>
+        <span class="exp-hdr-title">Recursive Organism Growth</span>
+        <span class="exp-hdr-sub">RunwayML Gen-4</span>
+      </div>
+      <p>I prompted RunwayML Gen-4 to reimagine an art piece as a living microorganism. A recursive Python script takes a screenshot of each generation and re-runs the prompt — up to 3 times — as an act of "feeding and growing" the piece. All content uses only my original visuals and reference inputs of microscopic lab photos.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:32px;">
+        <div class="viz-screen" style="aspect-ratio:auto;min-height:360px;">
           <div class="lineage-mock">
             <div class="ln-source-row">
               <div class="ln-node src">Drawing 239</div>
@@ -1583,8 +1687,6 @@ footer {
             </div>
           </div>
         </div>
-      </div>
-      <div class="reveal reveal-d2" style="flex:1;">
         <div class="pipeline-steps">
           <div class="step">
             <span class="step-num">01</span>
@@ -1597,102 +1699,79 @@ footer {
             <span class="step-num">02</span>
             <div class="step-text">
               <div class="step-title">Fuse two drawings</div>
-              <div class="step-desc">Two artworks are blended into a single composite image first, then animated — the organism inherits both.</div>
+              <div class="step-desc">Two artworks are blended into a single composite, then animated — the organism inherits both.</div>
             </div>
           </div>
           <div class="step">
             <span class="step-num">03</span>
             <div class="step-text">
               <div class="step-title">Grow it forward</div>
-              <div class="step-desc">The last frame of a video becomes the seed for the next one. Repeat to build a generational chain.</div>
+              <div class="step-desc">The last frame becomes the seed for the next generation. Repeat to build a chain.</div>
             </div>
           </div>
           <div class="step">
             <span class="step-num">04</span>
             <div class="step-text">
-              <div class="step-title">Cut out the organism</div>
-              <div class="step-desc">The background is removed from a still frame, leaving a shaped, transparent cutout of the creature.</div>
+              <div class="step-title">Branch with a reference</div>
+              <div class="step-desc">Inject a reference photo mid-growth to steer the organism in a new direction.</div>
             </div>
           </div>
           <div class="step">
             <span class="step-num">05</span>
             <div class="step-text">
               <div class="step-title">Place it in the garden</div>
-              <div class="step-desc">All organisms are arranged in 3D space — floating, glowing, slowly rotating. Drag to explore.</div>
+              <div class="step-desc">All organisms are arranged in 3D space — floating, glowing, slowly rotating.</div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- #3 3D Study -->
-    <div class="reveal" style="margin-bottom:64px;display:flex;gap:24px;align-items:stretch;">
-
-      <!-- Left: title + flowerwall image -->
-      <div style="flex:0 0 260px;display:flex;flex-direction:column;gap:16px;">
-        <p style="font-family:'Babel Sans',sans-serif;font-size:18px;font-weight:700;line-height:1.5;color:var(--black);margin:0;">#3. 3D Study — Reimagining image texture as Digital Terrain for Soul Garden environment building</p>
-        <div class="ci reveal" style="flex:1;min-height:0;overflow:hidden;border-radius:2px;">
-          <img src="p2-soul-garden/conceptdesign/concept2-flowerwall.jpg" style="width:100%;height:100%;object-fit:cover;"
+    <!-- ── Experiment 3 ── -->
+    <div class="exp-block">
+      <div class="exp-hdr">
+        <span class="exp-hdr-num">03</span>
+        <span class="exp-hdr-title">3D Terrain Study</span>
+        <span class="exp-hdr-sub">Three.js · WebGL GLSL · OrbitControls</span>
+      </div>
+      <p>Reimagining image texture as digital terrain for Soul Garden environment building. The weaving pattern from my original artwork is extruded into a 3D landscape — drag to explore.</p>
+      <div style="display:grid;grid-template-columns:1fr 2fr;gap:20px;margin-top:24px;align-items:start;">
+        <div class="ci reveal" style="animation:cfloat-b 5.2s ease-in-out -1.1s infinite;">
+          <img src="p2-soul-garden/conceptdesign/concept2-flowerwall.jpg" style="width:100%;height:auto;"
             data-title="Flower Wall" data-desc="Placeholder — add notes here.">
         </div>
-      </div>
-
-      <!-- Right: weaving 3D viewer -->
-      <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
-        <div id="weavingThumb" style="flex:1;min-height:0;height:70vh;background:#0a0a0a;border:1px solid var(--border);border-radius:2px;overflow:hidden;position:relative;cursor:pointer;">
+        <div id="weavingThumb" style="height:62vh;background:#0a0a0a;border-radius:2px;overflow:hidden;position:relative;cursor:pointer;">
           <iframe src="p2-soul-garden/soul-garden-weaving-9.html" title="Soul Garden — Weaving"
-            style="position:absolute;top:-100%;left:-100%;width:300%;height:300%;border:none;display:block;pointer-events:none;transform:scale(0.8);transform-origin:center center;"
-            loading="lazy" tabindex="-1"></iframe>
-          <div style="position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:flex-end;padding:14px;">
-            <span style="background:rgba(0,0,0,0.55);color:#fff;font-family:'Babel Sans',sans-serif;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:5px 12px;border:1px solid rgba(255,255,255,0.25);backdrop-filter:blur(4px);">↗ Expand</span>
-          </div>
-        </div>
-        <div style="padding:2px 0;font-family:'Babel Sans',sans-serif;font-size:12px;color:var(--gray);letter-spacing:0.08em;text-transform:uppercase;">3D Terrain Render Study — Three.js · WebGL GLSL · OrbitControls</div>
-      </div>
-
-    </div>
-
-    <div class="findings-layout" style="margin-top:64px;display:none;">
-      <div class="finding-card works reveal">
-        <div class="finding-tag tag-works">✓ &nbsp;What worked</div>
-        <div class="finding-items">
-          <div class="fi">
-            <div class="fi-title">Fusing two artworks as the starting seed</div>
-            <div class="fi-body">Starting from a blend of two drawings produced more interesting organisms than starting from one alone. The creature inherited something from both sources — you could feel both artworks in the result.</div>
-          </div>
-          <div class="fi">
-            <div class="fi-title">Introducing a reference photo mid-growth</div>
-            <div class="fi-body">Using the same organism seed but pointing growth toward different reference images produced clearly distinct results. The same creature became a glowing botanical garden in one direction and a parasitic ruin mutation in another.</div>
-          </div>
-          <div class="fi">
-            <div class="fi-title">Each artwork's palette shaped its organism</div>
-            <div class="fi-body">The same animation prompt applied to all 7 source artworks produced 7 visually distinct creatures. The colour and form of the original drawing carried through into the organism's character.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="finding-card fails reveal reveal-d2">
-        <div class="finding-tag tag-fails">✗ &nbsp;What to push further</div>
-        <div class="finding-items">
-          <div class="fi">
-            <div class="fi-title">The organisms read as abstract, not biological</div>
-            <div class="fi-body">The results are visually compelling but don't quite read as real microorganisms. Shifting the prompt toward dark-field microscopy framing brought the results closer to convincing microbiology.</div>
-          </div>
-          <div class="fi">
-            <div class="fi-title">Generations plateau without new input</div>
-            <div class="fi-body">After four growth cycles on the same chain, each new generation looks similar to the last. Injecting a reference photo is what keeps the evolution moving — without it, the organism stops changing.</div>
-          </div>
-          <div class="fi">
-            <div class="fi-title">Interpolating between organisms doesn't work as expected</div>
-            <div class="fi-body">Attempting to smoothly transition between two very different organisms produced a hallucinated blend rather than a true morph. Simple crossfade and motion-flow alternatives were tested but both read as a dissolve, not a transformation.</div>
+            style="width:100%;height:100%;border:none;display:block;pointer-events:none;transform:scale(1.35);transform-origin:center center;filter:contrast(1.08) saturate(1.1);"
+            loading="lazy" tabindex="-1" id="exp3Iframe"></iframe>
+          <div style="position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:flex-end;padding:16px;">
+            <span style="background:rgba(0,0,0,0.55);color:#fff;font-family:'Babel Sans',sans-serif;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:6px 14px;border:1px solid rgba(255,255,255,0.25);backdrop-filter:blur(4px);">↗ Expand</span>
           </div>
         </div>
       </div>
     </div>
 
-    <blockquote class="reveal" style="margin-top:56px;">
+    <blockquote>
       All images used in the experiments are available stock photos (microcells) and artworks created by me.
     </blockquote>
+
+    <script>
+    (function () {
+      const track   = document.getElementById('exp1-track');
+      const counter = document.getElementById('exp1-counter');
+      const total   = 8;
+      window.exp1Nav = function (dir) {
+        const cur  = Math.round(track.scrollLeft / track.clientWidth);
+        const next = Math.max(0, Math.min(total - 1, cur + dir));
+        track.scrollTo({ left: next * track.clientWidth, behavior: 'smooth' });
+        counter.textContent = (next + 1) + ' / ' + total;
+      };
+      track.addEventListener('scroll', () => {
+        const idx = Math.round(track.scrollLeft / track.clientWidth);
+        counter.textContent = (idx + 1) + ' / ' + total;
+      }, { passive: true });
+    })();
+    </script>
   </div>
 </section>
 
@@ -1752,7 +1831,7 @@ document.addEventListener('click', () => {
   const lbBody  = document.getElementById('imgLightboxBody');
   const lbLabel = lightbox.querySelector('.img-lightbox-label');
 
-  document.querySelectorAll('#motivations .ci, #conceptSlider .ci').forEach(ci => {
+  document.querySelectorAll('#motivations .ci, #conceptSlider .ci, .exp-block .ci').forEach(ci => {
     ci.addEventListener('click', () => {
       const track = ci.closest('.concept-track');
       if (track && track.dataset.dragged === '1') return;
@@ -1777,6 +1856,18 @@ document.addEventListener('click', () => {
   const thumb = document.getElementById('galleryThumb');
   const modal = document.getElementById('galleryModal');
   const close = document.getElementById('galleryModalClose');
+  if (!thumb || !modal) return;
+  thumb.addEventListener('click', () => modal.classList.add('open'));
+  close.addEventListener('click', () => modal.classList.remove('open'));
+  modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('open'); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') modal.classList.remove('open'); });
+})();
+
+// workflow modal
+(function () {
+  const thumb = document.getElementById('workflowThumb');
+  const modal = document.getElementById('workflowModal');
+  const close = document.getElementById('workflowModalClose');
   if (!thumb || !modal) return;
   thumb.addEventListener('click', () => modal.classList.add('open'));
   close.addEventListener('click', () => modal.classList.remove('open'));

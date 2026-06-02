@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soul Garden Process — Workflow</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #080c10;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    color: #e0e8f0;
+    min-height: 100vh;
+    padding: 40px 20px 60px;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #c8e6ff;
+  }
+  .header .sub {
+    margin-top: 8px;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    color: #8abfd8;
+    text-transform: uppercase;
+  }
+  .header .rule {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #2a9fd6, transparent);
+    margin: 16px auto 0;
+  }
+
+  /* ── layout ── */
+  .diagram {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-items: center;
+  }
+
+  /* ── phase sections ── */
+  .phase-section {
+    border: 1px solid #1e4a68;
+    border-radius: 14px;
+    padding: 28px 28px 22px;
+    width: 100%;
+    max-width: 760px;
+    position: relative;
+    background: #05090e;
+  }
+  .phase-section .phase-title {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #080c10;
+    padding: 0 16px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #82c8e8;
+    white-space: nowrap;
+  }
+
+  /* ── nodes ── */
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 0;
+  }
+
+  .node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 10px;
+    padding: 14px 18px;
+    min-width: 130px;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .node .icon {
+    font-size: 22px;
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+  .node .label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    line-height: 1.35;
+  }
+  .node .sublabel {
+    font-size: 13px;
+    margin-top: 4px;
+    opacity: 0.88;
+    letter-spacing: 0.02em;
+    line-height: 1.3;
+  }
+
+  /* node colour themes */
+  .node-source {
+    background: linear-gradient(135deg, #0d2235, #0a3050);
+    border: 1px solid #1a4a70;
+    box-shadow: 0 0 18px #0a304088, inset 0 1px 0 #1e5580;
+    color: #7ecfff;
+  }
+  .node-api {
+    background: linear-gradient(135deg, #0e1f0e, #0a2e10);
+    border: 1px solid #1a5a20;
+    box-shadow: 0 0 18px #0a3a1088, inset 0 1px 0 #205530;
+    color: #6ee87a;
+  }
+  .node-video {
+    background: linear-gradient(135deg, #1a0d2e, #120a25);
+    border: 1px solid #3a1a6a;
+    box-shadow: 0 0 18px #2a0a5088, inset 0 1px 0 #4a2090;
+    color: #c07fff;
+  }
+  .node-user {
+    background: linear-gradient(135deg, #1e1008, #2a1508);
+    border: 1px solid #5a3010;
+    box-shadow: 0 0 18px #40200888, inset 0 1px 0 #6a4020;
+    color: #ffa040;
+  }
+  .node-prompt {
+    background: linear-gradient(135deg, #1a1000, #261800);
+    border: 1px solid #4a3800;
+    box-shadow: 0 0 18px #30280088, inset 0 1px 0 #604a00;
+    color: #ffd060;
+  }
+  .node-mask {
+    background: linear-gradient(135deg, #001a1a, #002828);
+    border: 1px solid #006060;
+    box-shadow: 0 0 18px #00404088, inset 0 1px 0 #008080;
+    color: #40e0d0;
+  }
+  .node-garden {
+    background: linear-gradient(135deg, #1a0010, #280018);
+    border: 1px solid #6a0038;
+    box-shadow: 0 0 24px #5a003888, inset 0 1px 0 #900050;
+    color: #ff70b0;
+  }
+
+  /* ── connectors ── */
+  .arrow-h {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    width: 44px;
+    position: relative;
+  }
+  .arrow-h::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 8px;
+    top: 50%;
+    height: 1px;
+    background: linear-gradient(90deg, #2a5878, #3a9abe);
+  }
+  .arrow-h .tip {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0; height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 7px solid #3a9abe;
+  }
+
+  /* vertical connector block */
+  .arrow-v {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 36px;
+    position: relative;
+    width: 2px;
+  }
+  .arrow-v::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 8px;
+    left: 0;
+    width: 1px;
+    background: linear-gradient(180deg, #2a5878, #3a9abe);
+  }
+  .arrow-v .tip {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 7px solid #3a9abe;
+  }
+
+  /* ── section divider ── */
+  .divider {
+    width: 100%;
+    max-width: 700px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #2a5070, transparent);
+    margin: 4px 0 28px;
+  }
+
+  /* ── loop box ── */
+  .loop-box {
+    border: 1px dashed #2a6080;
+    border-radius: 14px;
+    padding: 28px 28px 22px;
+    width: 100%;
+    max-width: 760px;
+    position: relative;
+    background: #05090e;
+  }
+  .loop-box .loop-title {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #080c10;
+    padding: 0 16px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #82c8e8;
+    white-space: nowrap;
+  }
+
+  /* ── badge ── */
+  .badge {
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+  .badge-gen  { background: #1a2840; color: #7ac8e8; border: 1px solid #2a5a80; }
+  .badge-cost { background: #1a1a00; color: #d4c840; border: 1px solid #505000; }
+
+  /* ── legend ── */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    justify-content: center;
+    margin-top: 48px;
+    max-width: 700px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: #8ab8cc;
+  }
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  /* credit tag */
+  .credit-tag {
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: #1a1400;
+    border: 1px solid #6a5000;
+    color: #d4b040;
+    margin-top: 5px;
+    display: inline-block;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Soul Garden Process</h1>
+  <div class="sub">RunwayML API Hackathon — continuem × Runway Gen-4 &nbsp;·&nbsp; May 2026</div>
+  <div class="rule"></div>
+</div>
+
+<div class="diagram">
+
+  <!-- ═══════════════════════════════════════════════
+       PHASE 1 — SOURCE
+  ════════════════════════════════════════════════ -->
+  <div class="phase-section">
+    <div class="phase-title">Phase 1 — Source Artwork</div>
+    <div class="row">
+      <div class="node node-source" style="min-width:160px">
+        <div class="icon">🎨</div>
+        <div class="label">Original Artwork</div>
+        <div class="sublabel">continuem hand-drawn<br>JPEG — original IP only</div>
+      </div>
+      <div class="arrow-h"><div class="tip"></div></div>
+      <div class="node node-source" style="min-width:150px">
+        <div class="icon">🖼</div>
+        <div class="label">Gallery View</div>
+        <div class="sublabel">soul-garden-weaving.html<br>browseable collection</div>
+      </div>
+      <div class="arrow-h"><div class="tip"></div></div>
+      <div class="node node-user" style="min-width:150px">
+        <div class="icon">💬</div>
+        <div class="label">User Reacts</div>
+        <div class="sublabel">text comment / response<br>becomes prompt data</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;align-items:center">
+    <div class="arrow-v"><div class="tip"></div></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       PHASE 2 — PROMPT CONSTRUCTION
+  ════════════════════════════════════════════════ -->
+  <div class="phase-section">
+    <div class="phase-title">Phase 2 — Prompt Construction</div>
+    <div class="row">
+      <div class="node node-prompt" style="min-width:155px">
+        <div class="icon">✍️</div>
+        <div class="label">Gather Feedback</div>
+        <div class="sublabel">text reaction collected<br>structured as Prompt #1</div>
+      </div>
+      <div class="arrow-h"><div class="tip"></div></div>
+      <div class="node node-source" style="min-width:150px">
+        <div class="icon">📷</div>
+        <div class="label">Reference Image</div>
+        <div class="sublabel">gallery artwork used<br>as prompt_image seed</div>
+      </div>
+      <div class="arrow-h"><div class="tip"></div></div>
+      <div class="node node-prompt" style="min-width:150px">
+        <div class="icon">📝</div>
+        <div class="label">Prompt #1 Ready</div>
+        <div class="sublabel">motion intent defined<br>max 1000 chars</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;align-items:center">
+    <div class="arrow-v"><div class="tip"></div></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       PHASE 3 — MULTI-FUSE (optional)
+  ════════════════════════════════════════════════ -->
+  <div class="phase-section">
+    <div class="phase-title">Phase 3 — (Optional) Multi-Image Fusion</div>
+    <div class="row">
+      <div class="node node-source" style="min-width:140px">
+        <div class="icon">🖼🖼</div>
+        <div class="label">2–3 Artworks</div>
+        <div class="sublabel">tagged @ref0 @ref1<br>in prompt text</div>
+      </div>
+      <div class="arrow-h"><div class="tip"></div></div>
+      <div class="node node-api" style="min-width:170px">
+        <div class="icon">⚡</div>
+        <div class="label">text_to_image</div>
+        <div class="sublabel">Runway Gen4 Image<br>fuses visual DNA</div>
+        <div class="credit-tag">5 credits</div>
+      </div>
+      <div class="arrow-h"><div class="tip"></div></div>
+      <div class="node node-source" style="min-width:140px">
+        <div class="icon">🧬</div>
+        <div class="label">Composite Still</div>
+        <div class="sublabel">merged seed image<br>soul_fusion.jpg</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;align-items:center">
+    <div class="arrow-v"><div class="tip"></div></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       PHASE 4 — GENERATION LOOP
+  ════════════════════════════════════════════════ -->
+  <div class="loop-box">
+    <div class="loop-title">Phase 4 — Iterative Generation Loop</div>
+
+    <div style="display:flex;align-items:center;justify-content:center;gap:0">
+      <div class="node node-api" style="min-width:170px">
+        <div class="icon">🎬</div>
+        <div class="label">image_to_video</div>
+        <div class="sublabel">Runway Gen4.5<br>5s · 1280×720</div>
+        <div class="credit-tag">60 cr · or 65 cr with ref</div>
+      </div>
+      <div class="arrow-h"><div class="tip"></div></div>
+      <div class="node node-video" style="min-width:150px">
+        <div class="icon">🎞</div>
+        <div class="label">Video Gen N</div>
+        <div class="sublabel">gen01.mp4 → gen02…<br>60s–3min poll</div>
+      </div>
+      <div class="arrow-h"><div class="tip"></div></div>
+      <div class="node node-user" style="min-width:140px">
+        <div class="icon">👁</div>
+        <div class="label">User Reacts</div>
+        <div class="sublabel">feedback becomes<br>Prompt #N+1</div>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:center;margin:6px 0 0">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:2px;width:100%">
+        <div style="font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#6aaac0;margin-top:8px">extract last frame &nbsp;·&nbsp; OpenCV</div>
+        <svg width="420" height="28" viewBox="0 0 420 28">
+          <defs>
+            <marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+              <path d="M0,1 L7,4 L0,7 Z" fill="#3a9abe" opacity="0.8"/>
+            </marker>
+          </defs>
+          <path d="M 390,6 Q 390,22 210,22 Q 30,22 30,6"
+                stroke="#3a9abe" stroke-width="1" stroke-dasharray="4 3"
+                fill="none" marker-start="url(#arr)" opacity="0.65"/>
+        </svg>
+        <div style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#6aaac0">last frame feeds next generation as seed</div>
+      </div>
+    </div>
+
+    <!-- reference blend note -->
+    <div style="margin-top:14px;padding:10px 14px;border:1px solid #2a5a30;border-radius:8px;background:#050e06;display:flex;align-items:flex-start;gap:12px">
+      <div style="font-size:18px;flex-shrink:0">🌿</div>
+      <div>
+        <div style="font-size:11px;font-weight:600;color:#60d070;letter-spacing:.04em">Optional: Reference Blend</div>
+        <div style="font-size:10px;color:#80b888;margin-top:3px;line-height:1.5">
+          Before each video generation, <code style="background:#0a1a0c;padding:1px 4px;border-radius:3px;color:#90e090">text_to_image</code> merges
+          last frame + reference photo (e.g. cambodia-ruins.jpg) → composite still.
+          Anchors visual drift to real-world texture. +5 credits per iteration.
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /loop-box -->
+
+  <div style="display:flex;flex-direction:column;align-items:center">
+    <div class="arrow-v"><div class="tip"></div></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       PHASE 5 — MASK EXTRACTION
+  ════════════════════════════════════════════════ -->
+  <div class="phase-section">
+    <div class="phase-title">Phase 5 — Mask Extraction</div>
+    <div class="row">
+      <div class="node node-video" style="min-width:150px">
+        <div class="icon">🎞</div>
+        <div class="label">Final Videos</div>
+        <div class="sublabel">all gen N .mp4 files<br>from growth chain</div>
+      </div>
+      <div class="arrow-h"><div class="tip"></div></div>
+      <div class="node node-mask" style="min-width:160px">
+        <div class="icon">✂️</div>
+        <div class="label">extract_masks.py</div>
+        <div class="sublabel">rembg removes background<br>last frame → RGBA PNG</div>
+      </div>
+      <div class="arrow-h"><div class="tip"></div></div>
+      <div class="node node-mask" style="min-width:150px">
+        <div class="icon">🫧</div>
+        <div class="label">Cutout Sprites</div>
+        <div class="sublabel">transparent PNG<br>with alpha mask</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;align-items:center">
+    <div class="arrow-v"><div class="tip"></div></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       PHASE 6 — GARDEN VIEWER
+  ════════════════════════════════════════════════ -->
+  <div class="phase-section">
+    <div class="phase-title">Phase 6 — Digital Garden Viewer</div>
+    <div class="row">
+      <div class="node node-mask" style="min-width:150px">
+        <div class="icon">🗺</div>
+        <div class="label">garden.py</div>
+        <div class="sublabel">builds garden_state.json<br>spiral 3D layout</div>
+      </div>
+      <div class="arrow-h"><div class="tip"></div></div>
+      <div class="node node-garden" style="min-width:190px">
+        <div class="icon">🌸</div>
+        <div class="label">garden.html</div>
+        <div class="sublabel">Three.js scene<br>OrbitControls · glow halos<br>particle system · auto-rotate</div>
+      </div>
+      <div class="arrow-h"><div class="tip"></div></div>
+      <div class="node node-garden" style="min-width:140px">
+        <div class="icon">✨</div>
+        <div class="label">Living Garden</div>
+        <div class="sublabel">bioluminescent souls<br>floating in 3D space</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       LEGEND
+  ════════════════════════════════════════════════ -->
+  <div class="divider" style="margin-top:44px"></div>
+
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#1a4a70;border:1px solid #3a7aaa"></div>
+      Source / Input
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#1a5a20;border:1px solid #3a9040"></div>
+      Runway API Call
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#3a1a6a;border:1px solid #6a40b0"></div>
+      Generated Video
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#4a2010;border:1px solid #8a5030"></div>
+      User Interaction
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#3a2800;border:1px solid #706000"></div>
+      Prompt
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#003030;border:1px solid #009090"></div>
+      Mask / Extraction
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#3a0020;border:1px solid #900060"></div>
+      3D Garden Output
+    </div>
+  </div>
+
+  <div style="margin-top:32px;text-align:center;font-size:10px;color:#5a8898;letter-spacing:.1em;text-transform:uppercase">
+    continuem × Runway Gen-4 &nbsp;·&nbsp; All artwork is original IP &nbsp;·&nbsp; May 2026
+  </div>
+
+</div><!-- /diagram -->
+</body>
+</html>
