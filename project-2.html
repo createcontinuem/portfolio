@@ -1603,12 +1603,6 @@ footer {
   </div>
 </div>
 
-<!-- WEAVING MODAL -->
-<div id="weavingModal" style="display:none;position:fixed;inset:0;z-index:800;background:#0a0a0a;">
-  <button id="weavingModalClose" class="gallery-modal-close">✕ Close</button>
-  <iframe id="weavingModalIframe" src="" title="Soul Garden — Weaving"
-    style="width:100%;height:100%;border:none;display:block;"></iframe>
-</div>
 
 <!-- SECTION 3: EXPERIMENTS -->
 <section class="section" id="experiments">
@@ -1735,19 +1729,9 @@ footer {
         <span class="exp-hdr-sub">Three.js · WebGL GLSL · OrbitControls</span>
       </div>
       <p>Reimagining image texture as digital terrain for Soul Garden environment building. The weaving pattern from my original artwork is extruded into a 3D landscape — drag to explore.</p>
-      <div style="display:grid;grid-template-columns:1fr 2fr;gap:20px;margin-top:24px;align-items:start;">
-        <div class="ci reveal" style="animation:cfloat-b 5.2s ease-in-out -1.1s infinite;">
-          <img src="p2-soul-garden/conceptdesign/concept2-flowerwall.jpg" style="width:100%;height:auto;"
-            data-title="Flower Wall" data-desc="Placeholder — add notes here.">
-        </div>
-        <div id="weavingThumb" style="height:62vh;background:#0a0a0a;border-radius:2px;overflow:hidden;position:relative;cursor:pointer;">
-          <iframe src="p2-soul-garden/soul-garden-weaving-9.html" title="Soul Garden — Weaving"
-            style="width:100%;height:100%;border:none;display:block;pointer-events:none;transform:scale(1.35);transform-origin:center center;filter:contrast(1.08) saturate(1.1);"
-            loading="lazy" tabindex="-1" id="exp3Iframe"></iframe>
-          <div style="position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:flex-end;padding:16px;">
-            <span style="background:rgba(0,0,0,0.55);color:#fff;font-family:'Babel Sans',sans-serif;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:6px 14px;border:1px solid rgba(255,255,255,0.25);backdrop-filter:blur(4px);">↗ Expand</span>
-          </div>
-        </div>
+      <div class="ci reveal" style="margin-top:24px;animation:cfloat-b 5.2s ease-in-out -1.1s infinite;">
+        <img src="p2-soul-garden/conceptdesign/concept2-flowerwall.jpg" style="width:100%;height:auto;"
+          data-title="Flower Wall" data-desc="Placeholder — add notes here.">
       </div>
     </div>
 
@@ -1875,21 +1859,6 @@ document.addEventListener('click', () => {
   document.addEventListener('keydown', e => { if (e.key === 'Escape') modal.classList.remove('open'); });
 })();
 
-// weaving modal
-(function () {
-  const thumb  = document.getElementById('weavingThumb');
-  const modal  = document.getElementById('weavingModal');
-  const close  = document.getElementById('weavingModalClose');
-  const iframe = document.getElementById('weavingModalIframe');
-  if (!thumb || !modal) return;
-  thumb.addEventListener('click', () => {
-    if (!iframe.src || iframe.src === window.location.href) iframe.src = 'p2-soul-garden/soul-garden-weaving-9.html';
-    modal.style.display = 'block';
-  });
-  const closeModal = () => { modal.style.display = 'none'; };
-  close.addEventListener('click', closeModal);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-})();
 
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => {
