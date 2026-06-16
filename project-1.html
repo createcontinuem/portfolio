@@ -423,6 +423,59 @@
 
 
 
+    /* ── Digitals section ── */
+    .digitals-section {
+      padding: 96px 64px 112px;
+      border-top: 1px solid var(--border);
+    }
+    .digitals-header {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin-bottom: 40px;
+    }
+    .digitals-title {
+      font-family: 'Dry Brush', serif;
+      font-size: clamp(52px, 8vw, 100px);
+      letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--black); line-height: 1;
+    }
+    .digitals-meta {
+      font-family: 'Babel Sans', sans-serif;
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gray); padding-bottom: 4px;
+    }
+    .digitals-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .dig-cell {
+      aspect-ratio: 1; overflow: hidden;
+      background: var(--gray-light); cursor: pointer;
+      position: relative;
+    }
+    .dig-cell img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 0.55s cubic-bezier(0.16,1,0.3,1), filter 0.3s;
+      filter: brightness(0.92);
+    }
+    .dig-cell:hover img { transform: scale(1.05); filter: brightness(1); }
+    .dig-cell-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 10px 12px;
+      background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
+      font-family: 'Babel Sans', sans-serif;
+      font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .dig-cell:hover .dig-cell-label { opacity: 1; }
+    @media (max-width: 900px) {
+      .digitals-section { padding: 64px 24px 80px; }
+      .digitals-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+      .digitals-header { flex-direction: column; gap: 8px; }
+    }
+
     /* ── Footer ── */
     footer {
       border-top: 1px solid var(--border);
@@ -670,6 +723,7 @@
     <button class="nav-tab" data-tab="motivations" onclick="goToSlide(0)">Motivations</button>
     <button class="nav-tab" data-tab="process"     onclick="goToSlide(2)">Process</button>
     <button class="nav-tab" data-tab="reflections" onclick="goToSlide(8)">Exhibit</button>
+    <button class="nav-tab" onclick="document.getElementById('digitals-section').scrollIntoView({behavior:'smooth'})">Digitals</button>
   </div>
   <div class="nav-projects" id="navProjects">
     <button class="nav-projects-btn" onclick="toggleProjects(event)">Projects</button>
@@ -968,6 +1022,18 @@
 </div><!-- /sections-stage -->
 
 
+<!-- ── Digitals ── -->
+<section class="digitals-section" id="digitals-section">
+  <div class="digitals-header reveal">
+    <h2 class="digitals-title">Digitals</h2>
+    <span class="digitals-meta">11 works · generative digital art</span>
+  </div>
+  <div class="digitals-grid reveal reveal-d1" id="digitals-grid">
+    <!-- populated by JS -->
+  </div>
+</section>
+
+
 <!-- ── Lightbox ── -->
 <div id="lightbox">
   <img id="lb-img" src="" alt="">
@@ -1093,6 +1159,19 @@ const GALLERY_IMGS = {
     'p1-memory-show/digitals/flameblossoms.jpg',
     'p1-memory-show/digitals/spainblossoms.jpg',
   ],
+  digitals: [
+    'p1-memory-show/digitals/flameblossoms.jpg',
+    'p1-memory-show/digitals/blueflamesakura.jpg',
+    'p1-memory-show/digitals/michigansakura.jpg',
+    'p1-memory-show/digitals/silkroad-bluepurpletree.jpg',
+    'p1-memory-show/digitals/spainblossoms.jpg',
+    'p1-memory-show/digitals/collage1.jpg',
+    'p1-memory-show/digitals/collage2.JPG',
+    'p1-memory-show/digitals/Alhambra-reflection.JPG',
+    'p1-memory-show/digitals/blue-psycho.JPG',
+    'p1-memory-show/digitals/titleboard2.jpg',
+    'p1-memory-show/digitals/tokyopop.JPG',
+  ],
   reflections: [
     'p1-memory-show/show/cafebureau-art-show-102224-0133.JPG',
     'p1-memory-show/show/cafebureau-art-show-thom-0034.JPG',
@@ -1115,6 +1194,25 @@ const GALLERY_IMGS = {
     'p1-memory-show/show/cafebureau-art-show-thom-4766.JPG',
   ],
 };
+
+// ── Build Digitals grid ────────────────────────────────────────
+const DIGITAL_LABELS = [
+  'Flame Blossoms', 'Blue Flame Sakura', 'Michigan Sakura',
+  'Silk Road', 'Spain Blossoms', 'Collage I', 'Collage II',
+  'Alhambra Reflection', 'Blue Psycho', 'Title Board', 'Tokyo Pop',
+];
+(function buildDigitalsGrid() {
+  const grid = document.getElementById('digitals-grid');
+  if (!grid) return;
+  GALLERY_IMGS.digitals.forEach((src, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'dig-cell';
+    cell.innerHTML = `<img src="${src}" alt="${DIGITAL_LABELS[i]}" loading="lazy">
+                      <span class="dig-cell-label">${DIGITAL_LABELS[i]}</span>`;
+    cell.addEventListener('click', () => openLightbox('digitals', i));
+    grid.appendChild(cell);
+  });
+})();
 
 let lbSection = null, lbIndex = 0;
 
